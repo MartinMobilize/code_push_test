@@ -1,0 +1,33 @@
+{
+  "name": "MobileNative",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "15.3.1",
+    "react-native": "^0.37.0",
+    "react-native-custom-segmented-control": "^3.0.4",
+    "react-native-navigation": "^2.0.0-experimental.147",
+    "react-native-tab-view": "0.0.40",
+    "react-redux": "^4.4.6",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.7.4",
+    "redux-persist": "^4.0.0-beta1",
+    "reselect": "^2.5.4"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "devDependencies": {
+    "babel-jest": "17.0.2",
+    "babel-preset-react-native": "1.9.0",
+    "eslint": "^3.11.0",
+    "jest": "17.0.3",
+    "react-test-renderer": "15.3.1",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.1.0"
+  }
+}
