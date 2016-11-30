@@ -3,11 +3,12 @@
  */
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { registerScreens } from './screens';
+import { configureStore } from './store/configureStore'
 
-registerScreens();
+const store = configureStore;
+registerScreens(store);
 
 class App extends Component {
 	constructor(props) {

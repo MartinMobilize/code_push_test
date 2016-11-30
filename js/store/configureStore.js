@@ -1,7 +1,19 @@
-import { applyMiddleware, createStore } from 'redux';
+/**
+ * @flow
+ */
+
+import {
+   applyMiddleware,
+   createStore, 
+   combineReducers 
+  } from 'redux';
+  
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 import createLogger from 'redux-logger';
+import * as reducers from "../reducers";
+
+const reducer = combineReducers(reducers);
 
 const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;
 
@@ -10,8 +22,6 @@ const logger = createLogger({
   collapsed: true,
   duration: true,
 });
-
-reducer = () => {};
 
 export default configureStore = () => {
     const store = createStore(reducer, applyMiddleware(thunk, logger));
