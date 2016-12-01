@@ -1,0 +1,1 @@
+export const SET_GROUPS = 'app.group.SET_GROUPS';

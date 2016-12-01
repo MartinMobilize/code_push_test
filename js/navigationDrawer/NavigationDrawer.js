@@ -3,13 +3,13 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import GroupList from './GroupList'
+import GroupListContainer from './GroupListContainer'
 import {
 	View
 } from 'react-native';
 
 const NavigationDrawer = () => (
-    <GroupList/>
+    <GroupListContainer/>
 )
 
 export default NavigationDrawer;

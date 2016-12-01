@@ -5,14 +5,17 @@
 import React, { Component } from 'react';
 import { Navigation } from 'react-native-navigation';
 import { registerScreens } from './screens';
-import { configureStore } from './store/configureStore'
+import configureStore from './store/configureStore'
+import { fetchUserState } from './reducers/currentUser/actions'
+import { Provider } from "react-redux";
 
-const store = configureStore;
-registerScreens(store);
+const store = configureStore();
+registerScreens(store, Provider);
 
 class App extends Component {
 	constructor(props) {
 		super(props);
+        store.dispatch(fetchUserState());
         this.startApp();
 	}
 

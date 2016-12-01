@@ -1,0 +1,1 @@
+export const SET_USER_STATE = 'app.currentUser.SET_USER_STATE';
