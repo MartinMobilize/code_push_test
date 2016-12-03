@@ -1,0 +1,1 @@
+export const ADD_POSTS = 'app.feed.ADD_POSTS';

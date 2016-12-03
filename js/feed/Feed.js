@@ -11,7 +11,8 @@ import {
   ListView,
   View,
   TouchableHighlight,
-  StyleSheet
+  StyleSheet,
+  Text
 } from 'react-native';
 
 const feed = {
@@ -350,12 +351,11 @@ const feed = {
     ]
 }
 
-
-
 class Feed extends Component {
   // Initialize the hardcoded data
   constructor(props) {
     super(props);
+    console.log(`feed got:${this.props.groupId}`);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id});
     this.state = {
       dataSource: ds.cloneWithRows(feed["posts"])
@@ -364,6 +364,7 @@ class Feed extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
+      <Text>{this.props.groupId}</Text>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) => <FeedItem data={rowData}/> }

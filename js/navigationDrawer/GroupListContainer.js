@@ -7,10 +7,18 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onGroupClick: (id) => {
-    //   dispatch(action)
+    onGroupPress: (group) => {
+      ownProps.navigator.toggleDrawer({
+        side: 'left',
+        animated: true,
+        to: 'closed'
+      });
+
+      ownProps.navigator.handleDeepLink({
+        link: `groups/${group.id}/activity`
+      });
     }
   }
 }

@@ -2,14 +2,14 @@
  * @flow
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import GroupListContainer from './GroupListContainer'
 import {
 	View
 } from 'react-native';
 
-const NavigationDrawer = () => (
-    <GroupListContainer/>
+const NavigationDrawer = ({navigator}) => (
+    <GroupListContainer navigator={navigator}/>
 )
 
 export default NavigationDrawer;

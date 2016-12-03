@@ -7,19 +7,21 @@ import React, { Component } from 'react';``
 import {
   Text,
   Image,
-  TouchableHighlight,
   StyleSheet,
-  View
+  View,
+  TouchableHighlight
 } from 'react-native';
 
 const GroupItem = ({
     group,
-    onClick
+    onItemPress
 }) => (
-    <View style={styles.row}>
-        <Image style={styles.logo} source={{uri: group.logo.mini_thumb}}/>
-        <Text>{group.name}</Text>
-    </View>
+    <TouchableHighlight key={group.id} onPress={onItemPress}>
+        <View style={styles.row}>
+            <Image style={styles.logo} source={{uri: group.logo.mini_thumb}}/>
+            <Text>{group.name}</Text>
+        </View>
+    </TouchableHighlight>
 );
 
 export default GroupItem;
