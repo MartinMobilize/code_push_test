@@ -14,7 +14,7 @@ class NetworkManager {
     }
 
     static _getUrl(route) {
-         return `${env.httpProtocol}${env.envUrl}${route}`;
+         return `${env.httpProtocol}${env.envUrl}${route}?org_id=90`;
     }
 
     static _getHeaders() {

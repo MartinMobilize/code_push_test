@@ -5,9 +5,9 @@
  */
 
 import React, { Component } from 'react';``
-import FeedItem from './FeedItem'
 import StaticContainer from 'react-static-container'
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
+import GroupMembersItem from './GroupMembersItem'
 
 import {
   ListView,
@@ -19,7 +19,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 
-class Feed extends Component {
+class GroupMembersList extends Component {
   render() {
     const group = this.props.group;
 
@@ -33,14 +33,10 @@ class Feed extends Component {
       <View style={{flex: 1}}>
         <ListView
           renderHeader ={()=>(<View style={styles.listHeader}></View>)}
-          // renderScrollComponent={props => <InfiniteScrollView {...props} />}
           dataSource={this.props.dataSource}
-          renderRow={(rowData) => <FeedItem data={rowData}/> }
-          renderFooter={()=>(<StaticContainer><View style={styles.footer} ><Image source={require('./img/livetolead.png')}/></View></StaticContainer>)}
-          // canLoadMore={this.props.canLoadMoreContent}
-          // onLoadMoreAsync={this.props.loadMoreContentAsync}
+          renderRow={(rowData) => <GroupMembersItem user={rowData}/> }
           enableEmptySections={true}
-          initialListSize={7}
+          initialListSize={10}
         />
       </View>
     )
@@ -63,4 +59,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Feed;
+export default GroupMembersList;

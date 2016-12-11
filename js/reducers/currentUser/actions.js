@@ -8,7 +8,7 @@ import { normalize } from 'normalizr';
 export function fetchUserState() {
     return (dispatch, getState) => {
         UserNetworksService.getLastVisitedNetwork().then((networkRespose) => {
-            normNetworks = normalize(networkRespose, network);
+            const normNetworks = normalize(networkRespose, network);
 
             dispatch({type: types.SET_USER_STATE, user: networkRespose.user_organization});
             dispatch(setGroups(normNetworks.entities.groups));

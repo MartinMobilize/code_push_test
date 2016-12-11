@@ -1,12 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react';``
 import { fixImageUrl } from '../utils'
-
-const postIcons = {
-    event: require(`./img/event.png`),
-    emailblast: require(`./img/emailblast.png`),
-    poll: require(`./img/poll.png`),
-    quickpost: require(`./img/quickpost.png`),
-};
 
 import {
   Text,
@@ -16,27 +9,24 @@ import {
   View
 } from 'react-native';
 
-const FeedItem = ({
-    data
+
+const GroupMembersItem = ({
+    user
 }) => (
     <View style={styles.row}>
     <View style={styles.leftCol}>
-        <Image style={styles.avatar} source={{uri: fixImageUrl(data.creator.avatar.image)}}/>
-        <Image style={styles.icon} source={postIcons[data.post_type]}/>
+        <Image style={styles.avatar} source={{uri: fixImageUrl(user.avatar.thumb)}}/>
     </View>
     <View style={styles.rightCol}>
         <View style={styles.postTopLign}>
-            <Text style={styles.name}>{data.creator.name}</Text>
-            <Text style={styles.time}>{data.created_at}</Text>
+            <Text style={styles.name}>{user.name}</Text>
+            <Text style={styles.time}>{user.email}</Text>
         </View>
-        <Text style={styles.title}>{data.title}</Text>
-        <Text style={styles.content} numberOfLines={1}>{"this is custom content"}</Text>
-        <Text style={styles.postStatsStyle}>{data.comments.total} VIEWS</Text>
     </View>
     </View>
 )
 
-export default FeedItem;
+export default GroupMembersItem;
 
 const styles = StyleSheet.create({
     row: {

@@ -2,9 +2,11 @@
  * @flow
  */
 import React, { Component } from 'react';``
-import Feed from '../feed/Feed'
+import FeedContainer from '../feed/FeedContainer'
 import { TabViewAnimated, TabBarTop } from 'react-native-tab-view';
 import { fetchGroupStart } from '../reducers/groups/actions'
+import GroupMembersContainer from '../groupMembers/GroupMembersContainer'
+
 import { connect } from 'react-redux';
 
 import {
@@ -12,7 +14,8 @@ import {
   View,
   TouchableHighlight,
   Animated,
-  StyleSheet
+  StyleSheet,
+  Text
 } from 'react-native';
 
 class Group extends Component {
@@ -40,9 +43,30 @@ class Group extends Component {
     const parts = event.link.split('/');
     const screen = parts[0];
 
-console.log('deep link!!!');
     if (screen == 'groups') {
       const groupId = parts[1];
+      this.props.navigator.setTitle({
+        title: `${this.props.groups[groupId].name}` 
+      });
+
+      const navigatorButtons = {
+        rightButtons: [
+          {
+            title: 'Edit', // for a textual button, provide the button title (label)
+            id: 'edit', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+            testID: 'e2e_rules', // optional, used to locate this view in end-to-end tests
+            disabled: false, // optional, used to disable the button (appears faded and doesn't interact)
+            disableIconTint: true, // optional, by default the image colors are overridden and tinted to navBarButtonColor, set to true to keep the original image colors
+          },
+          {
+            icon: require('../feed/img/emailblast.png'), // for icon button, provide the local image asset name
+            id: 'add' // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+          }
+        ]
+      };
+
+      this.props.navigator.setButtons(navigatorButtons);
+
       this.props.onGroupChange(groupId);
       this.setState({ index: 0, groupId });
     }
@@ -86,9 +110,9 @@ console.log('deep link!!!');
   _renderScene = ({ route }) => {
     switch (route.key) {
     case 'activity':
-      return <Feed style={styles.page} groupId={this.state.groupId} />;
+      return <FeedContainer style={styles.page} groupId={this.state.groupId} receiver={this.props.groups[this.state.groupId]} />;
     case 'members':
-      return <View style={[ styles.page, { backgroundColor: '#673ab7' } ]} />;
+      return <GroupMembersContainer groupId={this.state.groupId} />;
     default:
       return null;
     }
@@ -96,13 +120,13 @@ console.log('deep link!!!');
 
   render() {
     return (
-      <TabViewAnimated
-        style={styles.container}
-        navigationState={this.state}
-        renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
-        onRequestChangeTab={this._handleChangeTab}
-      />
+        <TabViewAnimated
+          style={styles.container}
+          navigationState={this.state}
+          renderScene={this._renderScene}
+          renderHeader={this._renderHeader}
+          onRequestChangeTab={this._handleChangeTab}
+        />
     );
   }
 }
@@ -110,7 +134,7 @@ console.log('deep link!!!');
 
 const mapStateToProps = (state) => {
   return {
-    group: state.groups[Object.keys(state.groups)[0]]
+    groups: state.groups
   }
 }
 
@@ -122,12 +146,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-Group = connect(
+GroupContainer = connect(
     mapStateToProps,
     mapDispatchToProps
 )(Group);
 
-export default Group;
+export default GroupContainer;
 
 
 const styles = StyleSheet.create({

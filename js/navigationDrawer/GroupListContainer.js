@@ -3,7 +3,8 @@ import GroupList from './GroupList';
 
 const mapStateToProps = (state) => {
   return {
-    groups: state.groups
+    groups: state.groups,
+    network: state.network
   }
 }
 

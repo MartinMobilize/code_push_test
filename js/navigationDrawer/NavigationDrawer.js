@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 const NavigationDrawer = ({navigator}) => (
-    <GroupListContainer navigator={navigator}/>
+        <GroupListContainer navigator={navigator}/>
 )
 
 export default NavigationDrawer;
