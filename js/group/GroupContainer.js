@@ -68,7 +68,10 @@ class Group extends Component {
       this.props.navigator.setButtons(navigatorButtons);
 
       this.props.onGroupChange(groupId);
-      this.setState({ index: 0, groupId });
+      this.setState({
+        index: 0, 
+        groupId 
+      });
     }
   }
 

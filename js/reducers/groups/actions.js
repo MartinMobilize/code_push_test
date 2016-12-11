@@ -12,23 +12,21 @@ export function setGroups(groups) {
 
 export function fetchGroupStart(groupId) {
     return (dispatch, getState) => {
-        dispatch({type: types.REQUEST_GROUP, groupId});
+        dispatch({type: types.REQUEST_GROUP_START, groupId});
 
         GroupService.onEnter(groupId).then((groupStartResponse) => {
             // const groupStartNorm = normalize(groupStartResponse, groupStart);
             const members = normalize(groupStartResponse.members, arrayOf(groupMember));
             const posts = normalize(groupStartResponse.feed.posts, arrayOf(post));
             const users = normalize(groupStartResponse.feed.users, arrayOf(user));
-            
-            dispatch(addUsers(users));
-
-            dispatch({type: types.RECEIVE_GROUP,
+        
+            dispatch({type: types.RECEIVE_GROUP_START,
                  groupId,
-                 group: groupStartResponse.group
+                 group: groupStartResponse.group,
+                 members,
+                 posts,
+                 users
                 });
-
-            dispatch(addGroupMembers(groupId, members));
-            dispatch(addPosts('groups',groupId, posts));
         })
     }
 }

@@ -14,11 +14,22 @@ const group = (state ={
             return Object.assign({}, state, {
                 didInvalidate: true
             })
+        case groupTypes.REQUEST_GROUP_START:
         case groupTypes.REQUEST_GROUP:
             return Object.assign({}, state, {
                     isFetching: true,
                     didInvalidate: false
                 })
+        case groupTypes.RECEIVE_GROUP_START: {
+            return Object.assign({}, state, {
+                    isFetching: false,
+                    loaded: true,
+                    didInvalidate: false}, action.group, {
+                        members:  [...new Set(state.members.concat(action.members.result))],
+                        posts: [...new Set(state.posts.concat(action.posts.result))]
+                    })
+        }
+
         case groupTypes.RECEIVE_GROUP: {
             return Object.assign({}, state, {
                     isFetching: false,

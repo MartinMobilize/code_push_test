@@ -8,6 +8,8 @@ const groups = (state ={}, action = {}) => {
         case types.INVALIDATE_GROUP:
         case types.REQUEST_GROUP:
         case types.RECEIVE_GROUP:
+        case types.RECEIVE_GROUP_START:
+        case types.REQUEST_GROUP_START:
         case groupMemberActionTypes.ADD_MEMBERS: {
             return Object.assign({}, state, {
                 [action.groupId]: group(state[action.groupId], action)

@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import * as groupTypes from '../groups/actionTypes'
 
 const posts = (state = {}, action = {}) => {
     switch (action.type) {
@@ -7,7 +8,7 @@ const posts = (state = {}, action = {}) => {
                 isFetching: true,
                 didInvalidate: false
             })
-        }
+        } 
         case types.RECEIVE_POSTS: {
             return Object.assign({}, state, {
                 isFetching: false,
@@ -15,6 +16,7 @@ const posts = (state = {}, action = {}) => {
                 items: action.posts,
             })
         }
+        case groupTypes.RECEIVE_GROUP_START:
         case types.ADD_POSTS: {
             return Object.assign({}, state, action.posts.entities.posts)
         }
