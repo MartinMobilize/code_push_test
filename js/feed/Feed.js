@@ -7,7 +7,6 @@
 import React, { Component } from 'react';``
 import FeedItem from './FeedItem'
 import StaticContainer from 'react-static-container'
-import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
 import {
   ListView,
@@ -33,14 +32,22 @@ class Feed extends Component {
       <View style={{flex: 1}}>
         <ListView
           renderHeader ={()=>(<View style={styles.listHeader}></View>)}
-          // renderScrollComponent={props => <InfiniteScrollView {...props} />}
           dataSource={this.props.dataSource}
           renderRow={(rowData) => <FeedItem data={rowData}/> }
-          renderFooter={()=>(<StaticContainer><View style={styles.footer} ><Image source={require('./img/livetolead.png')}/></View></StaticContainer>)}
-          // canLoadMore={this.props.canLoadMoreContent}
-          // onLoadMoreAsync={this.props.loadMoreContentAsync}
+          renderFooter={()=>(
+            <View style={styles.footer}>
+              <View style={styles.footerImage}>
+                <ActivityIndicator style={styles.activityIndicator}
+                animating={group.loadingMorePosts}
+                size="large" />
+              </View>
+              <View style={styles.footerImage}>
+                <Image source={require('./img/livetolead.png')}/>
+              </View>
+            </View>)}
+          onEndReached={()=> {this.props.loadMoreContentAsync(group)}}
           enableEmptySections={true}
-          initialListSize={7}
+          initialListSize={10}
         />
       </View>
     )
@@ -49,17 +56,24 @@ class Feed extends Component {
 
 const styles = StyleSheet.create({
     activityIndicator: {
-        marginTop: 30
+        marginTop: 30,
+        justifyContent: 'center'
     },
     listHeader: {
       marginTop: 15
     },
     footer: {
         flex: 1,
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'center',
         marginBottom: 40,
         paddingRight: 40
+    },
+    footerImage: {
+        flex: 1,
+
+        flexDirection: 'row',
+        justifyContent: 'center',
     }
 })
 

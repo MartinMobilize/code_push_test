@@ -8,7 +8,7 @@ class UserNetworksService {
     }
 
     static getLastVisitedNetwork = () => {
-        return UserNetworksService.getNetworks().then((data) => data.organizations[3]);
+        return UserNetworksService.getNetworks().then((data) => data.organizations[0]);
     }
 }
 

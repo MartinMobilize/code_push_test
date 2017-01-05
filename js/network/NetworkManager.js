@@ -14,7 +14,7 @@ class NetworkManager {
     }
 
     static _getUrl(route) {
-         return `${env.httpProtocol}${env.envUrl}${route}?org_id=90`;
+         return `${env.httpProtocol}${env.envUrl}${route}`;
     }
 
     static _getHeaders() {
@@ -24,7 +24,8 @@ class NetworkManager {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'App-Version' : env.appVersion,
-                'Authorization': adminToken
+                'Authorization': adminToken,
+                'org_id': 90
             }
     }
 

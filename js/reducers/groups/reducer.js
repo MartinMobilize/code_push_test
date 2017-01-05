@@ -15,6 +15,7 @@ const groups = (state ={}, action = {}) => {
                 [action.groupId]: group(state[action.groupId], action)
             })
         }
+        case postsTypes.REQUEST_POSTS:
         case postsTypes.ADD_POSTS: {
             if (action.receiverType == 'groups') { // can also be events
                 return Object.assign({}, state, {

@@ -11,6 +11,8 @@ import {
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 import createLogger from 'redux-logger';
+import { enableBatching } from 'redux-batched-actions';
+
 import * as reducers from "../reducers";
 
 const reducer = combineReducers(reducers);
@@ -24,8 +26,8 @@ const logger = createLogger({
 });
 
 export default configureStore = () => {
-    const store = createStore(reducer, applyMiddleware(thunk, logger));
-    // const store = createStore(reducer, applyMiddleware(thunk));
+    // const store = createStore(enableBatching(reducer), applyMiddleware(thunk, logger));
+    const store = createStore(reducer, applyMiddleware(thunk));
     if (isDebuggingInChrome) { window.store = store; }
     return store;
 }

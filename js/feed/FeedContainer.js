@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { fetchPosts } from '../reducers/posts/actions' 
 import Feed from './Feed'
 import moment from 'moment'
+import FeedService from '../services/FeedService'
 import {
   ListView
 } from 'react-native';
@@ -20,7 +21,7 @@ const mapStateToProps = (state, ownProps) => {
     const posts = group.posts.map((postId) => {
       const post = state.posts[postId];
       return Object.assign({},post, {
-        creator: state.users[post.creator.id],
+        creator: state.users[post.user.id],
         created_at: moment(post.created_at, 'X').startOf('hour').fromNow()
       });
     })
@@ -37,16 +38,12 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    fetchPosts('groups', ownProps.groupsId, 0, 10);
-
   return {
     canLoadMoreContent: () => {
-        console.log('canLoadMoreContent');
         return false;
     },
-    loadMoreContentAsync: () => {
-        // fetchPosts('groups', ownProps.groupsId, 0, 10);
-        console.log('loadMoreContentAsync');
+    loadMoreContentAsync: (group) => {
+        dispatch(fetchPosts('groups', ownProps.groupId, group.posts.length, 10));
     }
   }
 }

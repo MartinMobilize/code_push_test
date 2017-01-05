@@ -2,7 +2,7 @@ import NetworkManager from './NetworkManager'
 
 class AppAPI {
     static get(route, body) {
-        return NetworkManager.fetch(route, 'GET', body);
+        return NetworkManager.fetch(route, 'GET');
     }
 
     static put(route, body) {

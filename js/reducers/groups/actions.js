@@ -13,7 +13,6 @@ export function setGroups(groups) {
 export function fetchGroupStart(groupId) {
     return (dispatch, getState) => {
         dispatch({type: types.REQUEST_GROUP_START, groupId});
-
         GroupService.onEnter(groupId).then((groupStartResponse) => {
             // const groupStartNorm = normalize(groupStartResponse, groupStart);
             const members = normalize(groupStartResponse.members, arrayOf(groupMember));

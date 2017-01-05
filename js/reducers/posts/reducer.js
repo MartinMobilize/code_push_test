@@ -13,11 +13,11 @@ const posts = (state = {}, action = {}) => {
             return Object.assign({}, state, {
                 isFetching: false,
                 didInvalidate: false,
-                items: action.posts,
+                items: action.posts.entities.posts,
             })
         }
-        case groupTypes.RECEIVE_GROUP_START:
-        case types.ADD_POSTS: {
+        case types.ADD_POSTS: 
+        case groupTypes.RECEIVE_GROUP_START: {
             return Object.assign({}, state, action.posts.entities.posts)
         }
         default: 
