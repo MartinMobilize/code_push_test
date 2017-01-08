@@ -19,10 +19,10 @@ import GroupItem from './GroupItem'
 class GroupList extends Component {
   render() {
     if(!this.props.network.logo) {
-      return (<ActivityIndicator
+      return (<View style={styles.navigation}><ActivityIndicator
           animating={true}
           size="large"
-        />)
+        /></View>)
     }
     return (
       <View style={styles.navigation}>

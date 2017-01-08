@@ -6,19 +6,19 @@ import React, { Component } from 'react';
 import GroupListContainer from './GroupListContainer'
 import {
 	View,
-        StyleSheet
+        StyleSheet,
+        Text
 } from 'react-native';
 
 const NavigationDrawer = ({navigator}) => (
-        <View style={styles.menu}>
-        <GroupListContainer navigator={navigator}/>
-        </View>
+    <GroupListContainer navigator={navigator} />
 )
 
 export default NavigationDrawer;
 
 const styles = StyleSheet.create({
-    menu: {
-        flex: 1
+    container: {
+        flex: 1,
+        color: '#000000'
     }
 });

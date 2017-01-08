@@ -24,12 +24,12 @@ class App extends Component {
             screen: {
                 screen: 'app.Group', // unique ID registered with Navigation.registerScreen
                 title: 'Welcome', // title of the screen as appears in the nav bar (optional)
-                navigatorStyle: {flex:1}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+                navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
                 navigatorButtons: {} // override the nav buttons for the screen, see "Adding buttons to the navigator" below (optional)
             },
             drawer: { // optional, add this if you want a side menu drawer in your app
                 left: { // optional, define if you want a drawer from the left
-                    screen: 'app.NavigationDrawer' // unique ID registered with Navigation.registerScreen
+                    screen: 'app.NavigationDrawer' // unique ID registered with Navigation.registerScreenת
                 }
             },
             passProps: {}, // simple serializable object that will pass as props to all top screens (optional)
