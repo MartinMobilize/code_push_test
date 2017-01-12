@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';``
 import FeedItem from './FeedItem'
+import PollContainer from './PollContainer'
 import StaticContainer from 'react-static-container'
 
 import {
@@ -22,6 +23,14 @@ class Feed extends Component {
   render() {
     const group = this.props.group;
 
+    if (!this.props.dataSource){
+        return (<ActivityIndicator style={styles.activityIndicator}
+                                   animating={true}
+                                   size="large"
+        />)
+
+    }
+
     if (!group || !group.loaded && group.isFetching) {
         return (<ActivityIndicator style={styles.activityIndicator}
           animating={true}
@@ -30,10 +39,19 @@ class Feed extends Component {
     }
     return (
       <View style={{flex: 1}}>
-        <ListView
+        <ListView 
           renderHeader ={()=>(<View style={styles.listHeader}></View>)}
           dataSource={this.props.dataSource}
-          renderRow={(rowData) => <FeedItem data={rowData}/> }
+          renderRow={(rowData) => {
+            
+            switch (rowData.post_type){
+              case 'poll':
+              return <PollContainer postId={rowData.id} data={rowData}/>
+              default:
+              return <FeedItem data={rowData}/>
+
+            }
+          } }
           renderFooter={()=>(
             <View style={styles.footer}>
               <View style={styles.footerImage}>

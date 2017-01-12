@@ -29,7 +29,6 @@ class GroupList extends Component {
         <NetworkHeader network={this.props.network} />
         <View style={styles.header}>
           <Text style={styles.headerTitle}>GROUPS</Text>
-          <Image source={require('./img/plus.png')}/>
         </View>
         <View>
           {Object.keys(this.props.groups).map((groupId) => {

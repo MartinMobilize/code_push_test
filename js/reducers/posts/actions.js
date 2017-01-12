@@ -28,3 +28,16 @@ export function requestPosts(receiverType, receiverId) {
 export function receivePosts(receiverType, receiverId, posts) {
     return { type: types.ADD_POSTS, receiverType, receiverId, posts}
 }
+
+export function changePoll(postId, specificId,index, optionPollId){
+    return (dispatch, getState) => {
+        dispatch(requestPollAnswer(postId,index, optionPollId));
+        FeedService.setPollSelection(specificId, optionPollId).then((pollResponse) => {
+            const respo = pollResponse;
+        });
+    }
+}
+export function requestPollAnswer(postId,index, optionPollId){
+    return {type: types.CHANGE_POLL, postId,index, optionPollId}
+
+}

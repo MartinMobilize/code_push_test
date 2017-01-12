@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { fixImageUrl } from '../utils'
-import Poll from './Poll'
-import FeedItemHeader from './FeedItemHeader'
+import Martin from './Poll'
 
 
 const postIcons = {
@@ -20,19 +19,26 @@ import {
   View
 } from 'react-native';
 
-const FeedItem = ({
+const FeedItemHeader = ({
     data
 }) => (
-    <View>
-        <FeedItemHeader data={data}/>
-        <View style={styles.row}>
-            <Text style={styles.postStatsStyle}>{data.comments.total} VIEWS</Text>
+    <View style={styles.row}>
+    <View style={styles.leftCol}>
+        <Image style={styles.avatar} source={{uri: fixImageUrl(data.creator.avatar.image)}}/>
+        <Image style={styles.icon} source={postIcons[data.post_type]}/>
+    </View>
+    <View style={styles.rightCol}>
+        <View style={styles.postTopLign}>
+            <Text style={styles.name}>{data.creator.name}</Text>
+            <Text style={styles.time}>{data.created_at}</Text>
         </View>
-
+        <Text style={styles.title}>{data.title}</Text>
+        <Text style={styles.content} numberOfLines={1}>{"this is custom content"}</Text>
+    </View>
     </View>
 )
 
-export default FeedItem;
+export default FeedItemHeader;
 
 const styles = StyleSheet.create({
     row: {
@@ -87,7 +93,6 @@ const styles = StyleSheet.create({
     postStatsStyle: {
         marginTop: 10,
         color: '#B8C0C9',
-                justifyContent: 'center',
         fontSize: 13
     },
     pollItem:{

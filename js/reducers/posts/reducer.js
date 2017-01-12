@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import * as groupTypes from '../groups/actionTypes'
+import poll from './pollReducer'
 
 const posts = (state = {}, action = {}) => {
     switch (action.type) {
@@ -13,12 +14,27 @@ const posts = (state = {}, action = {}) => {
             return Object.assign({}, state, {
                 isFetching: false,
                 didInvalidate: false,
+                selectedPoll:0,
                 items: action.posts.entities.posts,
             })
         }
         case types.ADD_POSTS: 
+        case types.CHANGE_POLL:
+                return Object.assign({}, state, {
+            [action.postId]: poll(state[action.postId], action)
+              })
+
         case groupTypes.RECEIVE_GROUP_START: {
-            return Object.assign({}, state, action.posts.entities.posts)
+                        const polls = {};
+            Object.keys(action.posts.entities.posts).forEach(postID =>
+
+                polls[postID] = Object.assign({},    
+                poll(undefined,action),
+                action.posts.entities.posts[postID]));
+
+            return Object.assign({}, state, polls)
+
+            //return Object.assign({}, state, action.posts.entities.posts)
         }
         default: 
             return state;

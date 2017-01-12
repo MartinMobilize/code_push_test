@@ -15,6 +15,11 @@ import { enableBatching } from 'redux-batched-actions';
 
 import * as reducers from "../reducers";
 
+//Martin Test
+//import '../Reactoron'
+import Reactotron from 'reactotron-react-native'
+
+
 const reducer = combineReducers(reducers);
 
 const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;
@@ -26,8 +31,8 @@ const logger = createLogger({
 });
 
 export default configureStore = () => {
-    // const store = createStore(enableBatching(reducer), applyMiddleware(thunk, logger));
-    const store = createStore(reducer, applyMiddleware(thunk));
+    const store = createStore(enableBatching(reducer), applyMiddleware(thunk, logger));
+   // const store = Reactotron.createStore(reducer, applyMiddleware(thunk));
     if (isDebuggingInChrome) { window.store = store; }
     return store;
 }

@@ -11,6 +11,9 @@ class FeedService {
             offset,count
         });
     }
+    static setPollSelection = (postId, answerId) => {
+        return AppAPI.put(`/polls/${postId}`, {answer:answerId});
+}
 }
 
 export default FeedService;

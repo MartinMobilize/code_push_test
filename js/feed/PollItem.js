@@ -20,19 +20,27 @@ import {
   View
 } from 'react-native';
 
-const FeedItem = ({
-    data
-}) => (
+class PollItem extends Component {
+
+
+    render() {
+
+    return(
     <View>
-        <FeedItemHeader data={data}/>
+        <FeedItemHeader data={this.props.data}/>
+        
+        <Poll data={this.props.data.specific.answers} answers={this.props.data.specific.my_answer} clickHanlder={ (index, id)=> { this.props.changePoll(this.props.postid, this.props.data.specific.id,index, id) } }/>
+    
         <View style={styles.row}>
-            <Text style={styles.postStatsStyle}>{data.comments.total} VIEWS</Text>
+            <Text style={styles.postStatsStyle}>{this.props.data.comments.total} VIEWS</Text>
         </View>
 
     </View>
 )
+}
+}
 
-export default FeedItem;
+export default PollItem;
 
 const styles = StyleSheet.create({
     row: {
