@@ -8,7 +8,7 @@ import {batchActions} from 'redux-batched-actions';
 
 export function fetchPosts(receiverType, receiverId, offset, count) {
     return (dispatch, getState) => {
-        // dispatch(requestPosts(receiverType, receiverId));
+         dispatch(requestPosts(receiverType, receiverId));
         FeedService.getPosts(receiverType, receiverId, offset, count).then((postsRespose) => {
             const posts = normalize(postsRespose.posts, arrayOf(post));
             const users = normalize(postsRespose.users, arrayOf(user));

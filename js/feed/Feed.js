@@ -65,7 +65,7 @@ class Feed extends Component {
             </View>)}
           onEndReached={()=> {this.props.loadMoreContentAsync(group)}}
           enableEmptySections={true}
-          initialListSize={10}
+          initialListSize={40}
         />
       </View>
     )

@@ -18,7 +18,17 @@ const posts = (state = {}, action = {}) => {
                 items: action.posts.entities.posts,
             })
         }
-        case types.ADD_POSTS: 
+        case types.ADD_POSTS:
+            const polls = {};
+
+            Object.keys(action.posts.entities.posts).forEach(postID =>
+
+                polls[postID] = Object.assign({},
+                    poll(undefined,action),
+                    action.posts.entities.posts[postID]));
+
+            return Object.assign({}, state, state,polls)
+
         case types.CHANGE_POLL_SINGLE:
         case types.CHANGE_POLL_MULTIPLE:
                 return Object.assign({}, state, {

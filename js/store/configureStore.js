@@ -31,8 +31,8 @@ const logger = createLogger({
 });
 
 export default configureStore = () => {
-   // const store = createStore(enableBatching(reducer), applyMiddleware(thunk, logger));
-    const store = Reactotron.createStore(reducer, applyMiddleware(thunk));
+    const store = createStore(enableBatching(reducer), applyMiddleware(thunk, logger));
+   // const store = Reactotron.createStore(reducer, applyMiddleware(thunk));
     if (isDebuggingInChrome) { window.store = store; }
     return store;
 }

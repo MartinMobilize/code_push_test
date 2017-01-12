@@ -27,7 +27,7 @@ class PollItem extends Component {
     render() {
 
         return (
-            <View style={styles.card}>
+            <View>
                 <Card style={styles.card}>
 
                     <Card.Body>

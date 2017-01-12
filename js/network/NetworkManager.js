@@ -6,7 +6,7 @@ class NetworkManager {
         return fetch(this._getUrl(route), {
             method: method,
             headers: this._getHeaders(),
-            body: this._getBody()
+            body: this._getBody(body)
         })
         .then(ApiUtils.checkStatus)
         .then(response => response.json())
