@@ -11,8 +11,8 @@ class FeedService {
             offset,count
         });
     }
-    static setPollSelection = (postId, answerId) => {
-        return AppAPI.put(`/polls/${postId}`, {answer:answerId});
+    static setPollSelection = (specificId, answerId) => {
+        return AppAPI.put(`/polls/${specificId}`, {answer:answerId});
 }
 }
 

@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { fixImageUrl } from '../utils'
+import React, {Component} from 'react';
+import {fixImageUrl} from '../utils'
 import Poll from './Poll'
 import FeedItemHeader from './FeedItemHeader'
+import {Card} from 'react-native-material-design';
 
 
 const postIcons = {
@@ -12,12 +13,12 @@ const postIcons = {
 };
 
 import {
-  Text,
-  Image,
-  TouchableHighlight,
-  StyleSheet,
-  ScrollView,
-  View
+    Text,
+    Image,
+    TouchableHighlight,
+    StyleSheet,
+    ScrollView,
+    View
 } from 'react-native';
 
 class PollItem extends Component {
@@ -25,30 +26,43 @@ class PollItem extends Component {
 
     render() {
 
-    return(
-    <View>
-        <FeedItemHeader data={this.props.data}/>
-        
-        <Poll data={this.props.data.specific.answers} answers={this.props.data.specific.my_answer} clickHanlder={ (index, id)=> { this.props.changePoll(this.props.postid, this.props.data.specific.id,index, id) } }/>
-    
-        <View style={styles.row}>
-            <Text style={styles.postStatsStyle}>{this.props.data.comments.total} VIEWS</Text>
-        </View>
+        return (
+            <View style={styles.card}>
+                <Card style={styles.card}>
 
-    </View>
-)
-}
+                    <Card.Body>
+
+                        <FeedItemHeader data={this.props.data}/>
+
+                        <Poll data={this.props.data.specific.answers} answers={this.props.data.specific.my_answer}
+                              clickHanlder={ (index, id)=> { this.props.changePoll(this.props.data.specific,this.props.postid, this.props.data.specific.id,index, id) } }/>
+
+                        <View style={styles.row}>
+
+                            <Text style={styles.postStatsStyle}>{this.props.data.comments.total} VIEWS</Text>
+
+                        </View>
+                    </Card.Body>
+                </Card>
+            </View>
+        )
+    }
 }
 
 export default PollItem;
 
 const styles = StyleSheet.create({
+    card: {
+        backgroundColor: '#FFFFFF'
+
+    },
     row: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: 20,
-        paddingRight: 20
+        paddingRight: 20,
+        backgroundColor: '#FFFFFF'
     },
     leftCol: {
         width: 80,
@@ -56,7 +70,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     rightCol: {
-        flex:1
+        flex: 1
     },
     icon: {
         marginTop: 5,
@@ -95,14 +109,14 @@ const styles = StyleSheet.create({
     postStatsStyle: {
         marginTop: 10,
         color: '#B8C0C9',
-                justifyContent: 'center',
+        justifyContent: 'center',
         fontSize: 13
     },
-    pollItem:{
-        marginLeft:10
+    pollItem: {
+        marginLeft: 10
     },
-    pollScroll:{
-        height:30
+    pollScroll: {
+        height: 30
     }
 
 });

@@ -25,7 +25,7 @@ class NetworkManager {
                 'Content-Type': 'application/json',
                 'App-Version' : env.appVersion,
                 'Authorization': adminToken,
-                'org_id': 229
+                'org_id': 90
             }
     }
 

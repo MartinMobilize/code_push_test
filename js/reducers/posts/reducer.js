@@ -19,7 +19,8 @@ const posts = (state = {}, action = {}) => {
             })
         }
         case types.ADD_POSTS: 
-        case types.CHANGE_POLL:
+        case types.CHANGE_POLL_SINGLE:
+        case types.CHANGE_POLL_MULTIPLE:
                 return Object.assign({}, state, {
             [action.postId]: poll(state[action.postId], action)
               })

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { fixImageUrl } from '../utils'
 import Poll from './Poll'
 import FeedItemHeader from './FeedItemHeader'
+import {Card} from 'react-native-material-design';
 
 
 const postIcons = {
@@ -24,10 +25,14 @@ const FeedItem = ({
     data
 }) => (
     <View>
+        <Card>
+            <Card.Body styles={styles.card}>
         <FeedItemHeader data={data}/>
         <View style={styles.row}>
             <Text style={styles.postStatsStyle}>{data.comments.total} VIEWS</Text>
         </View>
+        </Card.Body>
+        </Card>
 
     </View>
 )
@@ -35,6 +40,9 @@ const FeedItem = ({
 export default FeedItem;
 
 const styles = StyleSheet.create({
+    card:{
+      backgroundColor:'#FFFFFF'
+    },
     row: {
         flex: 1,
         flexDirection: 'row',

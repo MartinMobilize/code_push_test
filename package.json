@@ -21,6 +21,7 @@
     "react-native-custom-segmented-control": "^3.0.4",
     "react-native-infinite-scroll-view": "^0.4.2",
     "react-native-loading-spinner-overlay": "^0.4.1",
+    "react-native-material-design": "^0.3.7",
     "react-native-navigation": "next",
     "react-native-scrollable-tab-view": "^0.7.0",
     "react-native-tab-view": "0.0.40",
