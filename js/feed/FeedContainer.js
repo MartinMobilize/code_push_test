@@ -1,3 +1,5 @@
+// @flow
+
 import { connect } from 'react-redux';
 import { fetchPosts } from '../reducers/posts/actions' 
 import Feed from './Feed'
@@ -32,6 +34,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
         dataSource: dataSource,
         group: group,
+        navigator:ownProps.navigator,
         users: state.users
     }
   
@@ -46,17 +49,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     loadMoreContentAsync: (group) => {
         dispatch(fetchPosts('groups', ownProps.groupId, group.posts.length, 10));
-    },
-    onFeedPressed:(post)=>{
-
-        let htmlContent = post.specific.question_html;
-
-        navigator.push({
-            title: "More",
-            screen: "example.PushedScreen",
-            animated:false,
-            passProps: {content:htmlContent}
-        });
     }
   }
 }

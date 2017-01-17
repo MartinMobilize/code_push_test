@@ -3,21 +3,19 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
 import React, {Component} from 'react';
 import FeedItem from './FeedItem'
-import PollContainer from './pollContainer'
-import StaticContainer from 'react-static-container'
+import PollContainer from './Poll/pollContainer'
+import EmailBlastContainer from './EmailBlast/EmailBlastContainer'
 
 import {
     ListView,
     View,
-    TouchableHighlight,
     StyleSheet,
-    Text,
     Image,
     ActivityIndicator
 } from 'react-native';
+
 
 class Feed extends Component {
     render() {
@@ -30,7 +28,7 @@ class Feed extends Component {
             />)
         }
         return (
-            <View style={{flex: 1}}>
+            <View>
                 <ListView
                     renderHeader={()=>(<View style={styles.listHeader}></View>)}
                     dataSource={this.props.dataSource}
@@ -39,11 +37,12 @@ class Feed extends Component {
             switch (rowData.post_type){
               case 'poll':
                return(
-                <PollContainer postId={rowData.id} data={rowData} onPress={()=>this.props.onFeedPressed(rowData)}/>
+                <PollContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
               )
+              case 'emailblast':
+              return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>
               default:
               return <FeedItem data={rowData}/>
-
             }
           } }
                     renderFooter={()=>(
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     listHeader: {
-        marginTop: 15
+        height:20,
     },
     footer: {
         flex: 1,
@@ -84,7 +83,6 @@ const styles = StyleSheet.create({
     },
     footerImage: {
         flex: 1,
-
         flexDirection: 'row',
         justifyContent: 'center',
     }

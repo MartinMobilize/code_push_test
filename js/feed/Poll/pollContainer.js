@@ -1,8 +1,10 @@
-import {connect} from 'react-redux';
-import {fetchPosts, changePoll} from '../reducers/posts/actions'
+// @flow
+
+import  {connect} from 'react-redux';
+import {fetchPosts, changePoll} from '../../reducers/posts/actions'
 import PollItem from './PollItem'
 import moment from 'moment'
-import FeedService from '../services/FeedService'
+import FeedService from '../../services/FeedService'
 import {
     ListView
 } from 'react-native';
@@ -19,17 +21,24 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 
-    var postId = ownProps.postId;
+    var {postId, navigator, data} = ownProps;
 
     return {
-        canLoadMoreContent: () => {
-            return false;
-        },
+
         changePoll: (specificPoll, specificId, index, optionId) => {
             dispatch(changePoll(specificPoll, postId, specificId, index, optionId));
         },
-        loadMoreContentAsync: (group) => {
-            dispatch(fetchPosts('groups', ownProps.groupId, group.posts.length, 10));
+
+        onFeedPressed: () => {
+            let htmlContent = data.specific.question_html;
+
+            navigator.push({
+                title: data.post_type,
+                screen: "app.PollItemDetail",
+                animated:false,
+                passProps: {content:htmlContent}
+            });
+
         }
     }
 }

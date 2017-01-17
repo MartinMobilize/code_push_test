@@ -1,4 +1,6 @@
-    import * as groupTypes from './actionTypes'
+// @flow
+
+import * as groupTypes from './actionTypes'
 import * as postsTypes from '../posts/actionTypes'
 import * as groupMemberActionTypes from '../groupMembers/actionTypes'
 

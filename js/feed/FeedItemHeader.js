@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { fixImageUrl } from '../utils'
+import React, {Component} from 'react';
+import {fixImageUrl} from '../utils'
 import {
     Text,
     Image,
@@ -8,7 +8,6 @@ import {
     ScrollView,
     View
 } from 'react-native';
-
 
 
 const postIcons = {
@@ -24,20 +23,27 @@ const FeedItemHeader = ({
 }) => (
     <TouchableHighlight underlayColor={'transparent'} onPress={onPress}>
 
-    <View style={styles.row}>
-    <View style={styles.leftCol}>
-        <Image style={styles.avatar} source={{uri: fixImageUrl(data.creator.avatar.image)}}/>
-        <Image style={styles.icon} source={postIcons[data.post_type]}/>
-    </View>
-    <View style={styles.rightCol}>
-        <View style={styles.postTopLign}>
-            <Text style={styles.name}>{data.creator.name}</Text>
-            <Text style={styles.time}>{data.created_at}</Text>
+        <View style={styles.column}>
+            <View style={styles.row}>
+                <View style={styles.leftCol}>
+                    <Image style={styles.avatar} source={{uri: fixImageUrl(data.creator.avatar.image)}}/>
+                    <Text style={styles.name}>{data.creator.name}</Text>
+
+                </View>
+                <View style={styles.postTopLign}>
+                    <Text style={styles.name}>{data.created_at}</Text>
+                    <Image style={styles.icon} source={postIcons[data.post_type]}/>
+
+                </View>
+            </View>
+
+            <View style={styles.row}>
+            <View style={styles.column}>
+                    <Text style={styles.title}>{data.title}</Text>
+                    <Text style={styles.content} numberOfLines={1}>{"this is custom content"}</Text>
+                </View>
+            </View>
         </View>
-        <Text style={styles.title}>{data.title}</Text>
-        <Text style={styles.content} numberOfLines={1}>{"this is custom content"}</Text>
-    </View>
-    </View>
     </TouchableHighlight>
 
 )
@@ -48,51 +54,53 @@ const styles = StyleSheet.create({
     row: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
-       // backgroundColor:'#FFFFFF',
-        marginBottom: 20,
-        paddingRight: 20
+        justifyContent: 'space-between',
+        marginBottom: 10,
+    },
+    column: {
+        flex: 1,
+        flexDirection: 'column',
+
     },
     leftCol: {
-        width: 80,
-        alignItems: 'center',
-        flexDirection: 'column',
+        flexDirection: 'row',
     },
     rightCol: {
-        flex:1
+        flex: 1
     },
     icon: {
-        marginTop: 5,
-        width: 25,
-        height: 28
+        width: 20,
+        height: 20,
+        marginLeft:4
     },
     avatar: {
-        height: 40,
-        width: 40,
-        borderRadius: 20
+        height: 20,
+        width: 20,
+        borderRadius: 3
     },
     postTopLign: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-end'
+
     },
     name: {
-        color: '#9FA4B5',
-        fontSize: 16,
+        color: '#6f778f',
+        fontSize: 13,
+        marginLeft:4,
         textAlign: 'left'
     },
     time: {
-        marginTop: 2,
-        color: '#9FA4B5',
-        fontSize: 14,
-        textAlign: 'right'
+        color: '#6f778f',
+        fontSize: 13,
+        marginLeft:4,
     },
     title: {
         fontSize: 18,
-        color: '#0F1C44'
+        color: '#0F1C46'
     },
     content: {
         marginTop: 20,
-        color: '#3F496B',
+        color: '#6f778f',
         fontSize: 16
     },
     postStatsStyle: {
@@ -100,11 +108,11 @@ const styles = StyleSheet.create({
         color: '#B8C0C9',
         fontSize: 13
     },
-    pollItem:{
-        marginLeft:10
+    pollItem: {
+        marginLeft: 10
     },
-    pollScroll:{
-        height:30
+    pollScroll: {
+        height: 30
     }
 
 });

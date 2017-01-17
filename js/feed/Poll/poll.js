@@ -33,7 +33,7 @@ class Poll extends Component {
 
                 <ScrollView automaticallyAdjustContentInsets={false}
                             showsHorizontalScrollIndicator={false}
-                            horizontal={true} marginLeft={10}>
+                            horizontal={true}   >
 
                     {
                         data.map((option, index) => {
@@ -94,11 +94,8 @@ var styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'transparent',
         borderRadius: 15,
-        // fontFamily:'BrixSansBold',
         borderColor: '#CFD2DA',
         borderWidth: 1,
-        // fontStyle:'BrixSansBold',
-        // color:'#9FA5B5'
     },
     textUnselected: {
         fontFamily: 'BrixSansBold',

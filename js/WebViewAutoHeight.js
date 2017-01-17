@@ -1,6 +1,6 @@
 /*
-        DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
-                    Version 2, December 2004 
+ DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+ Version 2, December 2004
 
  Copyright (C) 2016 Esa-Matti Suuronen <esa-matti@suuronen.org> 
 
@@ -8,14 +8,14 @@
  copies of this license document, and changing it is allowed as long 
  as the name is changed. 
 
-            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
-   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
+ DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+ TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
-  0. You just DO WHAT THE FUCK YOU WANT TO.
-*/
+ 0. You just DO WHAT THE FUCK YOU WANT TO.
+ */
 
-import React, { Component } from 'react';
-import {WebView, View, Text} from "react-native";
+import React, {Component} from 'react';
+import {WebView, Linking, View, Text} from "react-native";
 
 
 const BODY_TAG_PATTERN = /\<\/ *body\>/;
@@ -97,14 +97,27 @@ var WebViewAutoHeight = React.createClass({
         };
     },
 
-    handleNavigationChange(navState) {
+    handleNavigationChange(navState, originalHtml, webView) {
         if (navState.title) {
+
+/*
+            if (navState.url !== codeInject(originalHtml)) {
+                Linking.canOpenURL(navState.url).then(supported => {
+                    if (supported) {
+                        webView.stopLoading();
+                        Linking.openURL(navState.url);
+                    }
+                })
+            }
+*/
+
             const realContentHeight = parseInt(navState.title, 10) || 0; // turn NaN to 0
             this.setState({realContentHeight});
         }
         if (typeof this.props.onNavigationStateChange === "function") {
             this.props.onNavigationStateChange(navState);
         }
+
     },
 
     render() {
@@ -120,14 +133,15 @@ var WebViewAutoHeight = React.createClass({
         }
 
         return (
-                <WebView
-                    {...otherProps}
-                    source={{html: codeInject(html)}}
-                    scrollEnabled={false}
-                    style={[style, {height: Math.max(this.state.realContentHeight, minHeight)}]}
-                    javaScriptEnabled
-                    onNavigationStateChange=    {this.handleNavigationChange}
-                />
+            <WebView
+                ref={(ref) => { this.webview = ref; }}
+                {...otherProps}
+                source={{html: codeInject(html)}}
+                scrollEnabled={false}
+                style={[style, {height: Math.max(this.state.realContentHeight, minHeight)}]}
+                javaScriptEnabled
+                onNavigationStateChange={(event)=>this.handleNavigationChange(event,html, this.webview)}
+            />
         );
     },
 

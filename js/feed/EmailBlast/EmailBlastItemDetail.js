@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import WebViewAutoHeight from '../WebViewAutoHeight';
+import WebViewAutoHeight from '../../WebViewAutoHeight';
 import {
     StyleSheet,
     Text,
@@ -10,13 +10,10 @@ import {
 
 } from 'react-native';
 
-class FilesScreen extends Component {
+class EmailBlastItemDetail extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            height: 300
-        };
     }
 
     render() {
@@ -65,4 +62,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default FilesScreen;
+export default EmailBlastItemDetail;

@@ -1,10 +1,8 @@
-/**
- * @flow
- */
+// @flow
 import React, { Component } from 'react';``
 import FeedContainer from '../feed/FeedContainer'
 import FilesScreen from './Files'
-import Poll from '../feed/poll'
+import Poll from '../feed/Poll/poll'
 import { TabViewAnimated, TabViewPagerPan, TabBarTop } from 'react-native-tab-view';
 import { fetchGroupStart } from '../reducers/groups/actions'
 import GroupMembersContainer from '../groupMembers/GroupMembersContainer'

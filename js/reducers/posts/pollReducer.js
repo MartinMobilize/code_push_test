@@ -1,3 +1,5 @@
+// @flow
+
 import * as types from './actionTypes';
 import * as groupTypes from '../groups/actionTypes'
 import FeedService from '../../services/FeedService';
