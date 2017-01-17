@@ -1,7 +1,6 @@
 package com.mobilenative;
 
 import com.facebook.react.ReactActivity;
-import com.xebia.reactnative.TabLayoutPackage;
 
 public class MainActivity extends com.reactnativenavigation.controllers.SplashActivity {
 

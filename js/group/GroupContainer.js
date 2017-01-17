@@ -4,7 +4,7 @@
 import React, { Component } from 'react';``
 import FeedContainer from '../feed/FeedContainer'
 import FilesScreen from './Files'
-import Poll from '../feed/Poll'
+import Poll from '../feed/poll'
 import { TabViewAnimated, TabViewPagerPan, TabBarTop } from 'react-native-tab-view';
 import { fetchGroupStart } from '../reducers/groups/actions'
 import GroupMembersContainer from '../groupMembers/GroupMembersContainer'
@@ -46,6 +46,7 @@ class Group extends Component {
       this.handleDeepLink(event);
      }
   }
+
 
   handleDeepLink(event) {
     const parts = event.link.split('/');
@@ -121,7 +122,7 @@ class Group extends Component {
   _renderScene = ({ route }) => {
     switch (route.key) {
       case 'activity':
-        return <FeedContainer style={styles.page} groupId={this.state.groupId} receiver={this.props.groups[this.state.groupId]} />;
+        return <FeedContainer style={styles.page} groupId={this.state.groupId} navigator={this.props.navigator} receiver={this.props.groups[this.state.groupId]} />;
       case 'members':
         return <GroupMembersContainer groupId={this.state.groupId} />;
       case 'events':
@@ -170,7 +171,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onGroupChange: (groupId) => {
       dispatch(fetchGroupStart(groupId));
-    }
+    },
   }
 }
 

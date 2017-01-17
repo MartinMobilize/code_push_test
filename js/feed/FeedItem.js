@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { fixImageUrl } from '../utils'
-import Poll from './Poll'
 import FeedItemHeader from './FeedItemHeader'
 import {Card} from 'react-native-material-design';
+import {
+    Text,
+    StyleSheet,
+    View
+} from 'react-native';
+
 
 
 const postIcons = {
@@ -12,14 +16,6 @@ const postIcons = {
     quickpost: require(`./img/quickpost.png`),
 };
 
-import {
-  Text,
-  Image,
-  TouchableHighlight,
-  StyleSheet,
-  ScrollView,
-  View
-} from 'react-native';
 
 const FeedItem = ({
     data

@@ -25,6 +25,10 @@ export function requestPosts(receiverType, receiverId) {
     return {type: types.REQUEST_POSTS, receiverType, receiverId}
 }
 
+export function initPosts(posts){
+    return {type: types.INIT_POSTS, posts}
+}
+
 export function receivePosts(receiverType, receiverId, posts) {
     return {type: types.ADD_POSTS, receiverType, receiverId, posts}
 }
@@ -62,10 +66,8 @@ function getNewSingleAnswer(answers, specificPoll, index) {
 
 }
 function getNewMultipleAnswers(answers, specificPoll, index) {
-    answers = action.specificPoll.my_answer.slice();
 
-    const i = answers.indexOf(index);
-    if (index != -1) {
+    if (specificPoll.my_answer.indexOf(index) != -1) {
         answers.splice(i, 1);
     }
     else {
@@ -75,10 +77,6 @@ function getNewMultipleAnswers(answers, specificPoll, index) {
     return answers;
 }
 
-export function requestPollAnswer(specificPoll, postId, index, optionPollId) {
-    return {type: types.CHANGE_POLL, specificPoll, postId, index, optionPollId}
-
-}
 export function requestPollSingle(answers, specificPoll, postId, index, optionPollId) {
     return {type: types.CHANGE_POLL_SINGLE, answers, specificPoll, postId, index, optionPollId}
 

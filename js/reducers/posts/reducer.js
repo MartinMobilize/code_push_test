@@ -18,6 +18,7 @@ const posts = (state = {}, action = {}) => {
                 items: action.posts.entities.posts,
             })
         }
+        case types.INIT_POSTS:
         case types.ADD_POSTS:
             const polls = {};
 
@@ -35,19 +36,7 @@ const posts = (state = {}, action = {}) => {
             [action.postId]: poll(state[action.postId], action)
               })
 
-        case groupTypes.RECEIVE_GROUP_START: {
-                        const polls = {};
-            Object.keys(action.posts.entities.posts).forEach(postID =>
-
-                polls[postID] = Object.assign({},    
-                poll(undefined,action),
-                action.posts.entities.posts[postID]));
-
-            return Object.assign({}, state, polls)
-
-            //return Object.assign({}, state, action.posts.entities.posts)
-        }
-        default: 
+        default:
             return state;
     }
 }

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 const mapStateToProps = (state, ownProps) => {
+
     return {
         postid: ownProps.data.id,
         data: ownProps.data,
@@ -17,11 +18,14 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+
+    var postId = ownProps.postId;
+
     return {
         canLoadMoreContent: () => {
             return false;
         },
-        changePoll: (specificPoll, postId, specificId, index, optionId) => {
+        changePoll: (specificPoll, specificId, index, optionId) => {
             dispatch(changePoll(specificPoll, postId, specificId, index, optionId));
         },
         loadMoreContentAsync: (group) => {

@@ -38,12 +38,25 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+
+    let navigator = ownProps.navigator;
   return {
     canLoadMoreContent: () => {
         return false;
     },
     loadMoreContentAsync: (group) => {
         dispatch(fetchPosts('groups', ownProps.groupId, group.posts.length, 10));
+    },
+    onFeedPressed:(post)=>{
+
+        let htmlContent = post.specific.question_html;
+
+        navigator.push({
+            title: "More",
+            screen: "example.PushedScreen",
+            animated:false,
+            passProps: {content:htmlContent}
+        });
     }
   }
 }

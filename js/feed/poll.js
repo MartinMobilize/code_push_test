@@ -25,6 +25,8 @@ class Poll extends Component {
 
     render() {
 
+        let {data, answers} = this.props;
+
         return (
 
             <View >
@@ -34,13 +36,14 @@ class Poll extends Component {
                             horizontal={true} marginLeft={10}>
 
                     {
-                        this.props.data.map((option, index) => {
+                        data.map((option, index) => {
 
                             return (<TouchableHighlight underlayColor={'transparent'} key={option.id}
-                                                        style={this.props.answers.indexOf(index) != -1? styles.buttonPressed:styles.button}
+                                                        style={
+                                                            answers.indexOf(index) != -1? styles.buttonPressed:styles.button}
                                                         onPress={()=>{this._pollOptionSelected(index, option.id)}}>
                                     <Text
-                                        style={this.props.answers.indexOf(index) != -1?styles.textSelected:styles.textUnselected}>
+                                        style={answers.indexOf(index) != -1?styles.textSelected:styles.textUnselected}>
                                         {option.text}
                                     </Text>
                                 </TouchableHighlight>

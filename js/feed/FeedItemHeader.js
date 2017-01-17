@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { fixImageUrl } from '../utils'
-import Martin from './Poll'
+import {
+    Text,
+    Image,
+    TouchableHighlight,
+    StyleSheet,
+    ScrollView,
+    View
+} from 'react-native';
+
 
 
 const postIcons = {
@@ -10,18 +18,12 @@ const postIcons = {
     quickpost: require(`./img/quickpost.png`),
 };
 
-import {
-  Text,
-  Image,
-  TouchableHighlight,
-  StyleSheet,
-  ScrollView,
-  View
-} from 'react-native';
 
 const FeedItemHeader = ({
-    data
+    data, onPress
 }) => (
+    <TouchableHighlight underlayColor={'transparent'} onPress={onPress}>
+
     <View style={styles.row}>
     <View style={styles.leftCol}>
         <Image style={styles.avatar} source={{uri: fixImageUrl(data.creator.avatar.image)}}/>
@@ -36,6 +38,8 @@ const FeedItemHeader = ({
         <Text style={styles.content} numberOfLines={1}>{"this is custom content"}</Text>
     </View>
     </View>
+    </TouchableHighlight>
+
 )
 
 export default FeedItemHeader;

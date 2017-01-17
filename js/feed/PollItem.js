@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {fixImageUrl} from '../utils'
-import Poll from './Poll'
+import Poll from './poll'
 import FeedItemHeader from './FeedItemHeader'
 import {Card} from 'react-native-material-design';
 
@@ -26,20 +26,22 @@ class PollItem extends Component {
 
     render() {
 
+        let {data,changePoll, postid, onPress} = this.props;
+
         return (
             <View>
                 <Card style={styles.card}>
 
                     <Card.Body>
 
-                        <FeedItemHeader data={this.props.data}/>
+                        <FeedItemHeader data={data} onPress={onPress}/>
 
-                        <Poll data={this.props.data.specific.answers} answers={this.props.data.specific.my_answer}
-                              clickHanlder={ (index, id)=> { this.props.changePoll(this.props.data.specific,this.props.postid, this.props.data.specific.id,index, id) } }/>
+                        <Poll data={data.specific.answers} answers={data.specific.my_answer}
+                              clickHanlder={ (index, id)=> {changePoll(data.specific, data.specific.id,index, id) } }/>
 
                         <View style={styles.row}>
 
-                            <Text style={styles.postStatsStyle}>{this.props.data.comments.total} VIEWS</Text>
+                            <Text style={styles.postStatsStyle}>{data.comments.total} VIEWS</Text>
 
                         </View>
                     </Card.Body>
