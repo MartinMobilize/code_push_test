@@ -74,7 +74,7 @@ class EventItem extends Component {
         //saw the post or that the user is a member that already saw the post
         //For each option we need to render a different body to the view
 
-        if (!data.views) { //User is admin/creator
+        if (data.views) { //User is admin/creator
 
             stats.push(
                 <ViewsStats key={'admin/creator'} viewed={data.views.total} total={data.recipients.total}/>
