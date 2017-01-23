@@ -8,12 +8,15 @@ class FeedService {
      */
     static getPosts = (receiverName, receiverId, offset, count) => {
         return AppAPI.get(`/${receiverName}/${receiverId}${route}?offset=${offset}&count=${count}`, {
-            offset,count
+            offset, count
         });
     }
     static setPollSelection = (specificId, answerId) => {
-        return AppAPI.put(`/polls/${specificId}`, {answer:answerId});
-}
+        return AppAPI.put(`/polls/${specificId}`, {answer: answerId});
+    }
+    static setEventSelection = (specificID, answer) =>{
+
+    }
 }
 
 export default FeedService;

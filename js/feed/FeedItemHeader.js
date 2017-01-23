@@ -9,6 +9,9 @@ import {
     View
 } from 'react-native';
 
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from './img/config.json';
+const Icon = createIconSetFromFontello(fontelloConfig);
 
 const postIcons = {
     event: require(`./img/event.png`),
@@ -26,7 +29,7 @@ const FeedItemHeader = ({
         <View style={styles.column}>
             <View style={styles.row}>
                 <View style={styles.leftCol}>
-                    <Image style={styles.avatar} source={{uri: fixImageUrl(data.creator.avatar.image)}}/>
+                    <Image style={styles.avatar} source={{uri: fixImageUrl(data.user.avatar.image)}}/>
                     <Text style={styles.name}>{data.creator.name}</Text>
 
                 </View>
@@ -40,7 +43,6 @@ const FeedItemHeader = ({
             <View style={styles.row}>
             <View style={styles.column}>
                     <Text style={styles.title}>{data.title}</Text>
-                    <Text style={styles.content} numberOfLines={1}>{"this is custom content"}</Text>
                 </View>
             </View>
         </View>
@@ -54,8 +56,9 @@ const styles = StyleSheet.create({
     row: {
         flex: 1,
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 10,
+        marginBottom: 8,
     },
     column: {
         flex: 1,
@@ -64,13 +67,14 @@ const styles = StyleSheet.create({
     },
     leftCol: {
         flexDirection: 'row',
+        alignItems: 'center'
     },
     rightCol: {
         flex: 1
     },
     icon: {
-        width: 20,
-        height: 20,
+        width: 25,
+        height: 25,
         marginLeft:4
     },
     avatar: {
@@ -80,12 +84,13 @@ const styles = StyleSheet.create({
     },
     postTopLign: {
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'flex-end'
 
     },
     name: {
         color: '#6f778f',
-        fontSize: 13,
+        fontSize: 14,
         marginLeft:4,
         textAlign: 'left'
     },
@@ -95,11 +100,13 @@ const styles = StyleSheet.create({
         marginLeft:4,
     },
     title: {
-        fontSize: 18,
-        color: '#0F1C46'
+        fontSize: 22,
+        fontFamily:'BrixSansRegular',
+        color: '#3F496B'
     },
     content: {
         marginTop: 20,
+        marginRight:50,
         color: '#6f778f',
         fontSize: 16
     },

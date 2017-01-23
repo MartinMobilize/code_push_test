@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import * as groupTypes from '../groups/actionTypes'
 import poll from './pollReducer'
 import emailBlast from './EmailBlastReducer'
+import event from './eventReducer'
 
 const posts = (state = {}, action = {}) => {
     switch (action.type) {
@@ -24,6 +25,10 @@ const posts = (state = {}, action = {}) => {
             const posts = {};
             let currPost;
 
+            if(!action.posts.entities.posts){
+                return state;
+            }
+
             Object.keys(action.posts.entities.posts).forEach(postID => {
 
 
@@ -38,6 +43,10 @@ const posts = (state = {}, action = {}) => {
                             posts[postID] = Object.assign({},
                                 emailBlast(undefined, action),
                                 currPost);
+                        case 'event':
+                            posts[postID] = Object.assign({},
+                                event(undefined, action),
+                                currPost);
 
                         default:
                             posts[postID] = Object.assign({},
@@ -51,8 +60,7 @@ const posts = (state = {}, action = {}) => {
 
             return Object.assign({}, state, state, posts);
 
-        case types.CHANGE_POLL_SINGLE:
-        case types.CHANGE_POLL_MULTIPLE:
+        case types.CHANGE_POLL:
             return Object.assign({}, state, {
                 [action.postId]: poll(state[action.postId], action)
             })

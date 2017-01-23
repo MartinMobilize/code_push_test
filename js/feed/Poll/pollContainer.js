@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 
-    var {postId, navigator, data} = ownProps;
+    let {postId, navigator, data} = ownProps;
 
     return {
 

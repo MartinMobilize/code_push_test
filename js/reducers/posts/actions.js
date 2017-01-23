@@ -1,4 +1,3 @@
-
 import * as types from './actionTypes';
 import * as groupActions from '../groups/actions';
 import * as userActions from '../users/actions';
@@ -37,24 +36,27 @@ export function receivePosts(receiverType, receiverId, posts) {
 export function changePoll(specificPoll, postId, specificId, index, optionPollId) {
     return (dispatch, getState) => {
 
-        var answers = []
+        let answers = []
 
         //The poll allows single selection
         if (specificPoll.poll_type == 'single') {
 
             answers = getNewSingleAnswer(answers, specificPoll, index);
-
-            dispatch(requestPollSingle(answers, specificPoll, postId, index, optionPollId));
         }
         else {
             answers = getNewMultipleAnswers(answers, specificPoll, index);
-
-            dispatch(requestPostMultiple(answers, specificPoll, postId, index, optionPollId));
         }
+
+        dispatch(requestPoll(answers, specificPoll, postId, index, optionPollId));
+
         FeedService.setPollSelection(specificId, answers).then((pollResponse) => {
             const respo = pollResponse;
         });
     }
+}
+
+export function changeEvent(eventId, answer){
+    return {type:types.CHANGE_EVENT, eventId, answer};
 }
 
 function getNewSingleAnswer(answers, specificPoll, index) {
@@ -67,8 +69,10 @@ function getNewSingleAnswer(answers, specificPoll, index) {
 
 }
 function getNewMultipleAnswers(answers, specificPoll, index) {
+    answers = specificPoll.my_answer;
 
-    if (specificPoll.my_answer.indexOf(index) != -1) {
+    const i = answers.indexOf(index);
+    if (i != -1) {
         answers.splice(i, 1);
     }
     else {
@@ -78,11 +82,7 @@ function getNewMultipleAnswers(answers, specificPoll, index) {
     return answers;
 }
 
-export function requestPollSingle(answers, specificPoll, postId, index, optionPollId) {
-    return {type: types.CHANGE_POLL_SINGLE, answers, specificPoll, postId, index, optionPollId}
-
-}
-export function requestPostMultiple(specificPoll, postId, index, optionPollId) {
-    return {type: types.CHANGE_POLL_MULTIPLE, specificPoll, postId, index, optionPollId}
+export function requestPoll(answers, specificPoll, postId, index, optionPollId) {
+    return {type: types.CHANGE_POLL, answers, specificPoll, postId, index, optionPollId}
 
 }

@@ -9,11 +9,11 @@ const mapStateToProps = (state, ownProps) => {
         data: ownProps.data,
     }
 
-}
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 
-    var {navigator, data} = ownProps;
+    let {navigator, data} = ownProps;
 
     return {
         onFeedPressed: () => {
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
         }
     }
-}
+};
 
 EmailBlastContainer = connect(
     mapStateToProps,

@@ -22,7 +22,7 @@ const BODY_TAG_PATTERN = /\<\/ *body\>/;
 
 // Do not add any comments to this! It will break because all line breaks will removed for
 // some weird reason when this script is injected.
-var script = `
+let script = `
 ;(function() {
 var wrapper = document.createElement("div");
 wrapper.id = "height-wrapper";

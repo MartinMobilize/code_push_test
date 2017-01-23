@@ -1,22 +1,15 @@
 // @flow
 
 import * as types from './actionTypes';
-import * as groupTypes from '../groups/actionTypes'
-import FeedService from '../../services/FeedService';
 
 const poll = (state = {}, action = {}) => {
+
     switch (action.type) {
 
-        case types.CHANGE_POLL_MULTIPLE:
+        case types.CHANGE_POLL:
 
             return Object.assign({}, state, {
-                    specific: Object.assign({}, state.specific, {
-                        my_answer: action.answers})
-                    })
-
-        case types.CHANGE_POLL_SINGLE:
-
-            return Object.assign({}, state, {
+                viewed:true,
                 specific: Object.assign({}, state.specific, {
                     my_answer: action.answers})
             })

@@ -18,14 +18,14 @@ class NetworkManager {
     }
 
     static _getHeaders() {
-        const adminToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNjg5MywiZXhwIjoxNDg1MTY4NDY1LCJpYXQiOjE0Nzk5ODQ0NjV9.a4n3R1O33szPNl2_I8aA_SYyj-rRe_yHQpdjLJFJeok";
-        const memberToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwiZXhwIjoxNDg1MDA5OTMzLCJpYXQiOjE0Nzk4MjU5MzN9.gF7F3HbjwyreHwgPgP0t6yEEfhyXwzhAHpj3PSxhj9o"
+        const adminToken  = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNjg5MywiZXhwIjoxNDg1MTY4NDY1LCJpYXQiOjE0Nzk5ODQ0NjV9.a4n3R1O33szPNl2_I8aA_SYyj-rRe_yHQpdjLJFJeok";
+        const memberToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNjcwMTUsImV4cCI6MTQ4OTk5OTE2MiwiaWF0IjoxNDg0ODE1MTYyfQ.HLNYWY0t2nFzBUQJoE_LsvmFhtwH8WeOchOzcnP9_qk";
         return {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'App-Version' : env.appVersion,
-                'Authorization': adminToken,
-                'org_id': 90
+                'Authorization': memberToken,
+                'org_id': 4416
             }
     }
 

@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import FeedItem from './FeedItem'
 import PollContainer from './Poll/pollContainer'
 import EmailBlastContainer from './EmailBlast/EmailBlastContainer'
+import EventContainer from  './Event/EventContainer'
 
 import {
     ListView,
@@ -38,9 +39,11 @@ class Feed extends Component {
               case 'poll':
                return(
                 <PollContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
-              )
+              );
               case 'emailblast':
-              return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>
+              return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>;
+              case 'event':
+                  return <EventContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
               default:
               return <FeedItem data={rowData}/>
             }
@@ -86,6 +89,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
     }
-})
+});
 
 export default Feed;
