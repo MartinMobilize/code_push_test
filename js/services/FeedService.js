@@ -15,7 +15,7 @@ class FeedService {
         return AppAPI.put(`/polls/${specificId}`, {answer: answerId});
     }
     static setEventSelection = (specificID, answer) =>{
-
+        return AppAPI.put(`/events/${specificId}/attend`, {status: answer});
     }
 }
 

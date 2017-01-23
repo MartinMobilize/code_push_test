@@ -25,7 +25,7 @@ const posts = (state = {}, action = {}) => {
             const posts = {};
             let currPost;
 
-            if(!action.posts.entities.posts){
+            if (!action.posts.entities.posts) {
                 return state;
             }
 
@@ -39,19 +39,26 @@ const posts = (state = {}, action = {}) => {
                             posts[postID] = Object.assign({},
                                 poll(undefined, action),
                                 currPost);
+                            break;
                         case 'emailblast':
                             posts[postID] = Object.assign({},
                                 emailBlast(undefined, action),
                                 currPost);
+                            break;
+
                         case 'event':
                             posts[postID] = Object.assign({},
                                 event(undefined, action),
                                 currPost);
+                            break;
+
 
                         default:
                             posts[postID] = Object.assign({},
                                 emailBlast(undefined, action),
                                 currPost);
+                            break;
+
 
                     }
                 }
@@ -59,6 +66,12 @@ const posts = (state = {}, action = {}) => {
 
 
             return Object.assign({}, state, state, posts);
+
+        case types.CHANGE_EVENT:
+            return Object.assign({}, state, {
+                [action.id]: event(state[action.id], action)
+            })
+
 
         case types.CHANGE_POLL:
             return Object.assign({}, state, {

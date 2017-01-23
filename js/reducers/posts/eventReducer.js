@@ -8,8 +8,13 @@ const event = (state = {}, action = {}) => {
         case types.CHANGE_EVENT:
 
             return Object.assign({}, state, {
-                viewed: true
-            })
+                viewed: true,
+                specific: Object.assign({}, state.specific, {
+                    rsvp: action.answer
+                })
+            });
+
+            break;
 
         default:
             return state;

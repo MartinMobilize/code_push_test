@@ -29,8 +29,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     });
 
         },
-        changeEvent: (specificPoll, specificId, index, optionId) => {
-            dispatch(changeEvent(specificPoll, postId, specificId, index, optionId));
+        changeEvent: (answer) => {
+            dispatch(changeEvent(data.id, data.specific.id, answer));
         }
     }
 };

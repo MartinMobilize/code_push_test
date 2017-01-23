@@ -9,9 +9,23 @@ import styles from '../../styles/feedStyle'
 import {
     View,
     Text,
+    TouchableHighlight,
     Image,
 } from 'react-native';
 
+
+const icons = {
+    selected:{
+        yes:require('./img/yes.png'),
+        no:require('./img/no.png'),
+        maybe:require('./img/maybe.png'),
+    },
+    unselected:{
+        yes:require('./img/yes_gray.png'),
+        no:require('./img/No_gray.png'),
+        maybe:require('./img/Maybe_gray.png'),
+    }
+}
 
 class Event extends Component {
 
@@ -22,12 +36,12 @@ class Event extends Component {
 
     render() {
 
-        let {data, answers, description, viewed} = this.props;
+        let {answer, viewed} = this.props;
 
         let btnStyle = styles.unselectedButton;
         let txtStyle = styles.textUnselected;
 
-        if (!viewed){
+        if (!viewed) {
             btnStyle = styles.unreadButton;
             txtStyle = styles.unreadButtonText;
         }
@@ -35,20 +49,27 @@ class Event extends Component {
         return (
 
             <View style={styles.row}>
-                <View style={btnStyle} onPress={()=>{this._eventOptionSelected(0)}}>
-                    <Image style={styles.eventIcon} source={ require(`./img/yes.png`)}/>
-                    <Text style={txtStyle}>YES</Text>
-                </View>
 
-                <View style={btnStyle} onPress={()=>{this._eventOptionSelected(0)}}>
-                    <Image style={styles.eventIcon} source={ require(`./img/no.png`)}/>
-                    <Text style={txtStyle}>NO</Text>
-                </View>
+                <TouchableHighlight underlayColor={'transparent'} onPress={()=>this._eventOptionSelected('yes')}>
+                    <View style={answer === 'yes'?styles.selectedButton:btnStyle}>
+                        <Image style={styles.eventIcon} source={answer === 'yes' ||!viewed ?icons.selected.yes:icons.unselected.yes}/>
+                        <Text style={answer === 'yes'?styles.textSelected:txtStyle}>YES</Text>
+                    </View>
+                </TouchableHighlight>
 
-                <View style={btnStyle} onPress={()=>{this._eventOptionSelected(0)}}>
-                    <Image style={styles.eventIcon} source={ require(`./img/maybe.png`)}/>
-                    <Text style={txtStyle}>MAYBE</Text>
-                </View>
+                <TouchableHighlight underlayColor={'transparent'} onPress={()=>this._eventOptionSelected('no')}>
+                    <View style={answer === 'no'?styles.selectedButton:btnStyle}>
+                        <Image style={styles.eventIcon} source={answer === 'no' ||!viewed ?icons.selected.no:icons.unselected.no}/>
+                        <Text style={answer === 'no'?styles.textSelected:txtStyle}>NO</Text>
+                    </View>
+                </TouchableHighlight>
+
+                <TouchableHighlight underlayColor={'transparent'} onPress={()=>this._eventOptionSelected('maybe')}>
+                    <View style={answer === 'maybe'?styles.selectedButton:btnStyle}>
+                        <Image style={styles.eventIcon} source={answer === 'maybe' ||!viewed ?icons.selected.maybe:icons.unselected.maybe}/>
+                        <Text style={answer === 'maybe'?styles.textSelected:txtStyle}>MAYBE</Text>
+                    </View>
+                </TouchableHighlight>
 
 
             </View>
@@ -57,9 +78,9 @@ class Event extends Component {
         )
     }
 
-    _eventOptionSelected(index) {
+    _eventOptionSelected(answer) {
         // this.setState({id:id});
-        this.props.clickHanlder(index, id);
+        this.props.clickHanlder(answer);
     }
 }
 
