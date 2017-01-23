@@ -16,15 +16,6 @@ import {
     Image
 } from 'react-native';
 
-
-const postIcons = {
-    event: require(`./../img/event.png`),
-    emailblast: require(`./../img/emailblast.png`),
-    poll: require(`./../img/poll.png`),
-    quickpost: require(`./../img/quickpost.png`),
-};
-
-
 class EventItem extends Component {
 
 
@@ -94,7 +85,7 @@ class EventItem extends Component {
 
             stats = null;
 
-            if (data.viewed) {//User is memeber that see the feed for first time
+            if (data.viewed) { //User is memeber that see the feed for first time
 
                 body.push(
                     <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}

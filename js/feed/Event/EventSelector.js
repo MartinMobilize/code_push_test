@@ -79,7 +79,6 @@ class Event extends Component {
     }
 
     _eventOptionSelected(answer) {
-        // this.setState({id:id});
         this.props.clickHanlder(answer);
     }
 }

@@ -1,5 +1,4 @@
 import * as types from './actionTypes';
-import * as groupTypes from '../groups/actionTypes'
 import poll from './pollReducer'
 import emailBlast from './EmailBlastReducer'
 import event from './eventReducer'

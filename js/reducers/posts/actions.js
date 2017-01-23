@@ -1,5 +1,4 @@
 import * as types from './actionTypes';
-import * as groupActions from '../groups/actions';
 import * as userActions from '../users/actions';
 import FeedService from '../../services/FeedService';
 import {normalize, arrayOf} from 'normalizr';
