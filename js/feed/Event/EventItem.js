@@ -6,22 +6,15 @@ import styles from '../../styles/feedStyle'
 import FeedItemHeader from '../FeedItemHeader'
 import FeedItemFooter from '../FeedItemFooter'
 import ViewsStats     from '../ViewsStats'
-import {Card} from 'react-native-material-design';
+import {Card} from 'react-native-material-design'
+import Moment from 'moment';
+
 
 import {
     View,
     Text,
     Image
 } from 'react-native';
-
-
-const postIcons = {
-    event: require(`./../img/event.png`),
-    emailblast: require(`./../img/emailblast.png`),
-    poll: require(`./../img/poll.png`),
-    quickpost: require(`./../img/quickpost.png`),
-};
-
 
 class EventItem extends Component {
 
@@ -32,6 +25,8 @@ class EventItem extends Component {
 
         let {stats, body} = this.getContent(data.viewed, data, changeEvent);
 
+        const eventTime = this.calculateEventTime(data.specific.start_time, data.specific.end_time);
+
         return (
             <View>
                 <Card style={styles.card}>
@@ -40,7 +35,7 @@ class EventItem extends Component {
 
                         <FeedItemHeader data={data} onPress={this.props.onFeedPressed}/>
 
-                        <Text style={styles.eventTimeText}>{data.specific.location}</Text>
+                        <Text style={styles.eventTimeText}>{eventTime}</Text>
 
                         <Text style={styles.content}>{data.specific.location}</Text>
 
@@ -59,6 +54,17 @@ class EventItem extends Component {
         )
     }
 
+    calculateEventTime(eventStart, eventEnd){
+
+        const startTime = Moment(eventStart).format('HH:mm');
+        const endTime  = Moment(eventEnd).format('HH:mm');
+
+        const eventDate = Moment(eventStart).format('D MMM');
+
+
+        return eventDate + ', ' + startTime + '-' + endTime;
+    }
+
     getContent(viewed, data, changeEvent) {
 
         let stats = [];
@@ -68,7 +74,7 @@ class EventItem extends Component {
         //saw the post or that the user is a member that already saw the post
         //For each option we need to render a different body to the view
 
-        if (!data.views) { //User is admin/creator
+        if (data.views) { //User is admin/creator
 
             stats.push(
                 <ViewsStats key={'admin/creator'} viewed={data.views.total} total={data.recipients.total}/>
@@ -79,12 +85,12 @@ class EventItem extends Component {
 
             stats = null;
 
-            if (data.viewed) {//User is memeber that see the feed for first time
+            if (data.viewed) { //User is memeber that see the feed for first time
 
                 body.push(
-                    <EventSelector viewed={viewed} key={'normal'} data={data.specific.answers}
+                    <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}
                                    description={data.specific.question}
-                                   clickHanlder={(index)=> {changeEvent(data.specific, data.specific.id,index) } }/>
+                                   clickHanlder={(answer)=> {changeEvent(answer) } }/>
                 )
             }
             else {  //User is memeber that see the feed for first time
@@ -95,9 +101,9 @@ class EventItem extends Component {
                         <Text style={styles.unreadButtonText}>Please make your choice</Text>
 
 
-                        <EventSelector viewed={viewed} key={'normal'} data={data.specific.answers}
+                        <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}
                                        description={data.specific.question}
-                                       clickHanlder={(index)=> {changeEvent(data.specific, data.specific.id,index) } }/>
+                                       clickHanlder={(answer)=> {changeEvent(answer)} }/>
                     </Card.Media>
                 )
             }

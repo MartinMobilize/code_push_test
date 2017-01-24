@@ -1,5 +1,4 @@
 import * as types from './actionTypes';
-import * as groupActions from '../groups/actions';
 import * as userActions from '../users/actions';
 import FeedService from '../../services/FeedService';
 import {normalize, arrayOf} from 'normalizr';
@@ -55,8 +54,14 @@ export function changePoll(specificPoll, postId, specificId, index, optionPollId
     }
 }
 
-export function changeEvent(eventId, answer){
-    return {type:types.CHANGE_EVENT, eventId, answer};
+export function changeEvent(id, eventId, answer){
+
+    return {type:types.CHANGE_EVENT,id, eventId, answer};
+
+    FeedService.setEventSelection(eventId, answer).then((eventResponse) => {
+        const respo = eventResponse;
+    });
+
 }
 
 function getNewSingleAnswer(answers, specificPoll, index) {

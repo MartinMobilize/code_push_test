@@ -9,7 +9,6 @@ import styles from '../../styles/feedStyle'
 import {
     View,
     Text,
-    StyleSheet,
     TouchableHighlight,
     ScrollView
 } from 'react-native';
