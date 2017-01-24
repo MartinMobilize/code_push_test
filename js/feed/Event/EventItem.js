@@ -16,14 +16,12 @@ import {
     Image
 } from 'react-native';
 
-class EventItem extends Component {
 
+class EventItem extends Component {
 
     render() {
 
-        let {data, changeEvent} = this.props;
-
-        let {stats, body} = this.getContent(data.viewed, data, changeEvent);
+        let {data, viewed, changeEvent} = this.props;
 
         const eventTime = this.calculateEventTime(data.specific.start_time, data.specific.end_time);
 
@@ -39,11 +37,11 @@ class EventItem extends Component {
 
                         <Text style={styles.content}>{data.specific.location}</Text>
 
-                        {stats}
+                        {data.views?this._getStats(data):null}
 
                     </Card.Body>
 
-                    {body}
+                    {data.views?null:(viewed?this._getViewedContent(data,viewed, changeEvent):this._getUnviewedContent(data,viewed, changeEvent))}
 
                     <FeedItemFooter key={'footer'} comments={data.comments}
                                     footerText={data.specific.stats.attending_count + ' going' + ' - ' +
@@ -65,54 +63,56 @@ class EventItem extends Component {
         return eventDate + ', ' + startTime + '-' + endTime;
     }
 
-    getContent(viewed, data, changeEvent) {
-
+    _getStats(data){
         let stats = [];
-        let body = []
 
-        //There are 3 different options: the user is an admin/created the post, the user is a member that didn't
-        //saw the post or that the user is a member that already saw the post
-        //For each option we need to render a different body to the view
+        stats.push(
+            <ViewsStats key={'admin/creator'} viewed={data.views.total} total={data.recipients.total}/>
+        )
 
-        if (data.views) { //User is admin/creator
-
-            stats.push(
-                <ViewsStats key={'admin/creator'} viewed={data.views.total} total={data.recipients.total}/>
-            )
-            body = null;
-        }
-        else {
-
-            stats = null;
-
-            if (data.viewed) { //User is memeber that see the feed for first time
-
-                body.push(
-                    <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}
-                                   description={data.specific.question}
-                                   clickHanlder={(answer)=> {changeEvent(answer) } }/>
-                )
-            }
-            else {  //User is memeber that see the feed for first time
-
-                body.push(<Card.Media key={'media'} height={90}
-                                      image={<Image source={require('./img/backgroundGreen.png')} />}>
-
-                        <Text style={styles.unreadButtonText}>Please make your choice</Text>
-
-
-                        <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}
-                                       description={data.specific.question}
-                                       clickHanlder={(answer)=> {changeEvent(answer)} }/>
-                    </Card.Media>
-                )
-            }
-
-        }
-
-        return {stats, body};
+        return stats;
 
     }
+
+    _getUnviewedContent(data, viewed, changeEvent){
+
+        let body = []
+
+        body.push(<Card.Media key={'media'} height={90}
+                              image={<Image source={require('./img/backgroundGreen.png')} />}>
+
+                <Text style={styles.unreadButtonText}>Please make your choice</Text>
+
+                <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}
+                               description={data.specific.question}
+                               clickHanlder={(answer)=> {changeEvent(answer)} }/>
+            </Card.Media>
+        )
+
+        return body;
+
+    }
+
+    _getViewedContent(data, viewed, changeEvent){
+
+        let body = []
+
+        body.push(
+            <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}
+                           description={data.specific.question}
+                           clickHanlder={(answer)=> {changeEvent(answer) } }/>
+        )
+
+        return body;
+
+    }
+
+}
+
+EventItem.propTypes = {
+    data:React.PropTypes.object,
+    viewed:React.PropTypes.bool,
+    changeEvent:React.PropTypes.func
 }
 
 export default EventItem;
