@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         return false;
     },
     loadMoreContentAsync: (group) => {
-        dispatch(fetchPosts('groups', ownProps.groupId, group.posts.length, 10));
+        dispatch(fetchPosts('groups', ownProps.groupId, group.posts.length, 25));
     }
   }
 }
