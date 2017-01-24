@@ -44,8 +44,7 @@ class EventItem extends Component {
                     {post.views?null:(viewed?this._getViewedContent(post,viewed, changeEvent):this._getUnviewedContent(post,viewed, changeEvent))}
 
                     <FeedItemFooter key={'footer'} comments={post.comments}
-                                    footerText={post.specific.stats.attending_count + ' going' + ' - ' +
-                                     post.comments.comments.length + ' comments'}/>
+                                    footerText= {post.comments.comments.length + ' comments'}/>
 
                 </Card>
             </View>
@@ -59,7 +58,6 @@ class EventItem extends Component {
 
         const eventDate = Moment(eventStart).format('D MMM');
 
-
         return eventDate + ', ' + startTime + '-' + endTime;
     }
 
@@ -67,7 +65,7 @@ class EventItem extends Component {
         let stats = [];
 
         stats.push(
-            <ViewsStats key={'admin/creator'} viewed={post.views.total} total={post.recipients.total}/>
+            <ViewsStats key={'admin/creator'} post_type={post.post_type} value={post.specific.stats.attending_count} viewed={post.views.total} total={post.recipients.total}/>
         )
 
         return stats;

@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     button_row:{
         flexDirection: 'row',
         alignItems:'center',
+        marginRight:15,
         backgroundColor: '#F2F2F5',
         borderRadius: 15,
     },

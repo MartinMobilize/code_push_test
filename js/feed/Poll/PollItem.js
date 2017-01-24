@@ -28,18 +28,15 @@ class PollItem extends Component {
                     <Card.Body>
 
                         <FeedItemHeader post={post} onPress={this.props.onFeedPressed}/>
-                        <Text style={styles.content} numberOfLines={1}>{post.specific.question}</Text>
 
-
-                        {post.views?this._getStats(post):null}
+                        {post.views?this._getStats(post):<Text style={styles.content} numberOfLines={1}>{post.specific.question}</Text>}
 
                     </Card.Body>
 
                     {post.views?null:(viewed?this._getViewedContent(post, viewed, changePoll):this._getUnviewedContent(post, viewed, changePoll))}
 
                     <FeedItemFooter key={'footer'} comments={post.comments}
-                                    footerText={post.specific.votes_count + ' votes' + ' - ' +
-                                         post.comments.comments.length + ' comments'}/>
+                                    footerText={post.comments.comments.length + ' comments'}/>
 
                 </Card>
             </View>
@@ -50,7 +47,7 @@ class PollItem extends Component {
         let stats = [];
 
         stats.push(
-            <ViewsStats key={'admin/creator'} viewed={post.views.total} total={post.recipients.total}/>
+            <ViewsStats key={'admin/creator'} post_type={post.post_type} value={post.specific.votes_count} viewed={post.views.total} total={post.recipients.total}/>
         )
 
         return stats;

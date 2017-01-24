@@ -18,6 +18,7 @@ const postIcons = {
     emailblast: require(`./img/emailblast.png`),
     poll: require(`./img/poll.png`),
     quickpost: require(`./img/quickpost.png`),
+    smspost:require('./img/sms.png')
 };
 
 
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
         height: 20,
         width: 20,
         resizeMode:'contain',
-        borderRadius: 3
+        borderRadius: 8
     },
     postTopLign: {
         flexDirection: 'row',
