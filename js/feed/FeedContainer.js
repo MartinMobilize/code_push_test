@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 FeedContainer = connect(
-    mapStateToProps,
+    mapStateToProps,//
     mapDispatchToProps
 )(Feed);
 
