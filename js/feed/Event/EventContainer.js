@@ -9,7 +9,6 @@ const mapStateToProps = (state, ownProps) => {
 
     return {
         data: ownProps.data,
-        viewed:ownProps.data.viewed
     }
 
 };

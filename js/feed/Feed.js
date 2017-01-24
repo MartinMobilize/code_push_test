@@ -8,11 +8,11 @@ import FeedItem from './FeedItem'
 import PollContainer from './Poll/pollContainer'
 import EmailBlastContainer from './EmailBlast/EmailBlastContainer'
 import EventContainer from  './Event/EventContainer'
-import styles from '../styles/feedStyle'
 
 import {
     ListView,
     View,
+    StyleSheet,
     Image,
     ActivityIndicator
 } from 'react-native';
@@ -21,23 +21,13 @@ import {
 class Feed extends Component {
     render() {
         const group = this.props.group;
-        let loader = [];
 
         if (!this.props.dataSource || !group || !group.loaded && group.isFetching) {
-            return (
-                <View style={styles.loaderIndicator}>
-                    <Image style={styles.loader} source={require('./img/colored-loader.gif')}/>
-                </View>)
+            return (<ActivityIndicator style={styles.activityIndicator}
+                                       animating={true}
+                                       size="large"
+            />)
         }
-
-        if (!this.props.datasource) {
-            return (
-                <View style={styles.loaderIndicator}>
-                    <Text style={styles.title}>No Posts found</Text>
-                </View>)
-        }
-
-
         return (
             <View>
                 <ListView
@@ -60,19 +50,45 @@ class Feed extends Component {
           } }
                     renderFooter={()=>(
             <View style={styles.footer}>
-
-              {group.loadingMorePosts?<Image style={styles.smallLoader} source={require('./img/colored-loader.gif')}/>:null}
-
+              <View style={styles.footerImage}>
+                <ActivityIndicator style={styles.activityIndicator}
+                animating={group.loadingMorePosts}
+                size="large" />
+              </View>
+              <View style={styles.footerImage}>
+                <Image source={require('./img/livetolead.png')}/>
+              </View>
             </View>)}
                     onEndReached={()=> {this.props.loadMoreContentAsync(group)}}
-                    onEndReachedThreshold={10}
                     enableEmptySections={true}
+
                     initialListSize={40}
                 />
             </View>
         )
     }
-
 }
+
+const styles = StyleSheet.create({
+    activityIndicator: {
+        marginTop: 30,
+        justifyContent: 'center'
+    },
+    listHeader: {
+        height:20,
+    },
+    footer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginBottom: 40,
+        paddingRight: 40
+    },
+    footerImage: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    }
+});
 
 export default Feed;

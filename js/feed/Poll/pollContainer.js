@@ -7,8 +7,9 @@ import PollItem from './PollItem'
 const mapStateToProps = (state, ownProps) => {
 
     return {
+        postid: ownProps.data.id,
         data: ownProps.data,
-        viewed:ownProps.data.viewed
+        id: 1
     }
 
 }

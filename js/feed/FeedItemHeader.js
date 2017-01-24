@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     avatar: {
         height: 20,
         width: 20,
-        resizeMode:'contain',
         borderRadius: 3
     },
     postTopLign: {
