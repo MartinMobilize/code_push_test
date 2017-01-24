@@ -3,6 +3,41 @@ import primaryColor from './common';
 
 
 const styles = StyleSheet.create({
+    loaderIndicator: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loader:{
+        height: 100,
+        width: 100,
+        justifyContent: 'center',
+    },
+    smallLoader:{
+        height: 40,
+        width: 40,
+        justifyContent: 'center',
+
+    },
+    activityIndicator:{
+        marginTop: 30,
+        justifyContent: 'center',
+    },
+    listHeader: {
+        height: 20,
+    },
+    footer: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginBottom:40
+    },
+    footerImage: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     card: {
         backgroundColor: '#FFFFFF'
     },
@@ -10,6 +45,11 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         marginBottom: 10
+    },
+    statsRow:{
+        flex: 1,
+        marginTop:10,
+        flexDirection: 'row',
     },
     footerRow: {
         flex: 1,
@@ -94,6 +134,7 @@ const styles = StyleSheet.create({
     },
     avatar: {
         height: 20,
+        resizeMode:'contain',
         width: 20,
         marginRight: 2,
         borderRadius: 3,

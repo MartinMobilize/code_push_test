@@ -15,7 +15,7 @@ import {
 const ViewsStats = ({
     viewed, total
 }) => (
-    <View style={styles.row}>
+    <View style={styles.statsRow}>
         <View style={styles.button_row}>
             <Image style={styles.statsIcon} source={require('./img/eye.png')}/>
             <Text style={styles.statsText}>{viewed}/{total}</Text>
