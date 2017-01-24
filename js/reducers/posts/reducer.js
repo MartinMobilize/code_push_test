@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import poll from './pollReducer'
 import emailBlast from './EmailBlastReducer'
+import textPost from './TextPostReducer'
 import event from './eventReducer'
 
 const posts = (state = {}, action = {}) => {
@@ -48,6 +49,12 @@ const posts = (state = {}, action = {}) => {
                         case 'event':
                             posts[postID] = Object.assign({},
                                 event(undefined, action),
+                                currPost);
+                            break;
+
+                        case 'quickpost':
+                            posts[postID] = Object.assign({},
+                                textPost(undefined, action),
                                 currPost);
                             break;
 

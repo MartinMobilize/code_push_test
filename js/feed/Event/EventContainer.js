@@ -8,7 +8,7 @@ import {changeEvent} from '../../reducers/posts/actions'
 const mapStateToProps = (state, ownProps) => {
 
     return {
-        data: ownProps.data,
+        post: ownProps.data,
         viewed:ownProps.data.viewed
     }
 

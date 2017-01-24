@@ -19,7 +19,7 @@ class PollItem extends Component {
 
     render() {
 
-        let {data, viewed, changePoll} = this.props;
+        let {post, viewed, changePoll} = this.props;
 
         return (
             <View>
@@ -27,50 +27,50 @@ class PollItem extends Component {
 
                     <Card.Body>
 
-                        <FeedItemHeader data={data} onPress={this.props.onFeedPressed}/>
-                        <Text style={styles.content} numberOfLines={1}>{data.specific.question}</Text>
+                        <FeedItemHeader post={post} onPress={this.props.onFeedPressed}/>
+                        <Text style={styles.content} numberOfLines={1}>{post.specific.question}</Text>
 
 
-                        {data.views?this._getStats(data):null}
+                        {post.views?this._getStats(post):null}
 
                     </Card.Body>
 
-                    {data.views?null:(viewed?this._getViewedContent(data, viewed, changePoll):this._getUnviewedContent(data, viewed, changePoll))}
+                    {post.views?null:(viewed?this._getViewedContent(post, viewed, changePoll):this._getUnviewedContent(post, viewed, changePoll))}
 
-                    <FeedItemFooter key={'footer'} comments={data.comments}
-                                    footerText={data.specific.votes_count + ' votes' + ' - ' +
-                                         data.comments.comments.length + ' comments'}/>
+                    <FeedItemFooter key={'footer'} comments={post.comments}
+                                    footerText={post.specific.votes_count + ' votes' + ' - ' +
+                                         post.comments.comments.length + ' comments'}/>
 
                 </Card>
             </View>
         )
     }
 
-    _getStats(data){
+    _getStats(post){
         let stats = [];
 
         stats.push(
-            <ViewsStats key={'admin/creator'} viewed={data.views.total} total={data.recipients.total}/>
+            <ViewsStats key={'admin/creator'} viewed={post.views.total} total={post.recipients.total}/>
         )
 
         return stats;
 
     }
 
-    _getViewedContent(data,viewed, changePoll){
+    _getViewedContent(post,viewed, changePoll){
 
         let body = []
 
 
-        body.push(<Poll key={'normal'} data={data.specific.answers} answers={data.specific.my_answer}
+        body.push(<Poll key={'normal'} answers={post.specific.answers} my_answers={post.specific.my_answer}
                         viewed={viewed}
-                        clickHanlder={ (index, id)=> {changePoll(data.specific, data.specific.id,index, id) } }/>
+                        clickHanlder={ (index, id)=> {changePoll(post.specific, post.specific.id,index, id) } }/>
         )
 
         return body;
     }
 
-    _getUnviewedContent(data,viewed, changePoll){
+    _getUnviewedContent(post,viewed, changePoll){
 
         let body = [];
 
@@ -79,9 +79,9 @@ class PollItem extends Component {
 
                 <Text style={styles.unreadButtonText}>Please make your choice</Text>
 
-                <Poll key={'normal'} data={data.specific.answers} answers={data.specific.my_answer}
+                <Poll key={'normal'} answers={post.specific.answers} my_answers={post.specific.my_answer}
                       viewed={viewed}
-                      clickHanlder={ (index, id)=> {changePoll(data.specific, data.specific.id,index, id) } }/>
+                      clickHanlder={ (index, id)=> {changePoll(post.specific, post.specific.id,index, id) } }/>
             </Card.Media>
         )
 
@@ -91,7 +91,8 @@ class PollItem extends Component {
 }
 
 PollItem.propTypes = {
-    data:React.PropTypes.object,
+    post:React.PropTypes.object,
+    viewed:React.PropTypes.bool,
     changePoll:React.PropTypes.func
 }
 

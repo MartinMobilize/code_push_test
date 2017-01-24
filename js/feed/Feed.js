@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import FeedItem from './FeedItem'
 import PollContainer from './Poll/pollContainer'
 import EmailBlastContainer from './EmailBlast/EmailBlastContainer'
+import TextPostContainer from './TextPost/TextPostContainer'
 import EventContainer from  './Event/EventContainer'
 import styles from '../styles/feedStyle'
 
@@ -14,7 +15,7 @@ import {
     ListView,
     View,
     Image,
-    ActivityIndicator
+    Text,
 } from 'react-native';
 
 
@@ -30,7 +31,7 @@ class Feed extends Component {
                 </View>)
         }
 
-        if (!this.props.datasource) {
+        if (!this.props.dataSource) {
             return (
                 <View style={styles.loaderIndicator}>
                     <Text style={styles.title}>No Posts found</Text>
@@ -54,6 +55,8 @@ class Feed extends Component {
               return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>;
               case 'event':
                   return <EventContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
+              case 'quickpost':
+                  return <TextPostContainer data={rowData} navigator={this.props.navigator}/>;
               default:
               return <FeedItem data={rowData}/>
             }

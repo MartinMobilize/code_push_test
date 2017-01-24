@@ -6,7 +6,7 @@ import TextPostItem from './TextPostItem'
 const mapStateToProps = (state, ownProps) => {
 
     return {
-        data: ownProps.data,
+        post: ownProps.data,
     }
 
 };

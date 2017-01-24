@@ -27,7 +27,7 @@ class FeedItemFooter extends Component {
         }
 
         return (
-            <View style={styles.cardFooterRow}>
+            <View style={styles.footerRow}>
 
                 {images}
 

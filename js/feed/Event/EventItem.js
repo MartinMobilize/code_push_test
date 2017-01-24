@@ -7,7 +7,7 @@ import FeedItemHeader from '../FeedItemHeader'
 import FeedItemFooter from '../FeedItemFooter'
 import ViewsStats     from '../ViewsStats'
 import {Card} from 'react-native-material-design'
-import Moment from 'moment';
+import Moment from 'moment'
 
 
 import {
@@ -21,9 +21,9 @@ class EventItem extends Component {
 
     render() {
 
-        let {data, viewed, changeEvent} = this.props;
+        let {post, viewed, changeEvent} = this.props;
 
-        const eventTime = this.calculateEventTime(data.specific.start_time, data.specific.end_time);
+        const eventTime = this.calculateEventTime(post.specific.start_time, post.specific.end_time);
 
         return (
             <View>
@@ -31,21 +31,21 @@ class EventItem extends Component {
 
                     <Card.Body>
 
-                        <FeedItemHeader data={data} onPress={this.props.onFeedPressed}/>
+                        <FeedItemHeader post={post} onPress={this.props.onFeedPressed}/>
 
                         <Text style={styles.eventTimeText}>{eventTime}</Text>
 
-                        <Text style={styles.content}>{data.specific.location}</Text>
+                        <Text style={styles.content}>{post.specific.location}</Text>
 
-                        {data.views?this._getStats(data):null}
+                        {post.views?this._getStats(post):null}
 
                     </Card.Body>
 
-                    {data.views?null:(viewed?this._getViewedContent(data,viewed, changeEvent):this._getUnviewedContent(data,viewed, changeEvent))}
+                    {post.views?null:(viewed?this._getViewedContent(post,viewed, changeEvent):this._getUnviewedContent(post,viewed, changeEvent))}
 
-                    <FeedItemFooter key={'footer'} comments={data.comments}
-                                    footerText={data.specific.stats.attending_count + ' going' + ' - ' +
-                                     data.comments.comments.length + ' comments'}/>
+                    <FeedItemFooter key={'footer'} comments={post.comments}
+                                    footerText={post.specific.stats.attending_count + ' going' + ' - ' +
+                                     post.comments.comments.length + ' comments'}/>
 
                 </Card>
             </View>
@@ -63,18 +63,18 @@ class EventItem extends Component {
         return eventDate + ', ' + startTime + '-' + endTime;
     }
 
-    _getStats(data){
+    _getStats(post){
         let stats = [];
 
         stats.push(
-            <ViewsStats key={'admin/creator'} viewed={data.views.total} total={data.recipients.total}/>
+            <ViewsStats key={'admin/creator'} viewed={post.views.total} total={post.recipients.total}/>
         )
 
         return stats;
 
     }
 
-    _getUnviewedContent(data, viewed, changeEvent){
+    _getUnviewedContent(post, viewed, changeEvent){
 
         let body = []
 
@@ -83,8 +83,8 @@ class EventItem extends Component {
 
                 <Text style={styles.unreadButtonText}>Please make your choice</Text>
 
-                <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}
-                               description={data.specific.question}
+                <EventSelector viewed={viewed} key={'normal'} answer={post.specific.rsvp}
+                               description={post.specific.question}
                                clickHanlder={(answer)=> {changeEvent(answer)} }/>
             </Card.Media>
         )
@@ -93,13 +93,13 @@ class EventItem extends Component {
 
     }
 
-    _getViewedContent(data, viewed, changeEvent){
+    _getViewedContent(post, viewed, changeEvent){
 
         let body = []
 
         body.push(
-            <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}
-                           description={data.specific.question}
+            <EventSelector viewed={viewed} key={'normal'} answer={post.specific.rsvp}
+                           description={post.specific.question}
                            clickHanlder={(answer)=> {changeEvent(answer) } }/>
         )
 
@@ -110,7 +110,7 @@ class EventItem extends Component {
 }
 
 EventItem.propTypes = {
-    data:React.PropTypes.object,
+    post:React.PropTypes.object,
     viewed:React.PropTypes.bool,
     changeEvent:React.PropTypes.func
 }

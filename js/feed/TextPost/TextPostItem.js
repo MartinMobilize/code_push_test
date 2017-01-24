@@ -3,8 +3,9 @@ import FeedItemHeader from '../FeedItemHeader'
 import FeedItemFooter from '../FeedItemFooter'
 import ViewsStats from '../ViewsStats'
 import styles from '../../styles/feedStyle'
-import {Card} from 'react-native-material-design';
-import {View} from 'react-native';
+import {Card} from 'react-native-material-design'
+
+import {View, Text} from 'react-native';
 
 
 class TextPostItem extends Component {
@@ -12,18 +13,18 @@ class TextPostItem extends Component {
 
     render() {
 
-        let {data, onFeedPressed} = this.props;
+        let {post, onFeedPressed} = this.props;
 
         return(
         <View>
             <Card style={styles.card}>
                 <Card.Body>
 
-                    <FeedItemHeader data={data} onPress={onFeedPressed}/>
+                    <FeedItemHeader post={post} onPress={onFeedPressed}/>
 
-                    {data.views?this._getStats(data):this._getContent(data)}
+                    {post.views?this._getStats(post):this._getContent(post)}
 
-                    <FeedItemFooter comments={data.comments} footerText={data.comments.comments.length + ' comments'}/>
+                    <FeedItemFooter comments={post.comments} footerText={post.comments.comments.length + ' comments'}/>
 
                 </Card.Body>
             </Card>
@@ -32,18 +33,18 @@ class TextPostItem extends Component {
         )
     }
 
-    _getStats(data){
+    _getStats(post){
 
-        return (<ViewsStats key={'admin/creator'} viewed={data.views.total} total={data.recipients.total}/>);
+        return (<ViewsStats key={'admin/creator'} viewed={post.views.total} total={post.recipients.total}/>);
     }
-    _getContent(data){
-        return (<Text style={styles.content} numberOfLines={1}>{data.specific.text}</Text>);
+    _getContent(post){
+        return (<Text style={styles.content} numberOfLines={1}>{post.specific.text}</Text>);
     }
 }
 
 TextPostItem.propTypes = {
-    data: React.PropTypes.object, //post object
-    onFeedPressed:Reac.PropTypes.func
+    post: React.PropTypes.object, //post object
+    onFeedPressed:React.PropTypes.func
 }
 
 export default TextPostItem;
