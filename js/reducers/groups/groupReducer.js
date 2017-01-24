@@ -1,3 +1,5 @@
+// @flow
+
 import * as groupTypes from './actionTypes'
 import * as postsTypes from '../posts/actionTypes'
 import * as groupMemberActionTypes from '../groupMembers/actionTypes'
@@ -21,7 +23,8 @@ const group = (state ={
                     isFetching: true,
                     didInvalidate: false
                 })
-        case groupTypes.RECEIVE_GROUP_START: {
+
+        case groupTypes.INIT_GROUP:{
             return Object.assign({}, state, {
                     isFetching: false,
                     loaded: true,

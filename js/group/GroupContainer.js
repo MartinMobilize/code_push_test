@@ -1,11 +1,15 @@
-/**
- * @flow
- */
+// @flow
 import React, { Component } from 'react';``
 import FeedContainer from '../feed/FeedContainer'
-import { TabViewAnimated, TabBarTop } from 'react-native-tab-view';
+import FilesScreen from './Files'
+import Poll from '../feed/Poll/pollSelector'
+import { TabViewAnimated, TabViewPagerPan, TabBarTop } from 'react-native-tab-view';
 import { fetchGroupStart } from '../reducers/groups/actions'
 import GroupMembersContainer from '../groupMembers/GroupMembersContainer'
+
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+
+//Martin changes
 
 import { connect } from 'react-redux';
 
@@ -14,6 +18,7 @@ import {
   View,
   TouchableHighlight,
   Animated,
+  TouchableOpacity,
   StyleSheet,
   Text
 } from 'react-native';
@@ -32,12 +37,14 @@ class Group extends Component {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+
   }
   onNavigatorEvent(event) {
      if (event.type == 'DeepLink') {
       this.handleDeepLink(event);
      }
   }
+
 
   handleDeepLink(event) {
     const parts = event.link.split('/');
@@ -112,22 +119,39 @@ class Group extends Component {
 
   _renderScene = ({ route }) => {
     switch (route.key) {
-    case 'activity':
-      return <FeedContainer style={styles.page} groupId={this.state.groupId} receiver={this.props.groups[this.state.groupId]} />;
-    case 'members':
-      return <GroupMembersContainer groupId={this.state.groupId} />;
+      case 'activity':
+        return <FeedContainer style={styles.page} groupId={this.state.groupId} navigator={this.props.navigator} receiver={this.props.groups[this.state.groupId]} />;
+      case 'members':
+        return <GroupMembersContainer groupId={this.state.groupId} />;
+      case 'events':
+      case 'files':
+   //     const html = "\<p>hey everyone, check out your dashboard at \</p>";
+        return <FilesScreen />
+  //    return <Poll/>;
     default:
       return null;
     }
   };
 
+    _renderPager = (props) => {
+    return <TabViewPagerPan {...props} swipeEnabled={false} />;
+  };
+
+
+    _configureTransition = () => null;
+
+
   render() {
     return (
+
+
         <TabViewAnimated
           style={styles.container}
           navigationState={this.state}
+          configureTransition={this._configureTransition}
           renderScene={this._renderScene}
           renderHeader={this._renderHeader}
+          renderPager={this._renderPager}
           onRequestChangeTab={this._handleChangeTab}
         />
     );
@@ -145,7 +169,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onGroupChange: (groupId) => {
       dispatch(fetchGroupStart(groupId));
-    }
+    },
   }
 }
 

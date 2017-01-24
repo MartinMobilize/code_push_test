@@ -1,3 +1,5 @@
+// @flow
+
 import { connect } from 'react-redux';
 import { fetchPosts } from '../reducers/posts/actions' 
 import Feed from './Feed'
@@ -32,12 +34,15 @@ const mapStateToProps = (state, ownProps) => {
   return {
         dataSource: dataSource,
         group: group,
+        navigator:ownProps.navigator,
         users: state.users
     }
   
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+
+    let navigator = ownProps.navigator;
   return {
     canLoadMoreContent: () => {
         return false;

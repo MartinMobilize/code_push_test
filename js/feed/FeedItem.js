@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { fixImageUrl } from '../utils'
+import FeedItemHeader from './FeedItemHeader'
+import styles from '../styles/feedStyle'
+import {Card} from 'react-native-material-design';
+import {
+    Text,
+    StyleSheet,
+    View
+} from 'react-native';
+
+
 
 const postIcons = {
     event: require(`./img/event.png`),
@@ -8,90 +17,21 @@ const postIcons = {
     quickpost: require(`./img/quickpost.png`),
 };
 
-import {
-  Text,
-  Image,
-  TouchableHighlight,
-  StyleSheet,
-  View
-} from 'react-native';
 
 const FeedItem = ({
     data
 }) => (
-    <View style={styles.row}>
-    <View style={styles.leftCol}>
-        <Image style={styles.avatar} source={{uri: fixImageUrl(data.creator.avatar.image)}}/>
-        <Image style={styles.icon} source={postIcons[data.post_type]}/>
-    </View>
-    <View style={styles.rightCol}>
-        <View style={styles.postTopLign}>
-            <Text style={styles.name}>{data.creator.name}</Text>
-            <Text style={styles.time}>{data.created_at}</Text>
+    <View>
+        <Card style={styles.card}>
+            <Card.Body>
+        <FeedItemHeader data={data}/>
+        <View style={styles.row}>
+            <Text style={styles.postStatsStyle}>{data.comments.total} VIEWS</Text>
         </View>
-        <Text style={styles.title}>{data.title}</Text>
-        <Text style={styles.content} numberOfLines={1}>{"this is custom content"}</Text>
-        <Text style={styles.postStatsStyle}>{data.comments.total} VIEWS</Text>
-    </View>
+        </Card.Body>
+        </Card>
+
     </View>
 )
 
 export default FeedItem;
-
-const styles = StyleSheet.create({
-    row: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginBottom: 20,
-        paddingRight: 20
-    },
-    leftCol: {
-        width: 80,
-        alignItems: 'center',
-        flexDirection: 'column',
-    },
-    rightCol: {
-        flex:1
-    },
-    icon: {
-        marginTop: 5,
-        width: 25,
-        height: 28
-    },
-    avatar: {
-        height: 40,
-        width: 40,
-        borderRadius: 20
-    },
-    postTopLign: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    name: {
-        color: '#9FA4B5',
-        fontSize: 16,
-        textAlign: 'left'
-    },
-    time: {
-        marginTop: 2,
-        color: '#9FA4B5',
-        fontSize: 14,
-        textAlign: 'right'
-    },
-    title: {
-        fontSize: 18,
-        color: '#0F1C44'
-    },
-    content: {
-        marginTop: 20,
-        color: '#3F496B',
-        fontSize: 16
-    },
-    postStatsStyle: {
-        marginTop: 10,
-        color: '#B8C0C9',
-        fontSize: 13
-    }
-
-});

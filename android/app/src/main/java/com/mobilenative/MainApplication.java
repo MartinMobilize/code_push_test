@@ -11,6 +11,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
 
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,4 +54,6 @@ public class MainApplication extends NavigationApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
   }
+
 }
+

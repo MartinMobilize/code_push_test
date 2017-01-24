@@ -1,9 +1,11 @@
 import * as types from './actionTypes';
 import GroupService from '../../services/GroupService'
 import { groupStart, group, groupMember, user, post } from '../../schema'
-import { addGroupMembers } from '../groupMembers/actions'
-import { addPosts } from '../posts/actions'
-import { addUsers } from '../users/actions'
+import * as postActions from '../posts/actions'
+import * as userActions from '../users/actions'
+import * as memberActions from '../groupMembers/actions'
+import {batchActions} from 'redux-batched-actions';
+
 
 import { normalize, arrayOf } from 'normalizr';
 export function setGroups(groups) {
@@ -19,13 +21,17 @@ export function fetchGroupStart(groupId) {
             const posts = normalize(groupStartResponse.feed.posts, arrayOf(post));
             const users = normalize(groupStartResponse.feed.users, arrayOf(user));
         
-            dispatch({type: types.RECEIVE_GROUP_START,
-                 groupId,
-                 group: groupStartResponse.group,
-                 members,
-                 posts,
-                 users
-                });
+
+            dispatch(batchActions([
+                        postActions.initPosts(posts),
+                        userActions.receiveUsers(users),
+                        memberActions.addGroupMembers(groupId,members),
+                        initGroup(groupId,groupStartResponse.group,members,posts)
+                    ]));
         })
     }
+}
+
+function initGroup(groupId, group, members, posts){
+    return{type: types.INIT_GROUP, groupId,group,members,posts}
 }

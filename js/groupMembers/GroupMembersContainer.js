@@ -1,4 +1,6 @@
-import { connect } from 'react-redux'; 
+// @flow
+
+import { connect } from 'react-redux';
 import GroupMembersList from './GroupMembersList'
 import {
   ListView
