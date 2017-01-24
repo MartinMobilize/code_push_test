@@ -24,7 +24,7 @@ const FeedItem = ({
     <View>
         <Card style={styles.card}>
             <Card.Body>
-        <FeedItemHeader data={data}/>
+        <FeedItemHeader post={data}/>
         <View style={styles.row}>
             <Text style={styles.postStatsStyle}>{data.comments.total} VIEWS</Text>
         </View>

@@ -8,7 +8,7 @@ import {Card} from 'react-native-material-design'
 import {View, Text} from 'react-native';
 
 
-class EmailBlastItem extends Component {
+class SMSItem extends Component {
 
 
     render() {
@@ -22,7 +22,7 @@ class EmailBlastItem extends Component {
 
                     <FeedItemHeader post={post} onPress={onFeedPressed}/>
 
-                    {post.views?this._getStats(post):this._getContent(post)}
+                    {post.views?this._getStats(post):null}
 
                 </Card.Body>
 
@@ -33,18 +33,16 @@ class EmailBlastItem extends Component {
         </View>
         )
     }
+
     _getStats(post){
+
         return (<ViewsStats key={'admin/creator'} post_type={post.post_type} value={'0'} viewed={post.views.total} total={post.recipients.total}/>);
     }
-    _getContent(post){
-        return (<Text style={styles.content} numberOfLines={1}>{post.specific.text}</Text>);
-    }
-
 }
 
-EmailBlastItem.propTypes = {
-    post: React.PropTypes.object,
+SMSItem.propTypes = {
+    post: React.PropTypes.object, //post object
+    onFeedPressed:React.PropTypes.func
 }
 
-
-export default EmailBlastItem;
+export default SMSItem;

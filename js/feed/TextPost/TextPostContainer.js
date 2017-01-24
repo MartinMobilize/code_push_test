@@ -1,7 +1,7 @@
 // @flow
 
 import  {connect} from 'react-redux';
-import EmailBlastItem from './EmailBlastItem'
+import TextPostItem from './TextPostItem'
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -30,9 +30,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 };
 
-EmailBlastContainer = connect(
+TextPostContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(EmailBlastItem);
+)(TextPostItem);
 
-export default EmailBlastContainer;
+export default TextPostContainer;

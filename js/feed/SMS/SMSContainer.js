@@ -1,7 +1,7 @@
 // @flow
 
 import  {connect} from 'react-redux';
-import EmailBlastItem from './EmailBlastItem'
+import SMSItem from './SMSItem'
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -30,9 +30,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 };
 
-EmailBlastContainer = connect(
+SMSContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(EmailBlastItem);
+)(SMSItem);
 
-export default EmailBlastContainer;
+export default SMSContainer;

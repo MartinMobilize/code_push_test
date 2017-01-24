@@ -18,31 +18,32 @@ const postIcons = {
     emailblast: require(`./img/emailblast.png`),
     poll: require(`./img/poll.png`),
     quickpost: require(`./img/quickpost.png`),
+    smspost:require('./img/sms.png')
 };
 
 
 const FeedItemHeader = ({
-    data, onPress
+    post, onPress
 }) => (
     <TouchableHighlight underlayColor={'transparent'} onPress={onPress}>
 
         <View style={styles.column}>
             <View style={styles.row}>
                 <View style={styles.leftCol}>
-                    <Image style={styles.avatar} source={{uri: fixImageUrl(data.user.avatar.image)}}/>
-                    <Text style={styles.name}>{data.creator.name}</Text>
+                    <Image style={styles.avatar} source={{uri: fixImageUrl(post.user.avatar.image)}}/>
+                    <Text style={styles.name}>{post.creator.name}</Text>
 
                 </View>
                 <View style={styles.postTopLign}>
-                    <Text style={styles.name}>{data.created_at}</Text>
-                    <Image style={styles.icon} source={postIcons[data.post_type]}/>
+                    <Text style={styles.name}>{post.created_at}</Text>
+                    <Image style={styles.icon} source={postIcons[post.post_type]}/>
 
                 </View>
             </View>
 
             <View style={styles.row}>
             <View style={styles.column}>
-                    <Text style={styles.title}>{data.title}</Text>
+                    <Text style={styles.title}>{post.title}</Text>
                 </View>
             </View>
         </View>
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
         height: 20,
         width: 20,
         resizeMode:'contain',
-        borderRadius: 3
+        borderRadius: 8
     },
     postTopLign: {
         flexDirection: 'row',

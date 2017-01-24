@@ -1,7 +1,9 @@
 import * as types from './actionTypes';
 import poll from './pollReducer'
 import emailBlast from './EmailBlastReducer'
+import textPost from './TextPostReducer'
 import event from './eventReducer'
+import SMS from  './SMSReducer'
 
 const posts = (state = {}, action = {}) => {
     switch (action.type) {
@@ -51,13 +53,23 @@ const posts = (state = {}, action = {}) => {
                                 currPost);
                             break;
 
+                        case 'quickpost':
+                            posts[postID] = Object.assign({},
+                                textPost(undefined, action),
+                                currPost);
+                            break;
+
+                        case 'smspost':
+                            posts[postID] = Object.assign({},
+                                SMS(undefined, action),
+                                currPost);
+                            break;
 
                         default:
                             posts[postID] = Object.assign({},
                                 emailBlast(undefined, action),
                                 currPost);
                             break;
-
 
                     }
                 }

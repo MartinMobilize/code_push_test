@@ -7,15 +7,16 @@ import React, {Component} from 'react';
 import FeedItem from './FeedItem'
 import PollContainer from './Poll/pollContainer'
 import EmailBlastContainer from './EmailBlast/EmailBlastContainer'
+import TextPostContainer from './TextPost/TextPostContainer'
 import EventContainer from  './Event/EventContainer'
+import SMSContainer from './SMS/SMSContainer'
 import styles from '../styles/feedStyle'
 
 import {
     ListView,
     View,
     Image,
-    Text,
-    ActivityIndicator
+    Text
 } from 'react-native';
 
 
@@ -55,6 +56,10 @@ class Feed extends Component {
               return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>;
               case 'event':
                   return <EventContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
+              case 'quickpost':
+                  return <TextPostContainer data={rowData} navigator={this.props.navigator}/>;
+              case 'smspost':
+                  return <SMSContainer data={rowData} navigator={this.props.navigator}/>;
               default:
               return <FeedItem data={rowData}/>
             }
@@ -68,7 +73,7 @@ class Feed extends Component {
                     onEndReached={()=> {this.props.loadMoreContentAsync(group)}}
                     onEndReachedThreshold={10}
                     enableEmptySections={true}
-                    initialListSize={40}
+                    initialListSize={25}
                 />
             </View>
         )
