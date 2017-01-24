@@ -8,8 +8,6 @@ import I18n from 'react-native-i18n'
 
 import {View, Text} from 'react-native';
 
-require('../../strings/index');
-
 class TextPostItem extends Component {
 
 
@@ -28,7 +26,7 @@ class TextPostItem extends Component {
 
                 </Card.Body>
 
-                <FeedItemFooter comments={post.comments} footerText={post.comments.comments.length + I18n.t('comments')}/>
+                <FeedItemFooter comments={post.comments} footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
 
             </Card>
 

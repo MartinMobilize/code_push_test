@@ -11,6 +11,7 @@ import TextPostContainer from './TextPost/TextPostContainer'
 import EventContainer from  './Event/EventContainer'
 import SMSContainer from './SMS/SMSContainer'
 import styles from '../styles/feedStyle'
+import I18n from 'react-native-i18n'
 
 import {
     ListView,
@@ -35,7 +36,7 @@ class Feed extends Component {
         if (!this.props.dataSource) {
             return (
                 <View style={styles.loaderIndicator}>
-                    <Text style={styles.title}>No Posts found</Text>
+                    <Text style={styles.title}>{I18n.t('NO_POSTS')}</Text>
                 </View>)
         }
 

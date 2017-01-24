@@ -4,12 +4,11 @@
 
 import React, {Component} from 'react';
 import NetworkHeader from './NetworkHeader'
+import I18n from 'react-native-i18n'
 
 import {
-  ListView,
   View,
   Text,
-  Image,
   ActivityIndicator,
   StyleSheet
 } from 'react-native';
@@ -28,7 +27,7 @@ class GroupList extends Component {
       <View style={styles.navigation}>
         <NetworkHeader network={this.props.network} />
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>GROUPS</Text>
+          <Text style={styles.headerTitle}>{I18n.t('GROUPS')}</Text>
         </View>
         <View>
           {Object.keys(this.props.groups).map((groupId) => {

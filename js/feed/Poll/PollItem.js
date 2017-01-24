@@ -13,6 +13,7 @@ import {
     Image,
     View
 } from 'react-native';
+import I18n from 'react-native-i18n'
 
 class PollItem extends Component {
 
@@ -36,7 +37,7 @@ class PollItem extends Component {
                     {post.views?null:(viewed?this._getViewedContent(post, viewed, changePoll):this._getUnviewedContent(post, viewed, changePoll))}
 
                     <FeedItemFooter key={'footer'} comments={post.comments}
-                                    footerText={post.comments.comments.length + ' comments'}/>
+                                    footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
 
                 </Card>
             </View>

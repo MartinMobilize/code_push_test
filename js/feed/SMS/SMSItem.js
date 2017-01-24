@@ -6,6 +6,7 @@ import styles from '../../styles/feedStyle'
 import {Card} from 'react-native-material-design'
 
 import {View, Text} from 'react-native';
+import I18n from 'react-native-i18n'
 
 
 class SMSItem extends Component {
@@ -26,7 +27,7 @@ class SMSItem extends Component {
 
                 </Card.Body>
 
-                <FeedItemFooter comments={post.comments} footerText={post.comments.comments.length + ' comments'}/>
+                <FeedItemFooter comments={post.comments} footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
 
             </Card>
 

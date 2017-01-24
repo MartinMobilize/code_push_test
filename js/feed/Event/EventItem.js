@@ -15,6 +15,7 @@ import {
     Text,
     Image
 } from 'react-native';
+import I18n from 'react-native-i18n'
 
 
 class EventItem extends Component {
@@ -44,7 +45,7 @@ class EventItem extends Component {
                     {post.views?null:(viewed?this._getViewedContent(post,viewed, changeEvent):this._getUnviewedContent(post,viewed, changeEvent))}
 
                     <FeedItemFooter key={'footer'} comments={post.comments}
-                                    footerText= {post.comments.comments.length + ' comments'}/>
+                                    footerText= {post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
 
                 </Card>
             </View>
