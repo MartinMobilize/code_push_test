@@ -17,7 +17,7 @@ class App extends Component {
 	constructor(props) {
 		super(props);
         store.dispatch(fetchUserState());
-        require('./strings/string');
+        require('./strings/index');
         this.startApp();
 	}
 

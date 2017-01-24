@@ -14,6 +14,7 @@ import {
     ListView,
     View,
     Image,
+    Text,
     ActivityIndicator
 } from 'react-native';
 
@@ -30,7 +31,7 @@ class Feed extends Component {
                 </View>)
         }
 
-        if (!this.props.datasource) {
+        if (!this.props.dataSource) {
             return (
                 <View style={styles.loaderIndicator}>
                     <Text style={styles.title}>No Posts found</Text>
