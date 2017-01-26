@@ -1,13 +1,13 @@
 // @flow
 
 import { connect } from 'react-redux';
-import { fetchPosts } from '../reducers/posts/actions' 
-import Feed from './Feed'
 import moment from 'moment'
-import FeedService from '../services/FeedService'
 import {
-  ListView
+ListView
 } from 'react-native';
+
+import { fetchPosts } from '../reducers/posts/actions'
+import Feed from './Feed'
 
 const mapStateToProps = (state, ownProps) => {
   const groupId = ownProps.groupId,

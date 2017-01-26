@@ -55,13 +55,19 @@ export function changePoll(specificPoll, postId, specificId, index, optionPollId
 }
 
 export function changeEvent(id, eventId, answer){
+    return (dispatch, getState) => {
 
+        dispatch(dispatchEvent(id, eventId, answer));
+
+        FeedService.setEventSelection(eventId, answer).then((eventResponse) => {
+            //  const respo = eventResponse;
+        });
+    }
+
+}
+
+export function dispatchEvent(id, eventId, answer){
     return {type:types.CHANGE_EVENT,id, eventId, answer};
-
-    FeedService.setEventSelection(eventId, answer).then((eventResponse) => {
-        const respo = eventResponse;
-    });
-
 }
 
 function getNewSingleAnswer(answers, specificPoll, index) {

@@ -1,5 +1,9 @@
 {
     "COMMENTS":"comments",
     "NO_DATA": "No posts found",
-    "GROUPS": "GROUPS"
+    "GROUPS": "GROUPS",
+    "EVENT_HINT":"Please make your decision",
+    "YES_ANSWER":"YES",
+    "NO_ANSWER":"NO",
+    "MAYBE_ANSWER":"MAYBE"
 }

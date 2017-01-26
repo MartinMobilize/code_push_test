@@ -1,15 +1,20 @@
 import React, {Component} from 'react';
+import I18n from 'react-native-i18n'
+import {Card} from 'react-native-material-design'
+import {View, Text} from 'react-native';
+
 import FeedItemHeader from '../FeedItemHeader'
 import FeedItemFooter from '../FeedItemFooter'
 import ViewsStats from '../ViewsStats'
-import styles from '../../styles/feedStyle'
-import {Card} from 'react-native-material-design'
-import I18n from 'react-native-i18n'
+import FeedStyles from '../FeedStyle'
 
-import {View, Text} from 'react-native';
 
 class TextPostItem extends Component {
 
+    static propTypes = {
+        post: React.PropTypes.object, //post object
+        onFeedPressed:React.PropTypes.func
+    }
 
     render() {
 
@@ -17,10 +22,12 @@ class TextPostItem extends Component {
 
         return(
         <View>
-            <Card style={styles.card}>
+            <Card style={FeedStyles.card}>
                 <Card.Body>
 
-                    <FeedItemHeader post={post} onPress={onFeedPressed}/>
+                    <FeedItemHeader creatorImage={post.user.avatar.image} creatorName={post.creator.name}
+                                    createdAt={post.created_at} postType={post.post_type} postTitle={post.title}
+                                    onPress={onFeedPressed}/>
 
                     {post.views?this._getStats(post):this._getContent(post)}
 
@@ -35,10 +42,10 @@ class TextPostItem extends Component {
     }
 
     _getStats(post){
-        return (<ViewsStats key={'admin/creator'} post_type={post.post_type} value={'0'} viewed={post.views.total} total={post.recipients.total}/>);
+        return (<ViewsStats key={'admin/creator'} post_type={post.post_type} value={0} viewed={post.views.total} total={post.recipients.total}/>);
     }
     _getContent(post){
-        return (<Text style={styles.content} numberOfLines={1}>{post.specific.text}</Text>);
+        return (<Text style={FeedStyles.content} numberOfLines={1}>{post.specific.text}</Text>);
     }
 }
 

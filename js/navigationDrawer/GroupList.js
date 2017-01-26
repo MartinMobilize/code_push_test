@@ -32,7 +32,8 @@ class GroupList extends Component {
         <View>
           {Object.keys(this.props.groups).map((groupId) => {
             const group = this.props.groups[groupId];
-            return <GroupItem key={groupId} group={group} onItemPress={()=> {this.props.onGroupPress(group)}} />
+            return <GroupItem key={groupId} groupLogo={group.logo.thumb} groupName={group.name} groupId={groupId}
+                              onItemPress={()=> {this.props.onGroupPress(group)}} />
           })}
         </View>
       </View>

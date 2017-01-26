@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
-import WebViewAutoHeight from '../../WebViewAutoHeight';
 import {
-    StyleSheet,
-    Text,
-    ScrollView,
-    TouchableOpacity,
-    View,
-    WebView
-
+StyleSheet,
+Text,
+ScrollView,
 } from 'react-native';
+
+import WebViewAutoHeight from '../../WebViewAutoHeight';
 
 class PollItemDetail extends Component {
 

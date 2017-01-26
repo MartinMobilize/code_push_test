@@ -5,14 +5,21 @@
  */
 
 import React, {Component} from 'react';
-import styles from '../../styles/feedStyle'
 import {
-    View,
-    Text,
-    TouchableHighlight,
-    ScrollView
+View,
+Text,
+TouchableHighlight,
+ScrollView
 } from 'react-native';
 
+import FeedStyles from '../FeedStyle'
+import ButtonStyles from  '../../styles/ButtonStyle'
+import NormalButton from '../../components/buttons/NormalButton'
+
+const styles = {
+    feedStyle:FeedStyles,
+    buttonStyle:ButtonStyles
+}
 
 class Poll extends Component {
 
@@ -25,12 +32,12 @@ class Poll extends Component {
 
         let {answers, my_answers, viewed} = this.props;
 
-        let btnStyle = styles.unselectedButton;
-        let txtStyle = styles.textUnselected;
+        let btnStyle = styles.buttonStyle.unselectedButton;
+        let txtStyle = styles.buttonStyle.buttonTextUnselected;
 
-        if (!viewed){
-            btnStyle = styles.unreadButton;
-            txtStyle = styles.unreadButtonText;
+        if (!viewed) {
+            btnStyle = styles.buttonStyle.unreadButton;
+            txtStyle = styles.buttonStyle.unreadButtonText;
         }
 
         return (
@@ -45,15 +52,13 @@ class Poll extends Component {
                     {
                         answers.map((option, index) => {
 
-                            return (<TouchableHighlight underlayColor={'transparent'} key={option.id}
-                                                        style={
-                                                            my_answers.indexOf(index) != -1? styles.selectedButton:btnStyle}
-                                                        onPress={()=>{this._pollOptionSelected(index, option.id)}}>
-                                    <Text
-                                        style={my_answers.indexOf(index) != -1?styles.textSelected:txtStyle}>
-                                        {option.text}
-                                    </Text>
-                                </TouchableHighlight>
+                            return (
+                            <NormalButton
+                                key={option.id}
+                                buttonStyle = {my_answers.indexOf(index) != -1? styles.buttonStyle.selectedButton:btnStyle}
+                                text={option.text}
+                                textStyle={my_answers.indexOf(index) != -1?styles.buttonStyle.buttonTextSelected:txtStyle}
+                                onClick={()=>{this._pollOptionSelected(index, option.id)}}/>
                             )
                         })
                     }
@@ -64,9 +69,14 @@ class Poll extends Component {
     }
 
     _pollOptionSelected(index, id) {
-        // this.setState({id:id});
         this.props.clickHanlder(index, id);
     }
+}
+
+Poll.propTypes = {
+    answers:React.PropTypes.array,
+    my_answer:React.PropTypes.number,
+    viewed:React.PropTypes.bool
 }
 
 export default Poll;

@@ -15,11 +15,6 @@ import { enableBatching } from 'redux-batched-actions';
 
 import * as reducers from "../reducers";
 
-//Martin Test
-//import '../Reactoron'
-import Reactotron from 'reactotron-react-native'
-
-
 const reducer = combineReducers(reducers);
 
 const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;

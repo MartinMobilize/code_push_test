@@ -1,19 +1,26 @@
 // @flow
 
 import React, {Component} from 'react';
-import Poll from './pollSelector'
-import styles from '../../styles/feedStyle'
-import FeedItemHeader from '../FeedItemHeader'
-import FeedItemFooter from '../FeedItemFooter'
-import ViewsStats     from '../ViewsStats'
 import {Card} from 'react-native-material-design'
-
+import I18n from 'react-native-i18n'
 import {
     Text,
     Image,
     View
 } from 'react-native';
-import I18n from 'react-native-i18n'
+
+import Poll from './pollSelector'
+import FeedItemHeader from '../FeedItemHeader'
+import FeedItemFooter from '../FeedItemFooter'
+import ViewsStats     from '../ViewsStats'
+
+import PollItemStyles from './PollItemStyle'
+import FeedStyles from '../FeedStyle'
+
+const styles = {
+    pollStyle:PollItemStyles,
+    feedStyle:FeedStyles
+}
 
 class PollItem extends Component {
 
@@ -24,13 +31,15 @@ class PollItem extends Component {
 
         return (
             <View>
-                <Card style={styles.card}>
+                <Card style={styles.feedStyle.card}>
 
                     <Card.Body>
 
-                        <FeedItemHeader post={post} onPress={this.props.onFeedPressed}/>
+                        <FeedItemHeader creatorImage={post.user.avatar.image} creatorName={post.creator.name}
+                                        createdAt={post.created_at} postType={post.post_type} postTitle={post.title}
+                                        onPress={this.props.onFeedPressed}/>
 
-                        {post.views?this._getStats(post):<Text style={styles.content} numberOfLines={1}>{post.specific.question}</Text>}
+                        {post.views?this._getStats(post):<Text style={styles.feedStyle.content} numberOfLines={1}>{post.specific.question}</Text>}
 
                     </Card.Body>
 
@@ -75,7 +84,7 @@ class PollItem extends Component {
         body.push(<Card.Media key={'media'} height={90}
                               image={<Image source={require('./img/backgroundGreen.png')} />}>
 
-                <Text style={styles.unreadButtonText}>Please make your choice</Text>
+                <Text style={styles.pollStyle.unviewedText}>Please make your choice</Text>
 
                 <Poll key={'normal'} answers={post.specific.answers} my_answers={post.specific.my_answer}
                       viewed={viewed}

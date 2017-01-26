@@ -3,24 +3,27 @@
  */
 
 import React, { Component } from 'react';``
-import { fixImageUrl } from '../utils'
-
 import {
-  Text,
-  Image,
-  StyleSheet,
-  View,
-  TouchableHighlight
+    Text,
+    Image,
+    StyleSheet,
+    View,
+    TouchableHighlight
 } from 'react-native';
 
+import { fixImageUrl } from '../utils'
+
+
 const GroupItem = ({
-    group,
+    groupLogo,
+    groupName,
+    groupId,
     onItemPress
 }) => (
-    <TouchableHighlight key={group.id} onPress={onItemPress} underlayColor="gray"> 
+    <TouchableHighlight key={groupId} onPress={onItemPress} underlayColor="gray">
         <View style={styles.row}>
-            <Image style={styles.logo} source={{uri: fixImageUrl(group.logo.thumb)}}/>
-            <Text style={styles.text} >#{group.name}</Text>
+            <Image style={styles.logo} source={{uri: fixImageUrl(groupLogo)}}/>
+            <Text style={styles.text} >#{groupName}</Text>
         </View>
     </TouchableHighlight>
 );

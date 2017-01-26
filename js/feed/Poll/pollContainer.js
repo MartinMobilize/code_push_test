@@ -1,7 +1,7 @@
 // @flow
 
 import  {connect} from 'react-redux';
-import {fetchPosts, changePoll} from '../../reducers/posts/actions'
+import {changePoll} from '../../reducers/posts/actions'
 import PollItem from './PollItem'
 
 const mapStateToProps = (state, ownProps) => {

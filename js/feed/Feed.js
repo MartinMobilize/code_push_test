@@ -4,21 +4,22 @@
  * @flow
  */
 import React, {Component} from 'react';
-import FeedItem from './FeedItem'
-import PollContainer from './Poll/pollContainer'
-import EmailBlastContainer from './EmailBlast/EmailBlastContainer'
-import TextPostContainer from './TextPost/TextPostContainer'
-import EventContainer from  './Event/EventContainer'
-import SMSContainer from './SMS/SMSContainer'
-import styles from '../styles/feedStyle'
 import I18n from 'react-native-i18n'
-
 import {
     ListView,
     View,
     Image,
     Text
 } from 'react-native';
+
+import FeedItem from './FeedItem'
+import PollContainer from './Poll/pollContainer'
+import EmailBlastContainer from './EmailBlast/EmailBlastContainer'
+import TextPostContainer from './TextPost/TextPostContainer'
+import EventContainer from  './Event/EventContainer'
+import SMSContainer from './SMS/SMSContainer'
+import FeedStyles from './FeedStyle'
+import ColorStyles from '../styles/ColorStyle'
 
 
 class Feed extends Component {
@@ -28,15 +29,15 @@ class Feed extends Component {
 
         if (!this.props.dataSource || !group || !group.loaded && group.isFetching) {
             return (
-                <View style={styles.loaderIndicator}>
-                    <Image style={styles.loader} source={require('./img/colored-loader.gif')}/>
+                <View style={FeedStyles.loaderIndicator}>
+                    <Image style={FeedStyles.loader} source={require('./img/colored-loader.gif')}/>
                 </View>)
         }
 
         if (!this.props.dataSource) {
             return (
-                <View style={styles.loaderIndicator}>
-                    <Text style={styles.title}>{I18n.t('NO_POSTS')}</Text>
+                <View style={FeedStyles.loaderIndicator}>
+                    <Text style={[ColorStyles.darkTextColor, FeedStyles.title]}>{I18n.t('NO_POSTS')}</Text>
                 </View>)
         }
 
@@ -44,7 +45,7 @@ class Feed extends Component {
         return (
             <View>
                 <ListView
-                    renderHeader={()=>(<View style={styles.listHeader}></View>)}
+                    renderHeader={()=>(<View style={FeedStyles.listHeader}></View>)}
                     dataSource={this.props.dataSource}
                     renderRow={(rowData) => {
 
@@ -66,9 +67,9 @@ class Feed extends Component {
             }
           } }
                     renderFooter={()=>(
-            <View style={styles.footer}>
+            <View style={FeedStyles.footer}>
 
-              {group.loadingMorePosts?<Image style={styles.smallLoader} source={require('./img/colored-loader.gif')}/>:null}
+              {group.loadingMorePosts?<Image style={FeedStyles.smallLoader} source={require('./img/colored-loader.gif')}/>:null}
 
             </View>)}
                     onEndReached={()=> {this.props.loadMoreContentAsync(group)}}

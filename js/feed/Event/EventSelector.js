@@ -5,14 +5,22 @@
  */
 
 import React, {Component} from 'react';
-import styles from '../../styles/feedStyle'
+import I18n from 'react-native-i18n'
 import {
-    View,
-    Text,
-    TouchableHighlight,
-    Image,
+View,
+Text,
+TouchableHighlight,
+Image,
 } from 'react-native';
 
+import NormalButton from '../../components/buttons/NormalButton'
+import FeedStyles from '../FeedStyle'
+import ButtonStyles from  '../../styles/ButtonStyle'
+
+const styles = {
+    feedStyle:FeedStyles,
+    buttonStyle:ButtonStyles
+}
 
 const icons = {
     selected:{
@@ -38,39 +46,35 @@ class Event extends Component {
 
         let {answer, viewed} = this.props;
 
-        let btnStyle = styles.unselectedButton;
-        let txtStyle = styles.textUnselected;
+        let btnStyle = styles.buttonStyle.unselectedButton;
+        let txtStyle = styles.buttonStyle.buttonTextUnselected;
 
         if (!viewed) {
-            btnStyle = styles.unreadButton;
-            txtStyle = styles.unreadButtonText;
+            btnStyle = styles.buttonStyle.unreadButton;
+            txtStyle = styles.buttonStyle.unreadButtonText;
         }
 
         return (
 
-            <View style={styles.row}>
+            <View style={styles.feedStyle.row}>
 
-                <TouchableHighlight underlayColor={'transparent'} onPress={()=>this._eventOptionSelected('yes')}>
-                    <View style={answer === 'yes'?styles.selectedButton:btnStyle}>
-                        <Image style={styles.eventIcon} source={answer === 'yes' ||!viewed ?icons.selected.yes:icons.unselected.yes}/>
-                        <Text style={answer === 'yes'?styles.textSelected:txtStyle}>YES</Text>
-                    </View>
-                </TouchableHighlight>
+                <NormalButton buttonStyle = {answer === 'yes'?styles.buttonStyle.selectedButton:btnStyle}
+                              image={answer === 'yes' ||!viewed ?icons.selected.yes:icons.unselected.yes}
+                              text={I18n.t('YES_ANSWER')}
+                              textStyle={answer === 'yes'?styles.buttonStyle.buttonTextSelected:txtStyle}
+                              onClick={()=>this._eventOptionSelected('yes')}/>
 
-                <TouchableHighlight underlayColor={'transparent'} onPress={()=>this._eventOptionSelected('no')}>
-                    <View style={answer === 'no'?styles.selectedButton:btnStyle}>
-                        <Image style={styles.eventIcon} source={answer === 'no' ||!viewed ?icons.selected.no:icons.unselected.no}/>
-                        <Text style={answer === 'no'?styles.textSelected:txtStyle}>NO</Text>
-                    </View>
-                </TouchableHighlight>
+                <NormalButton buttonStyle = {answer === 'no'?styles.buttonStyle.selectedButton:btnStyle}
+                              image={answer === 'no' ||!viewed ?icons.selected.no:icons.unselected.no}
+                              text={I18n.t('NO_ANSWER')}
+                              textStyle={answer === 'no'?styles.buttonStyle.buttonTextSelected:txtStyle}
+                              onClick={()=>this._eventOptionSelected('no')}/>
 
-                <TouchableHighlight underlayColor={'transparent'} onPress={()=>this._eventOptionSelected('maybe')}>
-                    <View style={answer === 'maybe'?styles.selectedButton:btnStyle}>
-                        <Image style={styles.eventIcon} source={answer === 'maybe' ||!viewed ?icons.selected.maybe:icons.unselected.maybe}/>
-                        <Text style={answer === 'maybe'?styles.textSelected:txtStyle}>MAYBE</Text>
-                    </View>
-                </TouchableHighlight>
-
+                <NormalButton buttonStyle = {answer === 'maybe'?styles.buttonStyle.selectedButton:btnStyle}
+                              image={answer === 'maybe' ||!viewed ?icons.selected.maybe:icons.unselected.maybe}
+                              text={I18n.t('MAYBE_ANSWER')}
+                              textStyle={answer === 'maybe'?styles.buttonStyle.buttonTextSelected:txtStyle}
+                              onClick={()=>this._eventOptionSelected('maybe')}/>
 
             </View>
 

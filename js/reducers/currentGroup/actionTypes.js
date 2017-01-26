@@ -1,0 +1,1 @@
+export const SET_CURRENT_GROUP = 'app.currentUser.SET_CURRENT_GROUP';

@@ -2,14 +2,23 @@
  * Created by martin on 18/01/2017.
  */
 import React, {Component} from 'react';
-import styles from '../styles/feedStyle'
-import Icon from 'react-native-vector-icons/Ionicons';
-
 import {
-    Text,
-    Image,
-    View,
+Text,
+Image,
+View,
 } from 'react-native';
+
+import ViewOnlyButton from '../components/buttons/ViewOnlyButton'
+
+import FeedStyles from './FeedStyle'
+import ViewStatsStyles from './ViewStatsStyle'
+import FontStyles from '../styles/FontStyle'
+
+const styles = {
+    fontStyle:FontStyles,
+    feedStyle:FeedStyles,
+    statsStyle:ViewStatsStyles
+}
 
 
 const img = {
@@ -20,21 +29,29 @@ const img = {
    // emailblast: require('./img/emailblast.png')
 }
 
-const ViewsStats = ({
-    post_type, value, viewed, total
-}) => (
-    <View style={styles.statsRow}>
-        <View style={styles.button_row}>
-            <Image style={styles.statsIcon} source={require('./img/eye.png')}/>
-            <Text style={styles.statsText}>{viewed}/{total}</Text>
-        </View>
-        {img[post_type] ? <View style={styles.button_row}>
-                                <Image style={styles.statsIcon} source={img[post_type]}/>
-                                <Text style={styles.statsText}>{value}</Text>
-                            </View> : null}
 
-    </View>
+class ViewsStats extends Component {
+    render() {
 
-);
+        let {post_type, value, viewed, total} = this.props;
+
+        return (
+            <View style={styles.statsStyle.statsRow}>
+
+                <ViewOnlyButton text={viewed + '/' + total} image={require('./img/eye.png')}/>
+
+                {img[post_type] ? <ViewOnlyButton text={value} image={img[post_type]}/> : null}
+
+            </View>
+        )
+    }
+}
+
+ViewsStats.propTypes = {
+    post_type:React.PropTypes.string,
+    value:React.PropTypes.number,
+    viewed:React.PropTypes.number,
+    total:React.PropTypes.number
+}
 
 export default ViewsStats;

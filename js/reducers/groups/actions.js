@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import GroupService from '../../services/GroupService'
-import { groupStart, group, groupMember, user, post } from '../../schema'
+import { groupMember, user, post } from '../../schema'
 import * as postActions from '../posts/actions'
 import * as userActions from '../users/actions'
 import * as memberActions from '../groupMembers/actions'

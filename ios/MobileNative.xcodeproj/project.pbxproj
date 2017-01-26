@@ -63,6 +63,8 @@
 		626F04D36A1144A5ABBF044D /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2DCAD23338E48F5B59BEC08 /* Octicons.ttf */; };
 		4E282CAC4B274BEBAF51FAD8 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 51B6D8E1F61D4A7C8CDF9AAB /* SimpleLineIcons.ttf */; };
 		6F3288A6339A4986BD2903DD /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0190BEF7FFA64B96BB9061A1 /* Zocial.ttf */; };
+		27945DBF642C4F3DA0776E99 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2240E9A45E941A38A29119C /* libCodePush.a */; };
+		E408326A1FFF4CA7B8D13E3E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF5B52DB77043CA9109C8B2 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +265,9 @@
 		F2DCAD23338E48F5B59BEC08 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		51B6D8E1F61D4A7C8CDF9AAB /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0190BEF7FFA64B96BB9061A1 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BB44B5D4CE4B4F3DA6A6EEC8 /* CodePush.xcodeproj */ = {isa = PBXFileReference; name = "CodePush.xcodeproj"; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		D2240E9A45E941A38A29119C /* libCodePush.a */ = {isa = PBXFileReference; name = "libCodePush.a"; path = "libCodePush.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		3BF5B52DB77043CA9109C8B2 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +301,8 @@
 				29D1D8ED37F54E3C9EABF589 /* libjschelpers.a in Frameworks */,
 				8468065106E04D90AFA0B978 /* libReactNativeLocalization.a in Frameworks */,
 				B2AE6DEED34C46E9A7B74616 /* libRNVectorIcons.a in Frameworks */,
+				27945DBF642C4F3DA0776E99 /* libCodePush.a in Frameworks */,
+				E408326A1FFF4CA7B8D13E3E /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +465,7 @@
 				72CC6A1F7C42457F97C49E46 /* RNI18n.xcodeproj */,
 				03B96282B6CB45C9A841EC54 /* ReactNativeLocalization.xcodeproj */,
 				AFB7A4A4578245059561A9DD /* RNVectorIcons.xcodeproj */,
+				BB44B5D4CE4B4F3DA6A6EEC8 /* CodePush.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -479,6 +487,7 @@
 				00E356EF1AD99517003FC87E /* MobileNativeTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				19E27225BF214357B478BDC4 /* Resources */,
+				688CB9B3D0C14DD7BD45FDC8 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -507,6 +516,15 @@
 				8ED3F6871DECB28D00075CF7 /* libCustomSegmentedControl.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		688CB9B3D0C14DD7BD45FDC8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3BF5B52DB77043CA9109C8B2 /* libz.tbd */,
+			);
+			name = Frameworks;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -899,6 +917,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -915,6 +934,7 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileNative.app/MobileNative";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -939,6 +959,7 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/RNI18n",
 					"$(SRCROOT)/../node_modules/react-native-localization",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 				INFOPLIST_FILE = MobileNative/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -965,6 +986,7 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/RNI18n",
 					"$(SRCROOT)/../node_modules/react-native-localization",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 				INFOPLIST_FILE = MobileNative/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1019,6 +1041,7 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/RNI18n",
 					"$(SRCROOT)/../node_modules/react-native-localization",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1062,6 +1085,7 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/RNI18n",
 					"$(SRCROOT)/../node_modules/react-native-localization",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

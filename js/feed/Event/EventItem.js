@@ -1,22 +1,32 @@
 // @flow
 
 import React, {Component} from 'react';
+import {Card} from 'react-native-material-design'
+import Moment from 'moment'
+import I18n from 'react-native-i18n'
+import {
+View,
+Text,
+Image
+} from 'react-native';
+
 import EventSelector from './EventSelector'
-import styles from '../../styles/feedStyle'
 import FeedItemHeader from '../FeedItemHeader'
 import FeedItemFooter from '../FeedItemFooter'
 import ViewsStats     from '../ViewsStats'
-import {Card} from 'react-native-material-design'
-import Moment from 'moment'
+
+import FeedStyles from '../FeedStyle'
+import FontStyles from '../../styles/FontStyle'
+import ColorStyles from '../../styles/ColorStyle'
+import EventItemStyles from './EventItemStyle'
 
 
-import {
-    View,
-    Text,
-    Image
-} from 'react-native';
-import I18n from 'react-native-i18n'
-
+const styles = {
+    feedStyle:FeedStyles,
+    fontStyle:FontStyles,
+    colorStyle:ColorStyles,
+    eventStyle:EventItemStyles
+}
 
 class EventItem extends Component {
 
@@ -28,15 +38,18 @@ class EventItem extends Component {
 
         return (
             <View>
-                <Card style={styles.card}>
+                <Card style={styles.feedStyle.card}>
 
                     <Card.Body>
 
-                        <FeedItemHeader post={post} onPress={this.props.onFeedPressed}/>
+                        <FeedItemHeader creatorImage={post.user.avatar.image} creatorName={post.creator.name}
+                                        createdAt={post.created_at} postType={post.post_type} postTitle={post.title}
+                                        onPress={this.props.onFeedPressed}/>
 
-                        <Text style={styles.eventTimeText}>{eventTime}</Text>
+                        <Text style={[styles.colorStyle.normalTextColor,styles.fontStyle.mediumFont,
+                                        styles.eventStyle.eventTimeText]}>{eventTime}</Text>
 
-                        <Text style={styles.content}>{post.specific.location}</Text>
+                        <Text style={styles.feedStyle.content}>{post.specific.location}</Text>
 
                         {post.views?this._getStats(post):null}
 
@@ -80,7 +93,7 @@ class EventItem extends Component {
         body.push(<Card.Media key={'media'} height={90}
                               image={<Image source={require('./img/backgroundGreen.png')} />}>
 
-                <Text style={styles.unreadButtonText}>Please make your choice</Text>
+                <Text style={[styles.fontStyle.boldFont, styles.eventStyle.unviewedText]}>{I18n.t('EVENT_HINT')}</Text>
 
                 <EventSelector viewed={viewed} key={'normal'} answer={post.specific.rsvp}
                                description={post.specific.question}

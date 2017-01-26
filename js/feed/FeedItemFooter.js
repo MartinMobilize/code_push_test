@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import styles from '../styles/feedStyle'
-import {fixImageUrl} from '../utils'
 import {
-    Text,
-    Image,
-    View
+Text,
+Image,
+View
 } from 'react-native';
+
+import {fixImageUrl} from '../utils'
+import FeedStyles from './FeedStyle'
+import ColorStyles from '../styles/ColorStyle'
+import FeedItemFooterStyles from './FeedItemFooterStyle'
 
 class FeedItemFooter extends Component {
 
@@ -21,17 +24,18 @@ class FeedItemFooter extends Component {
 
         for (i = 0; i < images_count; i++) {
            images.push(
-               <Image key = {i} style={styles.avatar} source={{uri: fixImageUrl(comments.comments[i].user.avatar.image)}}/>
+               <Image key = {i} style={FeedStyles.avatar}
+                      source={{uri: fixImageUrl(comments.comments[i].user.avatar.image)}}/>
            )
 
         }
 
         return (
-            <View style={styles.cardFooterRow}>
+            <View style={FeedItemFooterStyles.cardFooterRow}>
 
                 {images}
 
-                <Text style={styles.postStatsStyle}>{footerText}</Text>
+                <Text style={[ColorStyles.normalTextColor, FeedItemFooterStyles.footerText]}>{footerText}</Text>
             </View>
         )
     }

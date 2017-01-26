@@ -1,32 +1,24 @@
 import React, { Component } from 'react';
-import FeedItemHeader from './FeedItemHeader'
-import styles from '../styles/feedStyle'
 import {Card} from 'react-native-material-design';
 import {
-    Text,
-    StyleSheet,
-    View
+Text,
+View
 } from 'react-native';
 
-
-
-const postIcons = {
-    event: require(`./img/event.png`),
-    emailblast: require(`./img/emailblast.png`),
-    poll: require(`./img/poll.png`),
-    quickpost: require(`./img/quickpost.png`),
-};
-
+import FeedItemHeader from './FeedItemHeader'
+import FeedStyles from './FeedStyle'
 
 const FeedItem = ({
     data
 }) => (
     <View>
-        <Card style={styles.card}>
+        <Card style={FeedStyles.card}>
             <Card.Body>
-        <FeedItemHeader post={data}/>
-        <View style={styles.row}>
-            <Text style={styles.postStatsStyle}>{data.comments.total} VIEWS</Text>
+                <FeedItemHeader creatorImage={data.user.avatar.image} creatorName={data.creator.name}
+                                createdAt={data.created_at} postType={data.post_type} postTitle={data.title}
+                                onPress={onFeedPressed}/>
+        <View style={FeedStyles.row}>
+            <Text style={FeedStyles.postStatsStyle}>{data.comments.total} VIEWS</Text>
         </View>
         </Card.Body>
         </Card>
