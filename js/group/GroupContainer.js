@@ -29,7 +29,6 @@ class Group extends Component {
   constructor(props) {
       super(props);
       this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-
   }
   onNavigatorEvent(event) {
      if (event.type == 'DeepLink') {
@@ -44,18 +43,7 @@ class Group extends Component {
 
     if (screen == 'groups') {
       const groupId = parts[1];
-      this.props.navigator.setTitle({
-        title: `${this.props.groups[groupId].name}` 
-      });
-
-
       this.props.onGroupChange(groupId);
-/*
-      this.setState({
-        index: 0, 
-        groupId 
-      });
-*/
     }
   }
 
@@ -97,14 +85,12 @@ class Group extends Component {
   _renderScene = ({ route }) => {
     switch (route.key) {
       case 'activity':
-        return <FeedContainer style={styles.page} groupId={this.props.groupId} navigator={this.props.navigator} receiver={this.props.groups[this.props.groupId]} />;
+        return <FeedContainer style={styles.page} groupId={this.props.currentGroup} navigator={this.props.navigator} receiver={this.props.groups[this.props.currentGroup]} />;
       case 'members':
-        return <GroupMembersContainer groupId={this.state.groupId} />;
+        return <GroupMembersContainer groupId={this.props.currentGroup} />;
       case 'events':
       case 'files':
-   //     const html = "\<p>hey everyone, check out your dashboard at \</p>";
         return <FilesScreen />
-  //    return <Poll/>;
     default:
       return null;
     }
@@ -120,14 +106,20 @@ class Group extends Component {
 
   render() {
 
-    return (
+    const currGroup = this.props.groups[this.props.currentGroup];
+    if (currGroup) {
+        this.props.navigator.setTitle({
+            title: `${currGroup.name}`
+        });
+    }
 
+      return (
 
         <TabViewAnimated
           style={styles.container}
           navigationState={this.state}
           configureTransition={this._configureTransition}
-          renderScene={this._renderScene}
+          renderScene={this._renderScene.bind(this)}
           renderHeader={this._renderHeader}
           renderPager={this._renderPager}
           onRequestChangeTab={this._handleChangeTab}
@@ -141,14 +133,15 @@ const mapStateToProps = (state) => {
 
   return {
     groups: state.groups,
-    groupId: state.currentGroup
+    currentGroup: state.currentGroup
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onGroupChange: (groupId) => {
-      dispatch(batchActions([setCurrentGroup(groupId), fetchGroupStart(groupId)]))
+      dispatch(setCurrentGroup(groupId));
+      dispatch(fetchGroupStart(groupId));
     },
   }
 }

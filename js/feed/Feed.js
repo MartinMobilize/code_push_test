@@ -43,7 +43,7 @@ class Feed extends Component {
 
 
         return (
-            <View>
+            <View >
                 <ListView
                     renderHeader={()=>(<View style={FeedStyles.listHeader}></View>)}
                     dataSource={this.props.dataSource}
@@ -72,8 +72,8 @@ class Feed extends Component {
               {group.loadingMorePosts?<Image style={FeedStyles.smallLoader} source={require('./img/colored-loader.gif')}/>:null}
 
             </View>)}
-                    onEndReached={()=> {this.props.loadMoreContentAsync(group)}}
-                    onEndReachedThreshold={10}
+                       onEndReached={()=> {this.props.loadMoreContentAsync(group)}}
+                    onEndReachedThreshold={0}
                     enableEmptySections={true}
                     initialListSize={25}
                 />

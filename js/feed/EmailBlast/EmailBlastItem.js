@@ -19,14 +19,13 @@ const styles = {
 
 class EmailBlastItem extends Component {
 
-
     render() {
 
         let {post, onFeedPressed} = this.props;
 
         return(
         <View>
-            <Card style={style.feedStyle.card}>
+            <Card style={styles.feedStyle.card}>
                 <Card.Body>
 
                     <FeedItemHeader creatorImage={post.user.avatar.image} creatorName={post.creator.name}
@@ -49,8 +48,8 @@ class EmailBlastItem extends Component {
                             total={post.recipients.total}/>);
     }
     _getContent(post){
-        return (<Text style={[style.fontStyle.regularFont, style.colorStyle.normalTextColor,
-                        style.feedStyle.content]} numberOfLines={1}>{post.specific.text}</Text>);
+        return (<Text styles={[styles.fontStyle.regularFont, styles.colorStyle.normalTextColor,
+                        styles.feedStyle.content]} numberOfLines={1}>{post.specific.text}</Text>);
     }
 
 }

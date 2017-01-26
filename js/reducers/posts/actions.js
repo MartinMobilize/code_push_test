@@ -35,6 +35,8 @@ export function receivePosts(receiverType, receiverId, posts) {
 export function changePoll(specificPoll, postId, specificId, index, optionPollId) {
     return (dispatch, getState) => {
 
+        const prevAnswers = getState().posts[postId].specific.my_answer;
+
         let answers = []
 
         //The poll allows single selection
@@ -48,20 +50,23 @@ export function changePoll(specificPoll, postId, specificId, index, optionPollId
 
         dispatch(requestPoll(answers, specificPoll, postId, index, optionPollId));
 
-        FeedService.setPollSelection(specificId, answers).then((pollResponse) => {
-            const respo = pollResponse;
-        });
+        FeedService.setPollSelection(specificId, answers).then((pollResponse) => {})
+            .catch((error) =>{
+                dispatch(requestPoll(prevAnswers, specificPoll, postId, index, optionPollId));
+            });
     }
 }
 
 export function changeEvent(id, eventId, answer){
     return (dispatch, getState) => {
 
+        const prevAnswer = getState().posts[id].specific.rsvp;
+
         dispatch(dispatchEvent(id, eventId, answer));
 
-        FeedService.setEventSelection(eventId, answer).then((eventResponse) => {
-            //  const respo = eventResponse;
-        });
+        FeedService.setEventSelection(eventId, answer)
+            .then((eventResponse) => {})
+            .catch((error) =>{ dispatch(dispatchEvent(id, eventId, prevAnswer))});
     }
 
 }
