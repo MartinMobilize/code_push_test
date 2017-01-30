@@ -17,7 +17,8 @@ const mapStateToProps = (state, ownProps) => {
       rowHasChanged: (r1, r2) => r1.id !== r2.id
   });
 
-  let dataSource; 
+  let dataSource;
+  let totalPosts;
 
   if (group) {
     const posts = group.posts.map((postId) => {
@@ -28,12 +29,16 @@ const mapStateToProps = (state, ownProps) => {
       });
     })
       
-    dataSource = ds.cloneWithRows(posts)
+    dataSource = ds.cloneWithRows(posts);
+
+      totalPosts = group.posts.length;
+
   }
 
   return {
         dataSource: dataSource,
         group: group,
+        totalPosts:totalPosts,
         navigator:ownProps.navigator,
         users: state.users
     }
