@@ -18,7 +18,7 @@ const FeedItemHeaderStyles = StyleSheet.create({
     icon: {
         width: 25,
         height: 25,
-        marginLeft:4
+        marginLeft:12
     },
     name: {
         fontSize: 14,

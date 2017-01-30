@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import I18n from 'react-native-i18n'
 import {Card} from 'react-native-material-design'
 import {View, Text} from 'react-native';
@@ -7,6 +7,7 @@ import FeedItemHeader from '../FeedItemHeader'
 import FeedItemFooter from '../FeedItemFooter'
 import ViewsStats from '../ViewsStats'
 import FeedStyles from '../FeedStyle'
+import FeedItemFooterStyles from '../FeedItemFooterStyle'
 
 
 class TextPostItem extends Component {
@@ -33,7 +34,8 @@ class TextPostItem extends Component {
 
                 </Card.Body>
 
-                <FeedItemFooter comments={post.comments} footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
+                <FeedItemFooter style={FeedItemFooterStyles.cardFooterRowNoTopMargin} comments={post.comments}
+                                footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
 
             </Card>
 
@@ -45,13 +47,13 @@ class TextPostItem extends Component {
         return (<ViewsStats key={'admin/creator'} post_type={post.post_type} value={0} viewed={post.views.total} total={post.recipients.total}/>);
     }
     _getContent(post){
-        return (<Text style={FeedStyles.content} numberOfLines={1}>{post.specific.text}</Text>);
+        return (<Text style={FeedStyles.contentWithoutMargin} numberOfLines={1}>{post.specific.text}</Text>);
     }
 }
 
 TextPostItem.propTypes = {
-    post: React.PropTypes.object, //post object
-    onFeedPressed:React.PropTypes.func
+    post:PropTypes.object, //post object
+    onFeedPressed:PropTypes.func
 }
 
 

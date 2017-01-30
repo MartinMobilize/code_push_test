@@ -38,15 +38,17 @@
     "reselect": "^2.5.4"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "jest-react-native"
   },
   "devDependencies": {
-    "babel-jest": "17.0.2",
-    "babel-preset-react-native": "1.9.0",
+    "babel-jest": "^17.0.2",
+    "babel-preset-react-native": "^1.9.0",
     "eslint": "^3.11.0",
     "flow-bin": "^0.33.0",
-    "jest": "17.0.3",
-    "react-test-renderer": "15.3.1",
+    "jest": "^17.0.3",
+    "jest-react-native": "^18.0.0",
+        "react-dom": "^15.4.0",
+    "react-test-renderer": "^15.3.1",
     "reactotron-react-native": "^1.6.0",
     "reactotron-redux": "^1.6.1",
     "redux-promise": "^0.5.3",

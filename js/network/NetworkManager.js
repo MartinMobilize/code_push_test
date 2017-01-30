@@ -24,7 +24,7 @@ class NetworkManager {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'App-Version' : env.appVersion,
-                'Authorization': adminToken,
+                'Authorization': memberToken,
                 'org_id': 4416
             }
     }

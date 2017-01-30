@@ -29,6 +29,7 @@ const img = {
    // emailblast: require('./img/emailblast.png')
 }
 
+import viewsImage from './img/eye.png';
 
 class ViewsStats extends Component {
     render() {
@@ -38,7 +39,7 @@ class ViewsStats extends Component {
         return (
             <View style={styles.statsStyle.statsRow}>
 
-                <ViewOnlyButton text={viewed + '/' + total} image={require('./img/eye.png')}/>
+                <ViewOnlyButton text={viewed + '/' + total} image={viewsImage}/>
 
                 {img[post_type] ? <ViewOnlyButton text={value} image={img[post_type]}/> : null}
 

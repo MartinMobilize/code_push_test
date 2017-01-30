@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Card} from 'react-native-material-design'
 import I18n from 'react-native-i18n'
 import {View} from 'react-native';
@@ -7,6 +7,7 @@ import FeedItemHeader from '../FeedItemHeader'
 import FeedItemFooter from '../FeedItemFooter'
 import ViewsStats from '../ViewsStats'
 import FeedStyles from '../FeedStyle'
+import FeedItemFooterStyles from '../FeedItemFooterStyle'
 
 
 class SMSItem extends Component {
@@ -28,7 +29,8 @@ class SMSItem extends Component {
 
                 </Card.Body>
 
-                <FeedItemFooter comments={post.comments} footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
+                <FeedItemFooter style={FeedItemFooterStyles.cardFooterRowNoTopMargin} comments={post.comments}
+                                footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
 
             </Card>
 
@@ -43,8 +45,8 @@ class SMSItem extends Component {
 }
 
 SMSItem.propTypes = {
-    post: React.PropTypes.object, //post object
-    onFeedPressed:React.PropTypes.func
+    post: PropTypes.object, //post object
+    onFeedPressed:PropTypes.func
 }
 
 export default SMSItem;

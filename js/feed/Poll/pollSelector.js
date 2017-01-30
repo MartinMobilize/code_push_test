@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
 View,
 Text,
@@ -32,13 +32,8 @@ class Poll extends Component {
 
         let {answers, my_answers, viewed} = this.props;
 
-        let btnStyle = styles.buttonStyle.unselectedButton;
-        let txtStyle = styles.buttonStyle.buttonTextUnselected;
-
-        if (!viewed) {
-            btnStyle = styles.buttonStyle.unreadButton;
-            txtStyle = styles.buttonStyle.unreadButtonText;
-        }
+        let btnStyle = styles.buttonStyle[!viewed? 'unreadButton': 'unselectedButton'];
+        let txtStyle = styles.buttonStyle[!viewed? 'unreadButtonText': 'buttonTextUnselected'];
 
         return (
 
@@ -74,9 +69,9 @@ class Poll extends Component {
 }
 
 Poll.propTypes = {
-    answers:React.PropTypes.array,
-    my_answer:React.PropTypes.number,
-    viewed:React.PropTypes.bool
+    answers:PropTypes.array,
+    my_answers:PropTypes.arrayOf(PropTypes.number),
+    viewed:PropTypes.bool
 }
 
 export default Poll;

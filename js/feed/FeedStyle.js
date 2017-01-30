@@ -5,7 +5,7 @@ import primaryColor from '../styles/FontStyle';
 const FeedStyles = StyleSheet.create({
     avatar: {
         height: 20,
-        resizeMode:'contain',
+        resizeMode: 'contain',
         width: 20,
         marginRight: 2,
         borderRadius: 3,
@@ -24,18 +24,18 @@ const FeedStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    loader:{
+    loader: {
         height: 100,
         width: 100,
         justifyContent: 'center',
     },
-    smallLoader:{
+    smallLoader: {
         height: 40,
         width: 40,
         justifyContent: 'center',
 
     },
-    activityIndicator:{
+    activityIndicator: {
         marginTop: 30,
         justifyContent: 'center',
     },
@@ -46,7 +46,7 @@ const FeedStyles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        marginBottom:40
+        marginBottom: 40
     },
 
     leftCol: {
@@ -76,8 +76,12 @@ const FeedStyles = StyleSheet.create({
         fontSize: 18,
     },
     content: {
-        marginBottom:12,
-        marginRight:50,
+        marginBottom: 12,
+        marginRight: 50,
+        fontSize: 16
+    },
+    contentWithoutMargin: {
+        marginRight: 50,
         fontSize: 16
     },
     pollItem: {

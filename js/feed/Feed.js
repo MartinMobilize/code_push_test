@@ -21,6 +21,9 @@ import SMSContainer from './SMS/SMSContainer'
 import FeedStyles from './FeedStyle'
 import ColorStyles from '../styles/ColorStyle'
 
+import loaderGif from './img/colored-loader.gif'
+
+const MAX_ITEMS_TO_LOAD = 25
 
 class Feed extends Component {
     render() {
@@ -30,7 +33,7 @@ class Feed extends Component {
         if (!this.props.dataSource || !group || !group.loaded && group.isFetching) {
             return (
                 <View style={FeedStyles.loaderIndicator}>
-                    <Image style={FeedStyles.loader} source={require('./img/colored-loader.gif')}/>
+                    <Image style={FeedStyles.loader} source={loaderGif}/>
                 </View>)
         }
 
@@ -49,37 +52,60 @@ class Feed extends Component {
                     dataSource={this.props.dataSource}
                     renderRow={(rowData) => {
 
-            switch (rowData.post_type){
-              case 'poll':
-               return(
-                <PollContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
-              );
-              case 'emailblast':
-              return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>;
-              case 'event':
-                  return <EventContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
-              case 'quickpost':
-                  return <TextPostContainer data={rowData} navigator={this.props.navigator}/>;
-              case 'smspost':
-                  return <SMSContainer data={rowData} navigator={this.props.navigator}/>;
-              default:
-              return <FeedItem data={rowData}/>
-            }
+        switch (rowData.post_type) {
+            case 'poll':
+                return (
+                    <PollContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
+                );
+            case 'emailblast':
+                return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>;
+            case 'event':
+                return <EventContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
+            case 'quickpost':
+                return <TextPostContainer data={rowData} navigator={this.props.navigator}/>;
+            case 'smspost':
+                return <SMSContainer data={rowData} navigator={this.props.navigator}/>;
+            default:
+                return <FeedItem data={rowData}/>
+        }
+
           } }
                     renderFooter={()=>(
             <View style={FeedStyles.footer}>
 
-              {group.loadingMorePosts?<Image style={FeedStyles.smallLoader} source={require('./img/colored-loader.gif')}/>:null}
+              {group.loadingMorePosts?<Image style={FeedStyles.smallLoader} source={loaderGif}/>:null}
 
             </View>)}
-                       onEndReached={()=> {this.props.loadMoreContentAsync(group)}}
+                    onEndReached={()=> {this.props.loadMoreContentAsync(group)}}
                     onEndReachedThreshold={0}
                     enableEmptySections={true}
-                    initialListSize={25}
+                    initialListSize={MAX_ITEMS_TO_LOAD}
                 />
             </View>
         )
     }
+
+    _postContainerRendererFactory(rowData) {
+
+        switch (rowData.post_type) {
+            case 'poll':
+                return (
+                    <PollContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
+                );
+            case 'emailblast':
+                return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>;
+            case 'event':
+                return <EventContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
+            case 'quickpost':
+                return <TextPostContainer data={rowData} navigator={this.props.navigator}/>;
+            case 'smspost':
+                return <SMSContainer data={rowData} navigator={this.props.navigator}/>;
+            default:
+                return <FeedItem data={rowData}/>
+        }
+
+    }
+
 
 }
 

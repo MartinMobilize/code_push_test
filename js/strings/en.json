@@ -2,7 +2,8 @@
     "COMMENTS":"comments",
     "NO_DATA": "No posts found",
     "GROUPS": "GROUPS",
-    "EVENT_HINT":"Please make your decision",
+    "EVENT_HINT":"Will you be attending this event?",
+    "POLL_HINT":"Please make your decision",
     "YES_ANSWER":"YES",
     "NO_ANSWER":"NO",
     "MAYBE_ANSWER":"MAYBE"

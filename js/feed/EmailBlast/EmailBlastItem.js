@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Card} from 'react-native-material-design'
 import {View, Text} from 'react-native';
 import I18n from 'react-native-i18n'
@@ -9,12 +9,14 @@ import ViewsStats from '../ViewsStats'
 import FeedStyles from '../FeedStyle'
 import FontStyles from '../../styles/FontStyle'
 import ColorStyles from '../../styles/ColorStyle'
+import FeedItemFooterStyles from '../FeedItemFooterStyle'
 
 
 const styles = {
     feedStyle:FeedStyles,
     fontStyle:FontStyles,
-    colorStyle:ColorStyles
+    colorStyle:ColorStyles,
+    footerStyle:FeedItemFooterStyles
 }
 
 class EmailBlastItem extends Component {
@@ -36,7 +38,8 @@ class EmailBlastItem extends Component {
 
                 </Card.Body>
 
-                <FeedItemFooter comments={post.comments} footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
+                <FeedItemFooter style={FeedItemFooterStyles.cardFooterRowNoTopMargin} comments={post.comments}
+                                footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
 
             </Card>
 
@@ -49,13 +52,13 @@ class EmailBlastItem extends Component {
     }
     _getContent(post){
         return (<Text styles={[styles.fontStyle.regularFont, styles.colorStyle.normalTextColor,
-                        styles.feedStyle.content]} numberOfLines={1}>{post.specific.text}</Text>);
+                        styles.feedStyle.contentWithoutMargin]} numberOfLines={1}>{post.specific.text}</Text>);
     }
 
 }
 
 EmailBlastItem.propTypes = {
-    post: React.PropTypes.object,
+    post: PropTypes.object,
 }
 
 

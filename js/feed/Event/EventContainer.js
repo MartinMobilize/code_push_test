@@ -2,7 +2,7 @@
 
 import  {connect} from 'react-redux';
 import EventItem from './EventItem'
-import {changeEvent} from '../../reducers/posts/actions'
+import {changeEvent} from '../../reducers/posts/eventActions'
 
 
 const mapStateToProps = (state, ownProps) => {

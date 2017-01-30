@@ -7,6 +7,12 @@ const FeedItemFooterStyles = StyleSheet.create({
         marginTop:10,
         flexDirection: 'row',
     },
+    cardFooterRowNoTopMargin:{
+        flex: 1,
+        marginBottom:10,
+        flexDirection: 'row',
+
+    },
     footerText: {
         marginLeft: 6,
         justifyContent: 'center',
