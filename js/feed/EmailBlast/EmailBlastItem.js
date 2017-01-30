@@ -51,7 +51,7 @@ class EmailBlastItem extends Component {
                             total={post.recipients.total}/>);
     }
     _getContent(post){
-        return (<Text styles={[styles.fontStyle.regularFont, styles.colorStyle.normalTextColor,
+        return (<Text style={[styles.fontStyle.regularFont, styles.colorStyle.normalTextColor,
                         styles.feedStyle.contentWithoutMargin]} numberOfLines={1}>{post.specific.text}</Text>);
     }
 

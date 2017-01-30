@@ -13,14 +13,6 @@ const posts = (state = {}, action = {}) => {
                 didInvalidate: false
             })
         }
-        case types.RECEIVE_POSTS: {
-            return Object.assign({}, state, {
-                isFetching: false,
-                didInvalidate: false,
-                selectedPoll: 0,
-                items: action.posts.entities.posts,
-            })
-        }
         case types.INIT_POSTS:
         case types.ADD_POSTS:
             const posts = {};
