@@ -1,98 +1,102 @@
 // @flow
 
-import React, {Component} from 'react';
-import Poll from './pollSelector'
-import styles from '../../styles/feedStyle'
-import FeedItemHeader from '../FeedItemHeader'
-import FeedItemFooter from '../FeedItemFooter'
-import ViewsStats     from '../ViewsStats'
+import React, {Component, PropTypes} from 'react';
 import {Card} from 'react-native-material-design'
-
+import I18n from 'react-native-i18n'
 import {
     Text,
     Image,
     View
 } from 'react-native';
 
+import Poll from './pollSelector'
+import FeedItemHeader from '../FeedItemHeader'
+import FeedItemFooter from '../FeedItemFooter'
+import ViewsStats     from '../ViewsStats'
+
+import PollItemStyles from './PollItemStyle'
+import FeedStyles from '../FeedStyle'
+import FontStyles from '../../styles/FontStyle'
+import FeedItemFooterStyles from '../FeedItemFooterStyle'
+
+const styles = {
+    pollStyle:PollItemStyles,
+    fontStyle:FontStyles,
+    feedStyle:FeedStyles,
+    footerStyle:FeedItemFooterStyles
+}
+
 class PollItem extends Component {
 
 
     render() {
 
-        let {data, viewed, changePoll} = this.props;
+        let {post, viewed, changePoll} = this.props;
 
         return (
             <View>
-                <Card style={styles.card}>
+                <Card style={styles.feedStyle.card}>
 
                     <Card.Body>
 
-                        <FeedItemHeader data={data} onPress={this.props.onFeedPressed}/>
-                        <Text style={styles.content} numberOfLines={1}>{data.specific.question}</Text>
+                        <FeedItemHeader creatorImage={post.user.avatar.image} creatorName={post.creator.name}
+                                        createdAt={post.created_at} postType={post.post_type} postTitle={post.title}
+                                        onPress={this.props.onFeedPressed}/>
 
-
-                        {data.views?this._getStats(data):null}
+                        {post.views?this._getStats(post):<Text style={styles.feedStyle.contentWithoutMargin} numberOfLines={1}>{post.specific.question}</Text>}
 
                     </Card.Body>
 
-                    {data.views?null:(viewed?this._getViewedContent(data, viewed, changePoll):this._getUnviewedContent(data, viewed, changePoll))}
+                    {post.views?null:(viewed?this._getViewedContent(post, viewed, changePoll):this._getUnviewedContent(post, viewed, changePoll))}
 
-                    <FeedItemFooter key={'footer'} comments={data.comments}
-                                    footerText={data.specific.votes_count + ' votes' + ' - ' +
-                                         data.comments.comments.length + ' comments'}/>
+                    <FeedItemFooter comments={post.comments}
+                                    style={styles.footerStyle.cardFooterRow}
+                                    footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
 
                 </Card>
             </View>
         )
     }
 
-    _getStats(data){
-        let stats = [];
+    _getStats(post){
 
-        stats.push(
-            <ViewsStats key={'admin/creator'} viewed={data.views.total} total={data.recipients.total}/>
+        return(
+            <ViewsStats post_type={post.post_type} value={post.specific.votes_count} viewed={post.views.total} total={post.recipients.total}/>
         )
-
-        return stats;
 
     }
 
-    _getViewedContent(data,viewed, changePoll){
-
-        let body = []
+    _getViewedContent(post,viewed, changePoll){
 
 
-        body.push(<Poll key={'normal'} data={data.specific.answers} answers={data.specific.my_answer}
+       return(<Poll answers={post.specific.answers} my_answers={post.specific.my_answer}
                         viewed={viewed}
-                        clickHanlder={ (index, id)=> {changePoll(data.specific, data.specific.id,index, id) } }/>
+                        clickHanlder={ (index, id)=> {changePoll(post.specific, post.specific.id,index, id) } }/>
         )
 
-        return body;
     }
 
-    _getUnviewedContent(data,viewed, changePoll){
+    _getUnviewedContent(post,viewed, changePoll){
 
-        let body = [];
-
-        body.push(<Card.Media key={'media'} height={90}
+        return(<Card.Media height={90}
                               image={<Image source={require('./img/backgroundGreen.png')} />}>
 
-                <Text style={styles.unreadButtonText}>Please make your choice</Text>
+                <Text style={[styles.fontStyle.boldFont, styles.pollStyle.unviewedText]}>{I18n.t('POLL_HINT')}</Text>
 
-                <Poll key={'normal'} data={data.specific.answers} answers={data.specific.my_answer}
+                <Poll answers={post.specific.answers} my_answers={post.specific.my_answer}
                       viewed={viewed}
-                      clickHanlder={ (index, id)=> {changePoll(data.specific, data.specific.id,index, id) } }/>
+                      clickHanlder={ (index, id)=> {changePoll(post.specific, post.specific.id,index, id) } }/>
             </Card.Media>
         )
 
-        return body;
     }
 
 }
 
 PollItem.propTypes = {
-    data:React.PropTypes.object,
-    changePoll:React.PropTypes.func
+    post:PropTypes.object,
+    viewed:PropTypes.bool,
+    changePoll:PropTypes.func
 }
 
 

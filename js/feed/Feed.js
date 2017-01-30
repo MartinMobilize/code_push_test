@@ -4,19 +4,26 @@
  * @flow
  */
 import React, {Component} from 'react';
-import FeedItem from './FeedItem'
-import PollContainer from './Poll/pollContainer'
-import EmailBlastContainer from './EmailBlast/EmailBlastContainer'
-import EventContainer from  './Event/EventContainer'
-import styles from '../styles/feedStyle'
-
+import I18n from 'react-native-i18n'
 import {
     ListView,
     View,
     Image,
-    ActivityIndicator
+    Text
 } from 'react-native';
 
+import FeedItem from './FeedItem'
+import PollContainer from './Poll/pollContainer'
+import EmailBlastContainer from './EmailBlast/EmailBlastContainer'
+import TextPostContainer from './TextPost/TextPostContainer'
+import EventContainer from  './Event/EventContainer'
+import SMSContainer from './SMS/SMSContainer'
+import FeedStyles from './FeedStyle'
+import ColorStyles from '../styles/ColorStyle'
+
+import loaderGif from './img/colored-loader.gif'
+
+const MAX_ITEMS_TO_LOAD = 25
 
 class Feed extends Component {
     render() {
@@ -25,53 +32,80 @@ class Feed extends Component {
 
         if (!this.props.dataSource || !group || !group.loaded && group.isFetching) {
             return (
-                <View style={styles.loaderIndicator}>
-                    <Image style={styles.loader} source={require('./img/colored-loader.gif')}/>
+                <View style={FeedStyles.loaderIndicator}>
+                    <Image style={FeedStyles.loader} source={loaderGif}/>
                 </View>)
         }
 
-        if (!this.props.datasource) {
+        if (!this.props.dataSource) {
             return (
-                <View style={styles.loaderIndicator}>
-                    <Text style={styles.title}>No Posts found</Text>
+                <View style={FeedStyles.loaderIndicator}>
+                    <Text style={[ColorStyles.darkTextColor, FeedStyles.title]}>{I18n.t('NO_POSTS')}</Text>
                 </View>)
         }
 
 
         return (
-            <View>
+            <View >
                 <ListView
-                    renderHeader={()=>(<View style={styles.listHeader}></View>)}
+                    renderHeader={()=>(<View style={FeedStyles.listHeader}></View>)}
                     dataSource={this.props.dataSource}
                     renderRow={(rowData) => {
 
-            switch (rowData.post_type){
-              case 'poll':
-               return(
-                <PollContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
-              );
-              case 'emailblast':
-              return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>;
-              case 'event':
-                  return <EventContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
-              default:
-              return <FeedItem data={rowData}/>
-            }
+        switch (rowData.post_type) {
+            case 'poll':
+                return (
+                    <PollContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
+                );
+            case 'emailblast':
+                return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>;
+            case 'event':
+                return <EventContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
+            case 'quickpost':
+                return <TextPostContainer data={rowData} navigator={this.props.navigator}/>;
+            case 'smspost':
+                return <SMSContainer data={rowData} navigator={this.props.navigator}/>;
+            default:
+                return <FeedItem data={rowData}/>
+        }
+
           } }
                     renderFooter={()=>(
-            <View style={styles.footer}>
+            <View style={FeedStyles.footer}>
 
-              {group.loadingMorePosts?<Image style={styles.smallLoader} source={require('./img/colored-loader.gif')}/>:null}
+              {group.loadingMorePosts?<Image style={FeedStyles.smallLoader} source={loaderGif}/>:null}
 
             </View>)}
                     onEndReached={()=> {this.props.loadMoreContentAsync(group)}}
-                    onEndReachedThreshold={10}
+                    onEndReachedThreshold={0}
                     enableEmptySections={true}
-                    initialListSize={40}
+                    initialListSize={MAX_ITEMS_TO_LOAD}
                 />
             </View>
         )
     }
+
+    _postContainerRendererFactory(rowData) {
+
+        switch (rowData.post_type) {
+            case 'poll':
+                return (
+                    <PollContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
+                );
+            case 'emailblast':
+                return <EmailBlastContainer data={rowData} navigator={this.props.navigator}/>;
+            case 'event':
+                return <EventContainer postId={rowData.id} data={rowData} navigator={this.props.navigator}/>
+            case 'quickpost':
+                return <TextPostContainer data={rowData} navigator={this.props.navigator}/>;
+            case 'smspost':
+                return <SMSContainer data={rowData} navigator={this.props.navigator}/>;
+            default:
+                return <FeedItem data={rowData}/>
+        }
+
+    }
+
 
 }
 

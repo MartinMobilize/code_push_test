@@ -1,27 +1,19 @@
 // @flow
-import React, { Component } from 'react';``
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {batchActions} from 'redux-batched-actions';
+import { TabViewAnimated, TabViewPagerPan, TabBarTop } from 'react-native-tab-view';
+import {
+    Animated,
+    StyleSheet,
+} from 'react-native';
+
 import FeedContainer from '../feed/FeedContainer'
 import FilesScreen from './Files'
-import Poll from '../feed/Poll/pollSelector'
-import { TabViewAnimated, TabViewPagerPan, TabBarTop } from 'react-native-tab-view';
 import { fetchGroupStart } from '../reducers/groups/actions'
+import {setCurrentGroup} from '../reducers/currentGroup/actions'
 import GroupMembersContainer from '../groupMembers/GroupMembersContainer'
 
-import ScrollableTabView from 'react-native-scrollable-tab-view';
-
-//Martin changes
-
-import { connect } from 'react-redux';
-
-import {
-  ListView,
-  View,
-  TouchableHighlight,
-  Animated,
-  TouchableOpacity,
-  StyleSheet,
-  Text
-} from 'react-native';
 
 class Group extends Component {
   state = {
@@ -35,9 +27,8 @@ class Group extends Component {
   };
 
   constructor(props) {
-    super(props);
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-
+      super(props);
+      this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
   onNavigatorEvent(event) {
      if (event.type == 'DeepLink') {
@@ -52,33 +43,7 @@ class Group extends Component {
 
     if (screen == 'groups') {
       const groupId = parts[1];
-      this.props.navigator.setTitle({
-        title: `${this.props.groups[groupId].name}` 
-      });
-
-      const navigatorButtons = {
-        rightButtons: [
-          {
-            title: 'Edit', // for a textual button, provide the button title (label)
-            id: 'edit', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
-            testID: 'e2e_rules', // optional, used to locate this view in end-to-end tests
-            disabled: false, // optional, used to disable the button (appears faded and doesn't interact)
-            disableIconTint: true, // optional, by default the image colors are overridden and tinted to navBarButtonColor, set to true to keep the original image colors
-          },
-          {
-            icon: require('../feed/img/emailblast.png'), // for icon button, provide the local image asset name
-            id: 'add' // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
-          }
-        ]
-      };
-
-      this.props.navigator.setButtons(navigatorButtons);
-
       this.props.onGroupChange(groupId);
-      this.setState({
-        index: 0, 
-        groupId 
-      });
     }
   }
 
@@ -120,14 +85,12 @@ class Group extends Component {
   _renderScene = ({ route }) => {
     switch (route.key) {
       case 'activity':
-        return <FeedContainer style={styles.page} groupId={this.state.groupId} navigator={this.props.navigator} receiver={this.props.groups[this.state.groupId]} />;
+        return <FeedContainer style={styles.page} groupId={this.props.currentGroup} navigator={this.props.navigator} receiver={this.props.groups[this.props.currentGroup]} />;
       case 'members':
-        return <GroupMembersContainer groupId={this.state.groupId} />;
+        return <GroupMembersContainer groupId={this.props.currentGroup} />;
       case 'events':
       case 'files':
-   //     const html = "\<p>hey everyone, check out your dashboard at \</p>";
         return <FilesScreen />
-  //    return <Poll/>;
     default:
       return null;
     }
@@ -142,14 +105,21 @@ class Group extends Component {
 
 
   render() {
-    return (
 
+    const currGroup = this.props.groups[this.props.currentGroup];
+    if (currGroup) {
+        this.props.navigator.setTitle({
+            title: `${currGroup.name}`
+        });
+    }
+
+      return (
 
         <TabViewAnimated
           style={styles.container}
           navigationState={this.state}
           configureTransition={this._configureTransition}
-          renderScene={this._renderScene}
+          renderScene={this._renderScene.bind(this)}
           renderHeader={this._renderHeader}
           renderPager={this._renderPager}
           onRequestChangeTab={this._handleChangeTab}
@@ -160,14 +130,17 @@ class Group extends Component {
     
 
 const mapStateToProps = (state) => {
+
   return {
-    groups: state.groups
+    groups: state.groups,
+    currentGroup: state.currentGroup
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onGroupChange: (groupId) => {
+      dispatch(setCurrentGroup(groupId));
       dispatch(fetchGroupStart(groupId));
     },
   }

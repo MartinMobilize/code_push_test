@@ -1,118 +1,125 @@
 // @flow
 
-import React, {Component} from 'react';
-import EventSelector from './EventSelector'
-import styles from '../../styles/feedStyle'
-import FeedItemHeader from '../FeedItemHeader'
-import FeedItemFooter from '../FeedItemFooter'
-import ViewsStats     from '../ViewsStats'
+import React, {Component, PropTypes} from 'react';
 import {Card} from 'react-native-material-design'
-import Moment from 'moment';
-
-
+import Moment from 'moment'
+import I18n from 'react-native-i18n'
 import {
     View,
     Text,
     Image
 } from 'react-native';
 
+import EventSelector from './EventSelector'
+import FeedItemHeader from '../FeedItemHeader'
+import FeedItemFooter from '../FeedItemFooter'
+import ViewsStats     from '../ViewsStats'
+
+import FeedStyles from '../FeedStyle'
+import FontStyles from '../../styles/FontStyle'
+import ColorStyles from '../../styles/ColorStyle'
+import EventItemStyles from './EventItemStyle'
+import FeedItemFooterStyles from '../FeedItemFooterStyle'
+
+
+const styles = {
+    feedStyle: FeedStyles,
+    fontStyle: FontStyles,
+    colorStyle: ColorStyles,
+    eventStyle: EventItemStyles,
+    footerStyle: FeedItemFooterStyles
+}
 
 class EventItem extends Component {
 
     render() {
 
-        let {data, viewed, changeEvent} = this.props;
+        let {post, viewed, changeEvent, onFeedPressed} = this.props;
 
-        const eventTime = this.calculateEventTime(data.specific.start_time, data.specific.end_time);
+        const eventTime = this._calculateEventTime(post.specific.start_time, post.specific.end_time);
 
         return (
             <View>
-                <Card style={styles.card}>
+                <Card style={styles.feedStyle.card}>
 
                     <Card.Body>
 
-                        <FeedItemHeader data={data} onPress={this.props.onFeedPressed}/>
+                        <FeedItemHeader creatorImage={post.user.avatar.image} creatorName={post.creator.name}
+                                        createdAt={post.created_at} postType={post.post_type} postTitle={post.title}
+                                        onPress={onFeedPressed}/>
 
-                        <Text style={styles.eventTimeText}>{eventTime}</Text>
+                        <Text style={[styles.colorStyle.normalTextColor,styles.fontStyle.mediumFont,
+                                        styles.eventStyle.eventTimeText]}>{eventTime}</Text>
 
-                        <Text style={styles.content}>{data.specific.location}</Text>
+                        <Text style={styles.feedStyle.contentWithoutMargin}>{post.specific.location}</Text>
 
-                        {data.views?this._getStats(data):null}
+                        {post.views ? this._getStats(post) : null}
 
                     </Card.Body>
 
-                    {data.views?null:(viewed?this._getViewedContent(data,viewed, changeEvent):this._getUnviewedContent(data,viewed, changeEvent))}
+                    {post.views ? null : (viewed ? this._getViewedContent(post.specific, viewed, changeEvent) : this._getUnviewedContent(post.specific, viewed, changeEvent))}
 
-                    <FeedItemFooter key={'footer'} comments={data.comments}
-                                    footerText={data.specific.stats.attending_count + ' going' + ' - ' +
-                                     data.comments.comments.length + ' comments'}/>
+                    <FeedItemFooter style={styles.footerStyle.cardFooterRow} key={'footer'} comments={post.comments}
+                                    footerText={post.comments.comments.length + ' ' + I18n.t('COMMENTS')}/>
 
                 </Card>
             </View>
         )
     }
 
-    calculateEventTime(eventStart, eventEnd){
+    _calculateEventTime(eventStart, eventEnd) {
 
         const startTime = Moment(eventStart).format('HH:mm');
-        const endTime  = Moment(eventEnd).format('HH:mm');
+        const endTime = Moment(eventEnd).format('HH:mm');
 
         const eventDate = Moment(eventStart).format('D MMM');
 
-
-        return eventDate + ', ' + startTime + '-' + endTime;
+        return `${eventDate}, ${startTime}-${endTime}`;
     }
 
-    _getStats(data){
-        let stats = [];
+    _getStats(post) {
 
-        stats.push(
-            <ViewsStats key={'admin/creator'} viewed={data.views.total} total={data.recipients.total}/>
+        return (
+            <ViewsStats key={'admin/creator'} post_type={post.post_type} value={post.specific.stats.attending_count}
+                        viewed={post.views.total} total={post.recipients.total}/>
         )
 
-        return stats;
-
     }
 
-    _getUnviewedContent(data, viewed, changeEvent){
+    _getUnviewedContent(specific, viewed, changeEvent) {
 
-        let body = []
 
-        body.push(<Card.Media key={'media'} height={90}
-                              image={<Image source={require('./img/backgroundGreen.png')} />}>
+        return (
+            <Card.Media height={90}
+                        image={<Image source={require('./img/backgroundGreen.png')} />}>
 
-                <Text style={styles.unreadButtonText}>Please make your choice</Text>
+                <Text style={[styles.fontStyle.boldFont, styles.eventStyle.unviewedText]}>{I18n.t('EVENT_HINT')}</Text>
 
-                <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}
-                               description={data.specific.question}
+                <EventSelector viewed={viewed} answer={specific.rsvp}
+                               description={specific.question}
                                clickHanlder={(answer)=> {changeEvent(answer)} }/>
             </Card.Media>
         )
 
-        return body;
-
     }
 
-    _getViewedContent(data, viewed, changeEvent){
+    _getViewedContent(specific, viewed, changeEvent) {
 
-        let body = []
 
-        body.push(
-            <EventSelector viewed={viewed} key={'normal'} answer={data.specific.rsvp}
-                           description={data.specific.question}
+        return (
+            <EventSelector viewed={viewed} answer={specific.rsvp}
+                           description={specific.question}
                            clickHanlder={(answer)=> {changeEvent(answer) } }/>
         )
-
-        return body;
 
     }
 
 }
 
 EventItem.propTypes = {
-    data:React.PropTypes.object,
-    viewed:React.PropTypes.bool,
-    changeEvent:React.PropTypes.func
+    post: PropTypes.object,
+    viewed: PropTypes.bool,
+    changeEvent: PropTypes.func
 }
 
 export default EventItem;

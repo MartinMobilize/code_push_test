@@ -1,13 +1,13 @@
 // @flow
 
 import  {connect} from 'react-redux';
-import {fetchPosts, changePoll} from '../../reducers/posts/actions'
+import {changePoll} from '../../reducers/posts/pollActions'
 import PollItem from './PollItem'
 
 const mapStateToProps = (state, ownProps) => {
 
     return {
-        data: ownProps.data,
+        post: ownProps.data,
         viewed:ownProps.data.viewed
     }
 
