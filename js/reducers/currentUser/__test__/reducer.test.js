@@ -3,8 +3,8 @@ import React from 'react';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
-import currentUser from './reducer'
-import * as types from './actionTypes';
+import currentUser from '../reducer'
+import * as types from '../actionTypes';
 
 const user = {
   email:'myemail@yopmail.com',

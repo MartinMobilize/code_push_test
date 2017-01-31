@@ -25,7 +25,7 @@ const mapStateToProps = (state, ownProps) => {
       const post = state.posts[postId];
       return Object.assign({},post, {
         creator: state.users[post.user.id],
-        created_at: moment(post.created_at, 'X').startOf('hour').fromNow()
+        created_at: moment(post.created_at, 'X').fromNow()
       });
     })
       

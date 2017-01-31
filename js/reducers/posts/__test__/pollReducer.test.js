@@ -3,11 +3,11 @@ import React from 'react';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
-import poll from './pollReducer'
-import mockPosts from './__mocks__/posts'
-import * as types from './actionTypes';
+import poll from '../pollReducer'
+import mockPosts from '../__mocks__/posts'
+import * as types from '../actionTypes';
 import { normalize, arrayOf } from 'normalizr';
-import {post} from '../../schema'
+import {post} from '../../../schema'
 
 
 

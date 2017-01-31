@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     text: {
         paddingLeft: 10,
        fontSize: 22,
-       color: '#0F1C46'
+       color: '#FFFFFF'
     },
     logo: {
         height: 30,

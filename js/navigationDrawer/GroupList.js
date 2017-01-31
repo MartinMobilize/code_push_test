@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
       paddingLeft: 30,
       paddingTop: 30,
       paddingRight: 10,
-      backgroundColor: "white"
+      backgroundColor: "#0F1C44"
     },
     header: {
         flexDirection: 'row',
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
       height:30,
       width:100,
       fontSize: 16,
-      color: '#0F1C46'
+      color: '#FFFFFF'
     },
     logo: {
         height: 40,

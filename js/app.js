@@ -38,6 +38,6 @@ class App extends Component {
         });
 	}
 }
-//App = codePush(App);
+//App = codePush({ checkFrequency: codePush.CheckFrequency.ON_APP_RESUME, installMode: codePush.InstallMode.ON_NEXT_RESUME })(App);
 
 export default App;

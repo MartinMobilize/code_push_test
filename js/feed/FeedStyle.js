@@ -5,10 +5,9 @@ import primaryColor from '../styles/FontStyle';
 const FeedStyles = StyleSheet.create({
     avatar: {
         height: 20,
-        resizeMode: 'contain',
         width: 20,
         marginRight: 2,
-        borderRadius: 3,
+        borderRadius: 6,
     },
     card: {
         backgroundColor: '#FFFFFF'
