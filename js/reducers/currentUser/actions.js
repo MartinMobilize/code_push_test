@@ -5,6 +5,7 @@ import { setNetwork } from '../network/actions'
 import {setCurrentGroup} from '../currentGroup/actions'
 import UserNetworksService from '../../services/UserNetworksService'
 import { network } from '../../schema'
+import {batchActions} from 'redux-batched-actions';
 
 export function fetchUserState() {
     return (dispatch, getState) => {
@@ -15,7 +16,7 @@ export function fetchUserState() {
             dispatch(setGroups(normNetworks.entities.groups));
             dispatch(setNetwork(networkRespose));
             dispatch(setCurrentGroup(networkRespose.groups[0].id));
-            dispatch(fetchGroupStart(networkRespose.groups[0].id))
+            dispatch(fetchGroupStart(networkRespose.groups[0].id));
         })
     }
 };

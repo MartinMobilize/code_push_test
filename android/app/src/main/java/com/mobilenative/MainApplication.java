@@ -15,7 +15,6 @@ import com.reactnativenavigation.NavigationApplication;
 
 
 
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,10 +35,6 @@ public class MainApplication extends NavigationApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
 
-    @Override
-    protected String getJSBundleFile() {
-      return CodePush.getJSBundleFile();
-    }
 
     @Override
     protected boolean getUseDeveloperSupport() {
@@ -47,10 +42,15 @@ public class MainApplication extends NavigationApplication {
     }
 
     @Override
+    protected String getJSBundleFile() {
+      return CodePush.getJSBundleFile();
+    }
+
+    @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
+            new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), MainApplication.this, BuildConfig.DEBUG),
             new ReactNativeI18n()
       );
     }

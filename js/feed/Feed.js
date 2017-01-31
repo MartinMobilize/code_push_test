@@ -26,6 +26,8 @@ import loaderGif from './img/colored-loader.gif'
 const MAX_ITEMS_TO_LOAD = 25
 
 class Feed extends Component {
+
+
     render() {
         const group = this.props.group;
         let loader = [];
@@ -77,7 +79,7 @@ class Feed extends Component {
 
             </View>)}
                     onEndReached={()=> {this.props.loadMoreContentAsync(group)}}
-                    onEndReachedThreshold={0}
+                    onEndReachedThreshold={this.props.totalPosts < 5?0:1}
                     enableEmptySections={true}
                     initialListSize={MAX_ITEMS_TO_LOAD}
                 />
@@ -105,7 +107,6 @@ class Feed extends Component {
         }
 
     }
-
 
 }
 

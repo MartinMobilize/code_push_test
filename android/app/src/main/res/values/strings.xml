@@ -1,5 +1,4 @@
 <resources>
-    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">Tx2A9qRQs0VT6E6I45Dfv390tKGvV1BDU9WvG</string>
-
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">XCDa6bdBjJhbiWNxzk3fD3FNA84xV1BDU9WvG</string>
     <string name="app_name">MobileNative</string>
 </resources>

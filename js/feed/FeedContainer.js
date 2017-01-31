@@ -17,23 +17,28 @@ const mapStateToProps = (state, ownProps) => {
       rowHasChanged: (r1, r2) => r1.id !== r2.id
   });
 
-  let dataSource; 
+  let dataSource;
+  let totalPosts;
 
   if (group) {
     const posts = group.posts.map((postId) => {
       const post = state.posts[postId];
       return Object.assign({},post, {
         creator: state.users[post.user.id],
-        created_at: moment(post.created_at, 'X').startOf('hour').fromNow()
+        created_at: moment(post.created_at, 'X').fromNow()
       });
     })
       
-    dataSource = ds.cloneWithRows(posts)
+    dataSource = ds.cloneWithRows(posts);
+
+      totalPosts = group.posts.length;
+
   }
 
   return {
         dataSource: dataSource,
         group: group,
+        totalPosts:totalPosts,
         navigator:ownProps.navigator,
         users: state.users
     }

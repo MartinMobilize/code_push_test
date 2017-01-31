@@ -27,7 +27,7 @@ export function changePoll(specificPoll, postId, specificId, index, optionPollId
     }
 }
 
-function getNewSingleAnswer(answers, specificPoll, index) {
+export function getNewSingleAnswer(answers, specificPoll, index) {
 
     if (specificPoll.my_answer.indexOf(index) == -1) {
         answers.push(index);
@@ -36,7 +36,7 @@ function getNewSingleAnswer(answers, specificPoll, index) {
     return answers;
 
 }
-function getNewMultipleAnswers(answers, specificPoll, index) {
+export function getNewMultipleAnswers(answers, specificPoll, index) {
     answers = specificPoll.my_answer;
 
     const i = answers.indexOf(index);

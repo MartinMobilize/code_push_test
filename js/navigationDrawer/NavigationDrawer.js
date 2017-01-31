@@ -15,10 +15,3 @@ const NavigationDrawer = ({navigator}) => (
 )
 
 export default NavigationDrawer;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        color: '#000000'
-    }
-});
