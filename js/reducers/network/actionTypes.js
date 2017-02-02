@@ -1,1 +1,0 @@
-export const SET_NETWORK = 'app.network.SET_NETWORK';
